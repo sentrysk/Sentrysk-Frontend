@@ -1,9 +1,19 @@
-# SysAgent
-SysAgent
+# dashboard-frontend
 
-With this agents you can collect information about installed apps, pip packages, npm packages, docker container and images
+## Project setup
+```
+npm install
+```
 
-## Agent Types
-* ![Windows](/Windows)
-* ![Linux](/Linux)
-* ![MacOs](/MacOs)
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
