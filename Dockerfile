@@ -19,5 +19,17 @@ RUN npm run build
 # Expose the port that the Vue.js app will run on
 EXPOSE 8080
 
+# Add a non root user
+RUN adduser -D appuser
+
+# Set appuser to owner of the app folder
+RUN chown -R appuser:appuser /app
+
+# Switch user
+USER appuser
+
+# Set restrictive file permissions
+RUN chmod 500 /app
+
 # Define the command to run your application
 CMD ["npm", "run", "serve"]
