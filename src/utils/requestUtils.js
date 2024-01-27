@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Global Variables
-const API_URL  =  "http://localhost:5000"
+const API_URL  =  "http://localhost:8000"
 const SESSIONS_EP = "/session"
 const MY_LOGINS_EP = SESSIONS_EP + "/prev_sessions"
 const SYS_INFO_EP = "/sysinfo/"
