@@ -62,7 +62,7 @@
           const agentId =  this.$refs.agentId.value
 
           // Send PUT request to update the agent type by ID
-          await axios.put(`http://localhost:5000/agent/${agentId}`, {
+          await axios.put(`http://localhost:8000/agent/${agentId}`, {
             type: this.selectedAgentType,
           }, {
             headers: {

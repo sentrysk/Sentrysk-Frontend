@@ -68,7 +68,7 @@ router.beforeEach(async (to, from, next) => {
       // User is authenticated, proceed to check the session
       try {
         // Send a GET request to the session check endpoint
-        const response = await axios.get("http://localhost:5000/session/check", {
+        const response = await axios.get("http://localhost:8000/session/check", {
           headers: {
             Authorization: jwtToken,
           },

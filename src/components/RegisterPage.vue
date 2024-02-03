@@ -72,7 +72,7 @@
         };
   
         try {
-          const API_URL = "http://localhost:5000/user/register"
+          const API_URL = "http://localhost:8000/user/register"
           const response = await axios.post(API_URL, registrationData);
   
           if (response.status === 201) {

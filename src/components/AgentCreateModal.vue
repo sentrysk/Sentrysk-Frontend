@@ -60,7 +60,7 @@ export default {
       // Send a POST request to register the agent
       try {
         const jwtToken = sessionStorage.getItem("jwtToken");
-        const API_URL = "http://localhost:5000/agent/register"
+        const API_URL = "http://localhost:8000/agent/register"
         await axios.post(API_URL, {
           // Request Body
           type: this.selectedAgentType,

@@ -111,7 +111,7 @@
         try {
           // Retrieve JWT token from session storage
           const jwtToken = sessionStorage.getItem('jwtToken');
-          const API_URL  =  "http://localhost:5000/agent/"
+          const API_URL  =  "http://localhost:8000/agent/"
           const response = await axios.get(API_URL, {
             headers: {
               Authorization: jwtToken,
@@ -159,7 +159,7 @@
             const jwtToken = sessionStorage.getItem('jwtToken');
 
             // Send DELETE request to delete the agent by ID
-            await axios.delete(`http://localhost:5000/agent/${agentId}`, {
+            await axios.delete(`http://localhost:8000/agent/${agentId}`, {
               headers: {
                 Authorization: jwtToken,
               },

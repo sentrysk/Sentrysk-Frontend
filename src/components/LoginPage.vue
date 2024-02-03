@@ -55,7 +55,7 @@
     methods: {
       async login() {
         try {
-          const API_URL = "http://localhost:5000/user/login"
+          const API_URL = "http://localhost:8000/user/login"
           const response = await axios.post(API_URL, {
             email: this.email,
             password: this.password,

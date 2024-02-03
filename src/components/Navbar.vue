@@ -60,7 +60,7 @@
   
         if (jwtToken) {
           try {
-            const API_URL = "http://localhost:5000/user/logout"
+            const API_URL = "http://localhost:8000/user/logout"
             // Send a POST request to the logout endpoint with Authorization header
             await axios.post(API_URL, null, {
               headers: {
