@@ -63,6 +63,7 @@
                 userCount: 0,
                 installedAppsCount: 0,
                 servicesCount: 0,
+                pipPackagesCount: 0,
                 homePageData: {}
             }
         },
@@ -77,6 +78,7 @@
                 this.userCount  = this.homePageData.sys_user_count;
                 this.installedAppsCount = this.homePageData.installed_apps_count;
                 this.servicesCount = this.homePageData.services_count;
+                this.pipPackagesCount = this.pip_packages_count;
 
             }
         }
