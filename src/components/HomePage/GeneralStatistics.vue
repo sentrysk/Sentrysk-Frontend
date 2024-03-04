@@ -34,9 +34,9 @@
         </div>
         <div class="col-sm-2">
             <div class="card">
-                <div class="card-header">Data Here</div>
+                <div class="card-header"><i class="fa-brands fa-python"></i> Pip Packages</div>
                 <div class="card-body">
-                    <p class="card-text">Data Here</p>
+                    <p class="card-text">{{ pipPackagesCount }}</p>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 this.userCount  = this.homePageData.sys_user_count;
                 this.installedAppsCount = this.homePageData.installed_apps_count;
                 this.servicesCount = this.homePageData.services_count;
-                this.pipPackagesCount = this.pip_packages_count;
+                this.pipPackagesCount = this.homePageData.pip_packages_count;
 
             }
         }
