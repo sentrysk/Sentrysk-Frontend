@@ -12,6 +12,7 @@ const SYS_SRVCS_EP = "/sysservices/"
 const CHLG_EP = "/changelog"
 const INF_DT_EP = "/inf_data"
 const HOME_PG_STS_EP = INF_DT_EP + "/homepage"
+const PIP_PKGS_EP = "/pippkgs/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
@@ -163,6 +164,23 @@ export async function getServicesChangeLog(sysServicesId){
         return changelog.data
     } catch (error) {
         console.error('Error fetching System Services Changelog:', error);
+    }
+}
+
+// Retrive System Pip Packages
+export async function getPipPackagesByAgentId(agentId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + PIP_PKGS_EP + agentId;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching System Apps:', error);
     }
 }
 
