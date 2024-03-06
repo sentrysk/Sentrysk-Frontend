@@ -184,6 +184,23 @@ export async function getPipPackagesByAgentId(agentId){
     }
 }
 
+// Retrive Pip Packages Changelog
+export async function getPipPackagesChangeLog(pipPkgsId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + PIP_PKGS_EP + pipPkgsId + CHLG_EP;
+        const changelog = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return changelog.data
+    } catch (error) {
+        console.error('Error fetching System Apps Changelog:', error);
+    }
+}
+
 // Retrive Home Page Statistics
 export async function getHomePageStatistics(){
     try {
