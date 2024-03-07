@@ -19,6 +19,11 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="servicesTab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="contact" aria-selected="false">Services</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pipPackagesTab" data-bs-toggle="tab" data-bs-target="#pipPackages" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                Pip Packages
+            </button>
+        </li>
       </ul>
 
         <!-- Tab Contents-->
@@ -40,6 +45,10 @@
             <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="servicesTab">
                 <SystemServicesTab></SystemServicesTab>
             </div>
+            <!-- Pip Packages Tab -->
+            <div class="tab-pane fade" id="pipPackages" role="tabpanel" aria-labelledby="pipPackagesTab">
+                <PipPackagesTab></PipPackagesTab>
+            </div>
         </div>
 
     </div>
@@ -51,6 +60,7 @@
     import SystemUsersTab from '../components/Tabs/SystemUsersTab.vue'
     import SystemInstalledAppsTab from '../components/Tabs/SystemInstalledApps.vue';
     import SystemServicesTab from '../components/Tabs/SystemServicesTab.vue'
+    import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue'
     
     export default {
       components: {
@@ -59,6 +69,7 @@
         SystemUsersTab,
         SystemInstalledAppsTab,
         SystemServicesTab,
+        PipPackagesTab
       },
     };
 </script>
