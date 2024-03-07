@@ -8,20 +8,28 @@
       <!-- Tabs -->
       <ul class="nav nav-tabs" id="mainTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="systemTab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab" aria-controls="system" aria-selected="true">System</button>
+            <button class="nav-link active" id="systemTab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab" aria-controls="system" aria-selected="true">
+                <i class="bi bi-cpu"></i> System
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">Users</button>
+            <button class="nav-link" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">
+                <i class="bi bi-people"></i> Users
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="installedProgramsTab" data-bs-toggle="tab" data-bs-target="#installedPrograms" type="button" role="tab" aria-controls="contact" aria-selected="false">Installed Programs</button>
+            <button class="nav-link" id="installedProgramsTab" data-bs-toggle="tab" data-bs-target="#installedPrograms" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="bi bi-window-stack"></i> Installed Programs
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="servicesTab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="contact" aria-selected="false">Services</button>
+            <button class="nav-link" id="servicesTab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="bi bi-reception-4"></i> Services
+            </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pipPackagesTab" data-bs-toggle="tab" data-bs-target="#pipPackages" type="button" role="tab" aria-controls="contact" aria-selected="false">
-                Pip Packages
+                <i class="fa-brands fa-python"></i> Pip Packages
             </button>
         </li>
       </ul>
