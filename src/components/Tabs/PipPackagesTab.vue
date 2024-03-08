@@ -18,6 +18,11 @@
         </li>
     </ul>
 
+    <!-- Last Update -->
+    <div class="row">
+      <span :title=localUpdateTime>Last Update : {{ timeDiff }}</span>
+    </div>
+
     <div class="tab-content" id="pipPackagesTabContent" v-bind:isInstalled="true">
         <div class="tab-pane fade show active" id="pipPackagesDiv" role="tabpanel" aria-labelledby="pipPackagesTab">
             <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="pipPackagesTable">
