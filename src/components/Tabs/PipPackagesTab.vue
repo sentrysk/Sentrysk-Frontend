@@ -63,10 +63,10 @@
         };
       },
       mounted() {
-        this.fillInstalledApps();
+        this.fillPipPackages();
       },
       methods: {
-        async fillInstalledApps() {
+        async fillPipPackages() {
           try {
             // Get the ID from the URL
             const agentId = this.$route.params.id;
@@ -82,8 +82,63 @@
             // Set system Pip Packages Count if it's installed
             this.pipPackagesCount = this.pipPackages.pip_packages.length;
 
-            // Set Changelog Count
-            this.changeLogCount = this.changeLogData.length;
+            this.changeLogData = this.changeLogData.map((item) => {
+            const date = formatToLocalTime(item.timestamp);
+            const changes = item.changes;
+
+            // Define the Action List
+            const actionList = [];
+            
+            // Find Deleted Pip Packages
+            if (changes.deleted_pip_pkgs) {
+              for (const pipPkg of changes.deleted_pip_pkgs) {
+                actionList.push({
+                  date,
+                  action: "Delete",
+                  pkgname:  pipPkg.name,
+                  field: "-",
+                  previous_value: pipPkg,
+                  new_value: "-",
+                });
+              }
+            }
+
+            // Find Newly Added Pip Packages
+            if (changes.new_pip_pkgs) {
+              for (const pipPkg of changes.new_pip_pkgs) {
+                actionList.push({
+                  date,
+                  action: "New",
+                  pkgname:  pipPkg.name,
+                  field: "-",
+                  previous_value: "-",
+                  new_value: pipPkg,
+                });
+              }
+            }
+
+            // Find Updated Pip Packages
+            if (changes.updated_pip_pkgs) {
+              for (const pipPkg in changes.updated_pip_pkgs) {
+                const pkgChanges = changes.updated_pip_pkgs[pipPkg];
+                for (const changeKey in pkgChanges) {
+                  actionList.push({
+                    date,
+                    action: "Update",
+                    pkgname: pipPkg,
+                    field: changeKey,
+                    previous_value: pkgChanges[changeKey]["previous_value"],
+                    new_value: pkgChanges[changeKey]["new_value"],
+                  });
+                }
+              }
+            }
+
+            return actionList;
+          }).flat();
+
+          // Set Changelog Count
+          this.changeLogCount = this.changeLogData.length;
 
           } catch (error) {
             // If any error occurs, set properties
