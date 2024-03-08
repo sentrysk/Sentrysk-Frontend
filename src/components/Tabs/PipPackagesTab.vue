@@ -9,8 +9,8 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="systemInstalledAppsChangelogTab" data-bs-toggle="tab" data-bs-target="#systemInstalledAppsChangelog" type="button" role="tab" aria-controls="systemInstalledAppsChangelog" aria-selected="false">
-              <i class="bi bi-file-diff"></i>Changelogs 
+            <button class="nav-link" id="pipPackagesChangelogTab" data-bs-toggle="tab" data-bs-target="#pipPackagesChangelog" type="button" role="tab" aria-controls="pipPackagesChangelog" aria-selected="false">
+              <i class="bi bi-file-diff"></i> Changelogs 
               <span class="badge rounded-pill bg-primary">
                 {{ changeLogCount }}
               </span>
@@ -55,6 +55,8 @@
           pipPackages: {},
           pipPackagesCount: 0,
           isInstalled: false,
+          changeLogData: [],
+          changeLogCount: 0,
           localUpdateTime: "",
           timeDiff: "",
         };
