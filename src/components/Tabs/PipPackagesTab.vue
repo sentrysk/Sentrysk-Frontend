@@ -9,7 +9,7 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pipPackagesChangelogTab" data-bs-toggle="tab" data-bs-target="#pipPackagesChangelog" type="button" role="tab" aria-controls="pipPackagesChangelog" aria-selected="false">
+            <button class="nav-link" id="pipPackagesChangelogTab" data-bs-toggle="tab" data-bs-target="#pipPackagesChangelogTabContent" type="button" role="tab" aria-controls="pipPackagesChangelogTabContent" aria-selected="false">
               <i class="bi bi-file-diff"></i> Changelogs 
               <span class="badge rounded-pill bg-primary">
                 {{ changeLogCount }}
@@ -46,6 +46,52 @@
           <i class="fa-brands fa-python"></i>It seems Pip not installed...
         </h1>
     </div>
+
+    <!-- Changelog -->
+    <div class="tab-pane fade" id="pipPackagesChangelogTabContent" role="tabpanel" aria-labelledby="systemInstalledAppsChangelog">
+          <table class="table table-striped table-bordered table-sm" id="systemInstalledAppsChangelogTable">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Action</th>
+                <th>Package Name</th>
+                <th>Field</th>
+                <th>Previous Value</th>
+                <th>New Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="data in changeLogData" :key="data">
+                <td>
+                  {{ data.date }}
+                </td>
+
+                <td v-if="data.action == 'New'" style="color: green;">
+                  Install
+                </td>
+                <td v-if="data.action == 'Delete'" style="color:crimson">
+                  Delete
+                </td>
+                <td v-if="data.action == 'Update'" style="color: coral;">
+                  Update
+                </td>
+
+                <td>
+                  {{ data.pkgname }}
+                </td>
+                <td>
+                  {{ data.field }}
+                </td>
+                <td style="color:crimson">
+                  {{ data.previous_value }}
+                </td>
+                <td style="color: green;">
+                  {{ data.new_value }}
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
 </template>
 
 
@@ -79,7 +125,7 @@
             // Retrieve Pip Packages
             this.pipPackages =  await getPipPackagesByAgentId(agentId);
             // Retrieve System Apps Changelogs
-            this.changeLogData = await getInstalledAppsChangeLog(this.pipPackages.id)
+            this.changeLogData = await getPipPackagesChangeLog(this.pipPackages.id)
             
             // Set isInstalled value
             this.isInstalled = this.pipPackages.isInstalled;
