@@ -45,7 +45,7 @@
 
 
 <script>
-    import { getPipPackagesByAgentId } from '../../utils/requestUtils'
+    import { getPipPackagesByAgentId, getPipPackagesChangeLog } from '../../utils/requestUtils'
 
     
     export default {
@@ -72,12 +72,17 @@
 
             // Retrieve Pip Packages
             this.pipPackages =  await getPipPackagesByAgentId(agentId);
+            // Retrieve System Apps Changelogs
+            this.changeLogData = await getInstalledAppsChangeLog(this.pipPackages.id)
             
             // Set isInstalled value
             this.isInstalled = this.pipPackages.isInstalled;
 
             // Set system Pip Packages Count if it's installed
             this.pipPackagesCount = this.pipPackages.pip_packages.length;
+
+            // Set Changelog Count
+            this.changeLogCount = this.changeLogData.length;
 
           } catch (error) {
             // If any error occurs, set properties
