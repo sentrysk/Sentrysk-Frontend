@@ -133,6 +133,10 @@
             // Set system Pip Packages Count if it's installed
             this.pipPackagesCount = this.pipPackages.pip_packages.length;
 
+            // Set Local Update Time and Time Diff
+            this.localUpdateTime = formatToLocalTime(this.systemInstalledApps.updated);
+            this.timeDiff =  calculateDatetimeDifference(this.systemInstalledApps.updated);
+
             this.changeLogData = this.changeLogData.map((item) => {
             const date = formatToLocalTime(item.timestamp);
             const changes = item.changes;
