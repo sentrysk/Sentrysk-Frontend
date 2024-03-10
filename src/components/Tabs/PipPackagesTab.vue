@@ -96,6 +96,7 @@
 
 
 <script>
+    import $ from "jquery";
     import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
     import { getPipPackagesByAgentId, getPipPackagesChangeLog } from '../../utils/requestUtils'
 
@@ -194,6 +195,25 @@
 
           // Set Changelog Count
           this.changeLogCount = this.changeLogData.length;
+
+          $(document).ready(() => {
+              // Set Pip Packages Table as Data Table
+              $('#pipPackagesTable').DataTable({
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+              });
+              // Style length Menu
+              const pageEntrySize = document.getElementById('pipPackagesTable_length')
+              pageEntrySize.style = "margin-right:100%"
+              const pageInfoText = document.getElementById('pipPackagesTable_info')
+              pageInfoText.style = "float:left"
+              
+            });
 
           } catch (error) {
             // If any error occurs, set properties
