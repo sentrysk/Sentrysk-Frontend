@@ -49,7 +49,7 @@
 
     <!-- Changelog -->
     <div class="tab-pane fade" id="pipPackagesChangelogTabContent" role="tabpanel" aria-labelledby="systemInstalledAppsChangelog">
-          <table class="table table-striped table-bordered table-sm" id="systemInstalledAppsChangelogTable">
+          <table class="table table-striped table-bordered table-sm" id="pipPackagesChangelogTable">
             <thead>
               <tr>
                 <th>Time</th>
@@ -199,13 +199,13 @@
           $(document).ready(() => {
               // Set Pip Packages Table as Data Table
               $('#pipPackagesTable').DataTable({
-              searching: true,
-              lengthChange: true,
-              pageLength: 25,
-              lengthMenu: [
-                  [25, 50, 100, 250, -1],
-                  [25, 50, 100, 250, 'All']
-              ],
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250, -1],
+                    [25, 50, 100, 250, 'All']
+                ],
               });
               // Style length Menu
               const pageEntrySize = document.getElementById('pipPackagesTable_length')
@@ -213,6 +213,23 @@
               const pageInfoText = document.getElementById('pipPackagesTable_info')
               pageInfoText.style = "float:left"
               
+              // Set Changelogs as Data Table
+              $('#pipPackagesChangelogTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250, -1],
+                    [25, 50, 100, 250,'All']
+                ],
+                order: [ 0, 'desc' ],
+                select: true,
+              });
+              // Style length Menu
+              const chlgPageEntrySize = document.getElementById('pipPackagesChangelogTable_length')
+              chlgPageEntrySize.style = "margin-right:100%"
+              const chlgPageInfoText = document.getElementById('pipPackagesChangelogTable_info')
+              chlgPageInfoText.style = "float:left"
             });
 
           } catch (error) {
