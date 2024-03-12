@@ -43,7 +43,7 @@
     </div>
 
     <!-- Changelog -->
-    <div class="tab-pane fade" id="pipPackagesChangelogTabContent" role="tabpanel" aria-labelledby="systemInstalledAppsChangelog">
+    <div class="tab-pane fade" id="pipPackagesChangelogTabContent" role="tabpanel" aria-labelledby="pipPackagesChangelogTab">
           <table class="table table-striped table-bordered table-sm" id="pipPackagesChangelogTable">
             <thead>
               <tr>
@@ -130,8 +130,8 @@
             this.pipPackagesCount = this.pipPackages.pip_packages.length;
 
             // Set Local Update Time and Time Diff
-            this.localUpdateTime = formatToLocalTime(this.systemInstalledApps.updated);
-            this.timeDiff =  calculateDatetimeDifference(this.systemInstalledApps.updated);
+            this.localUpdateTime = formatToLocalTime(this.pipPackages.updated);
+            this.timeDiff =  calculateDatetimeDifference(this.pipPackages.updated);
 
             this.changeLogData = this.changeLogData.map((item) => {
             const date = formatToLocalTime(item.timestamp);
