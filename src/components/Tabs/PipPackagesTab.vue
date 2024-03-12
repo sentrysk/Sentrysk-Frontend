@@ -23,7 +23,7 @@
       <span :title=localUpdateTime>Last Update : {{ timeDiff }}</span>
     </div>
 
-    <div class="tab-content" id="pipPackagesTabContent" v-bind:isInstalled="true">
+    <div class="tab-content" id="pipPackagesTabContent">
         <div class="tab-pane fade show active" id="pipPackagesDiv" role="tabpanel" aria-labelledby="pipPackagesTab">
             <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="pipPackagesTable">
                 <thead>
@@ -40,11 +40,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-center vh-100 bg-primary" v-bind:isInstalled="false">
-        <h1 class="display-1 fw-bold text-white">
-          <i class="fa-brands fa-python"></i>It seems Pip not installed...
-        </h1>
     </div>
 
     <!-- Changelog -->
