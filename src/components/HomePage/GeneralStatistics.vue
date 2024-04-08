@@ -42,9 +42,9 @@
         </div>
         <div class="col-sm-2">
             <div class="card">
-                <div class="card-header">Data Here</div>
+                <div class="card-header"><i class="fa-brands fa-js"></i> Npm Packages</div>
                 <div class="card-body">
-                    <p class="card-text">Data Here</p>
+                    <p class="card-text">{{ npmPackagesCount }}</p>
                 </div>
             </div>
         </div>
@@ -64,6 +64,7 @@
                 installedAppsCount: 0,
                 servicesCount: 0,
                 pipPackagesCount: 0,
+                npmPackagesCount: 0,
                 homePageData: {}
             }
         },
@@ -79,6 +80,7 @@
                 this.installedAppsCount = this.homePageData.installed_apps_count;
                 this.servicesCount = this.homePageData.services_count;
                 this.pipPackagesCount = this.homePageData.pip_packages_count;
+                this.npmPackagesCount = this.homePageData.npm_packages_count;
 
             }
         }
