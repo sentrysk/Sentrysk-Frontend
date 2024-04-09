@@ -202,6 +202,23 @@ export async function getPipPackagesChangeLog(pipPkgsId){
     }
 }
 
+// Retrive System Npm Packages
+export async function getNpmPackagesByAgentId(agentId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + NPM_PKGS_EP + agentId;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching System Apps:', error);
+    }
+}
+
 // Retrive Home Page Statistics
 export async function getHomePageStatistics(){
     try {
