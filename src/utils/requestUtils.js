@@ -13,6 +13,7 @@ const CHLG_EP = "/changelog"
 const INF_DT_EP = "/inf_data"
 const HOME_PG_STS_EP = INF_DT_EP + "/homepage"
 const PIP_PKGS_EP = "/pippkgs/"
+const NPM_PKGS_EP = "/npmpkgs/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
