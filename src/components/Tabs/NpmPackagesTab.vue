@@ -39,7 +39,7 @@
 
 <script>
     import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
-    import { getNpmPackagesByAgentId } from '../../utils/requestUtils'
+    import { getNpmPackagesByAgentId, getNpmPackagesChangeLog } from '../../utils/requestUtils'
 
     
     export default {
@@ -49,6 +49,8 @@
           npmPackages: {},
           npmPackagesCount: 0,
           isInstalled: false,
+          changeLogData: [],
+          changeLogCount: 0,
           localUpdateTime: "",
           timeDiff: "",
         };
@@ -75,6 +77,60 @@
             this.localUpdateTime = formatToLocalTime(this.npmPackages.updated);
             this.timeDiff =  calculateDatetimeDifference(this.npmPackages.updated);
 
+            this.changeLogData = this.changeLogData.map((item) => {
+            const date = formatToLocalTime(item.timestamp);
+            const changes = item.changes;
+
+            // Define the Action List
+            const actionList = [];
+            
+            // Find Deleted Npm Packages
+            if (changes.deleted_npm_pkgs) {
+              for (const npmPkg of changes.deleted_npm_pkgs) {
+                actionList.push({
+                  date,
+                  action: "Delete",
+                  pkgname:  npmPkg.name,
+                  field: "-",
+                  previous_value: npmPkg,
+                  new_value: "-",
+                });
+              }
+            }
+
+            // Find Newly Added Npm Packages
+            if (changes.new_npm_pkgs) {
+              for (const npmPkg of changes.new_npm_pkgs) {
+                actionList.push({
+                  date,
+                  action: "New",
+                  pkgname:  npmPkg.name,
+                  field: "-",
+                  previous_value: "-",
+                  new_value: npmPkg,
+                });
+              }
+            }
+
+            // Find Updated Npm Packages
+            if (changes.updated_npm_pkgs) {
+              for (const npmPkg in changes.updated_npm_pkgs) {
+                const pkgChanges = changes.updated_npm_pkgs[npmPkg];
+                for (const changeKey in pkgChanges) {
+                  actionList.push({
+                    date,
+                    action: "Update",
+                    pkgname: npmPkg,
+                    field: changeKey,
+                    previous_value: pkgChanges[changeKey]["previous_value"],
+                    new_value: pkgChanges[changeKey]["new_value"],
+                  });
+                }
+              }
+            }
+
+              return actionList;
+            }).flat();
 
           } catch (error) {
             // If any error occurs, set properties
