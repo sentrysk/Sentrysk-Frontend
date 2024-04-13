@@ -66,6 +66,8 @@
 
             // Retrieve Npm Packages
             this.npmPackages =  await getNpmPackagesByAgentId(agentId);
+            // Retrieve Npm Packages Changelogs
+            this.changeLogData = await getNpmPackagesChangeLog(this.npmPackages.id)
             
             // Set isInstalled value
             this.isInstalled = this.npmPackages.isInstalled;
