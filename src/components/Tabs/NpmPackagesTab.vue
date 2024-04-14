@@ -8,6 +8,14 @@
               </span>
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="npmPackagesChangelogTab" data-bs-toggle="tab" data-bs-target="#npmPackagesChangelogTabContent" type="button" role="tab" aria-controls="npmPackagesChangelogTabContent" aria-selected="false">
+              <i class="bi bi-file-diff"></i> Changelogs 
+              <span class="badge rounded-pill bg-primary">
+                {{ changeLogCount }}
+              </span>
+            </button>
+        </li>
     </ul>
 
     <!-- Last Update -->
