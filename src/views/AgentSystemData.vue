@@ -15,26 +15,41 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="usersTab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">
                 <i class="bi bi-people"></i> Users
+                <span class="badge rounded-pill bg-primary">
+                    {{ agentStats.sys_user_count }}
+                </span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="installedProgramsTab" data-bs-toggle="tab" data-bs-target="#installedPrograms" type="button" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="bi bi-window-stack"></i> Installed Programs
+                <span class="badge rounded-pill bg-primary">
+                    {{ agentStats.sys_installed_apps_count }}
+                </span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="servicesTab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="bi bi-reception-4"></i> Services
+                <span class="badge rounded-pill bg-primary">
+                    {{ agentStats.sys_services_count }}
+                </span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pipPackagesTab" data-bs-toggle="tab" data-bs-target="#pipPackages" type="button" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="fa-brands fa-python"></i> Pip Packages
+                <span class="badge rounded-pill bg-primary">
+                    {{ agentStats.sys_pip_packages_count }}
+                </span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="npmPackagesTab" data-bs-toggle="tab" data-bs-target="#npmPackages" type="button" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="fa-brands fa-npm"></i> Npm Packages
+                <span class="badge rounded-pill bg-primary">
+                    {{ agentStats.sys_npm_packages_count }}
+                </span>
             </button>
         </li>
       </ul>
