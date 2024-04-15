@@ -14,6 +14,7 @@ const INF_DT_EP = "/inf_data"
 const HOME_PG_STS_EP = INF_DT_EP + "/homepage"
 const PIP_PKGS_EP = "/pippkgs/"
 const NPM_PKGS_EP = "/npmpkgs/"
+const AGNT_PG_STS_EP = INF_DT_EP + "/agent/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
@@ -236,6 +237,23 @@ export async function getNpmPackagesChangeLog(npmPkgsId){
     }
 }
 
+// Retrive my User Last Dashboard Logins
+export async function getMyLastDashboardLogins(){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + MY_LOGINS_EP;
+        const myLoginsData = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return myLoginsData.data
+    } catch (error) {
+        console.error('Error fetching Last Logins:', error);
+    }
+}
+
 // Retrive Home Page Statistics
 export async function getHomePageStatistics(){
     try {
@@ -253,19 +271,19 @@ export async function getHomePageStatistics(){
     }
 }
 
-// Retrive my User Last Dashboard Logins
-export async function getMyLastDashboardLogins(){
+// Retrive Agent Statistics
+export async function getAgentStatistics(agentId){
     try {
         // Retrieve JWT token from session storage
         const jwtToken = sessionStorage.getItem('jwtToken');
-        const URL = API_URL + MY_LOGINS_EP;
-        const myLoginsData = await axios.get(URL, {
+        const URL = API_URL + AGNT_PG_STS_EP + agentId.toString();
+        const agentStats = await axios.get(URL, {
             headers: {
                 Authorization: jwtToken,
             },
         });
-        return myLoginsData.data
+        return agentStats.data
     } catch (error) {
-        console.error('Error fetching Last Logins:', error);
+        console.error('Error fetching Agent Statistics:', error);
     }
 }
