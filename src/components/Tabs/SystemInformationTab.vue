@@ -1,5 +1,5 @@
 <template>
-    <ul class="nav nav-tabs" id="systemSubTab" role="tablist">
+    <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="systemOsTab" data-bs-toggle="tab" data-bs-target="#systemOs" type="button" role="tab" aria-controls="systemOs" aria-selected="true"><i class="bi bi-code-square"></i> OS</button>
         </li>

@@ -1,5 +1,5 @@
 <template>
-    <ul class="nav nav-tabs" id="systemSubTab" role="tablist">
+    <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="npmPackagesTab" data-bs-toggle="tab" data-bs-target="#npmPackagesDiv" type="button" role="tab" aria-controls="npmPackagesDiv" aria-selected="true">
               <i class="fa-brands fa-python"></i> Npm Packages

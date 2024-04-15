@@ -1,5 +1,5 @@
 <template>
-    <ul class="nav nav-tabs" id="systemSubTab" role="tablist">
+    <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="pipPackagesTab" data-bs-toggle="tab" data-bs-target="#pipPackagesDiv" type="button" role="tab" aria-controls="pipPackagesDiv" aria-selected="true">
               <i class="fa-brands fa-python"></i> Pip Packages
