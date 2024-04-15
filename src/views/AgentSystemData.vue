@@ -79,6 +79,8 @@
     import SystemServicesTab from '../components/Tabs/SystemServicesTab.vue'
     import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue'
     import NpmPackagesTab from '../components/Tabs/NpmPackagesTab.vue';
+
+    import { getAgentStatistics } from '../utils/requestUtils';
     
     export default {
       components: {
@@ -90,6 +92,19 @@
         PipPackagesTab,
         NpmPackagesTab
       },
+      data(){
+            return{
+                agentStats: {}
+            }
+        },
+        mounted(){
+            this.fillAgentStatistics();
+        },
+        methods:{
+            async fillAgentStatistics(){
+                this.agentStats = await getAgentStatistics(this.$route.params.id);
+            }
+        }
     };
 </script>
     
