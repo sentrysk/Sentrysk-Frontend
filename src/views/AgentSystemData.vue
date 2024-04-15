@@ -32,6 +32,11 @@
                 <i class="fa-brands fa-python"></i> Pip Packages
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="npmPackagesTab" data-bs-toggle="tab" data-bs-target="#npmPackages" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="fa-brands fa-npm"></i> Npm Packages
+            </button>
+        </li>
       </ul>
 
         <!-- Tab Contents-->
@@ -57,6 +62,10 @@
             <div class="tab-pane fade" id="pipPackages" role="tabpanel" aria-labelledby="pipPackagesTab">
                 <PipPackagesTab></PipPackagesTab>
             </div>
+            <!-- Npm Packages Tab -->
+            <div class="tab-pane fade" id="npmPackages" role="tabpanel" aria-labelledby="npmPackagesTab">
+                <NpmPackagesTab></NpmPackagesTab>
+            </div>
         </div>
 
     </div>
@@ -69,6 +78,7 @@
     import SystemInstalledAppsTab from '../components/Tabs/SystemInstalledApps.vue';
     import SystemServicesTab from '../components/Tabs/SystemServicesTab.vue'
     import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue'
+    import NpmPackagesTab from '../components/Tabs/NpmPackagesTab.vue';
     
     export default {
       components: {
@@ -77,7 +87,8 @@
         SystemUsersTab,
         SystemInstalledAppsTab,
         SystemServicesTab,
-        PipPackagesTab
+        PipPackagesTab,
+        NpmPackagesTab
       },
     };
 </script>
