@@ -42,6 +42,52 @@
         </div>
     </div>
 
+    <!-- Changelog -->
+    <div class="tab-pane fade" id="npmPackagesChangelogTabContent" role="tabpanel" aria-labelledby="npmPackagesChangelogTab">
+        <table class="table table-striped table-bordered table-sm" id="npmPackagesChangelogTable">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Action</th>
+              <th>Package Name</th>
+              <th>Field</th>
+              <th>Previous Value</th>
+              <th>New Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="data in changeLogData" :key="data">
+              <td>
+                {{ data.date }}
+              </td>
+
+              <td v-if="data.action == 'New'" style="color: green;">
+                Install
+              </td>
+              <td v-if="data.action == 'Delete'" style="color:crimson">
+                Delete
+              </td>
+              <td v-if="data.action == 'Update'" style="color: coral;">
+                Update
+              </td>
+
+              <td>
+                {{ data.pkgname }}
+              </td>
+              <td>
+                {{ data.field }}
+              </td>
+              <td style="color:crimson">
+                {{ data.previous_value }}
+              </td>
+              <td style="color: green;">
+                {{ data.new_value }}
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
 </template>
 
 
