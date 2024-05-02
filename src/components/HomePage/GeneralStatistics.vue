@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="bi bi-cpu"></i> Total Agents</div>
                 <div class="card-body">
@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="bi bi-people"></i> Total Users</div>
                 <div class="card-body">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="bi bi-window"></i> Total Installed Apps</div>
                 <div class="card-body">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="bi bi-code-square"></i> Total Services </div>
                 <div class="card-body">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="fa-brands fa-python"></i> Pip Packages</div>
                 <div class="card-body">
@@ -40,11 +40,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-auto">
             <div class="card">
                 <div class="card-header"><i class="fa-brands fa-js"></i> Npm Packages</div>
                 <div class="card-body">
                     <p class="card-text">{{ npmPackagesCount }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-auto">
+            <div class="card">
+                <div class="card-header"><i class="fa-brands fa-docker"></i> Installed Docker</div>
+                <div class="card-body">
+                    <p class="card-text">{{ installedDockerCount }}</p>
                 </div>
             </div>
         </div>
@@ -65,6 +73,7 @@
                 servicesCount: 0,
                 pipPackagesCount: 0,
                 npmPackagesCount: 0,
+                installedDockerCount: 0,
                 homePageData: {}
             }
         },
@@ -81,6 +90,7 @@
                 this.servicesCount = this.homePageData.services_count;
                 this.pipPackagesCount = this.homePageData.pip_packages_count;
                 this.npmPackagesCount = this.homePageData.npm_packages_count;
+                this.installedDockerCount = this.homePageData.installed_docker_count;
 
             }
         }
