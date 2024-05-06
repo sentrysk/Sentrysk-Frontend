@@ -15,6 +15,7 @@ const HOME_PG_STS_EP = INF_DT_EP + "/homepage"
 const PIP_PKGS_EP = "/pippkgs/"
 const NPM_PKGS_EP = "/npmpkgs/"
 const AGNT_PG_STS_EP = INF_DT_EP + "/agent/"
+const DCKR_INF_EP = "/dockerinfo/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
