@@ -24,16 +24,23 @@
                         <th>Image ID</th>
                         <th>Size</th>
                         <th>Tags</th>
-                        <th>Created</th>
                         <th>Labels</th>
+                        <th>Created</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(dockerImage, index) in dockerInfo.images" :key="index">
                         <td>{{ dockerImage.image_id }}</td>
                         <td>{{ dockerImage.size }}</td>
-                        <td>{{ dockerImage.tags }}</td>
-                        <td>{{ dockerImage.created }}</td>
+                        <td>
+                            <tr v-for="(imageTags, index) in dockerImage.tags" :key="index">
+                                <td>
+                                    <span class="badge rounded-pill bg-primary">
+                                        {{ imageTags }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </td>
                         <td>
                             <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
                                 <td>
@@ -43,6 +50,7 @@
                                 </td>
                             </tr>
                         </td>
+                        <td>{{ dockerImage.created }}</td>
                     </tr>
                 </tbody>
             </table>
