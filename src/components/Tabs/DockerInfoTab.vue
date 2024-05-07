@@ -3,7 +3,7 @@
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="dockerImagesTab" data-bs-toggle="tab" data-bs-target="#dockerImagesDiv" type="button" role="tab" aria-controls="dockerImagesDiv" aria-selected="true">
-                <i class="fa-solid fa-database"></i> Images
+              <i class="fa-solid fa-database"></i> Images
               <span class="badge rounded-pill bg-primary">
                 {{ dockerImageCount }}
               </span>
@@ -34,7 +34,15 @@
                         <td>{{ dockerImage.size }}</td>
                         <td>{{ dockerImage.tags }}</td>
                         <td>{{ dockerImage.created }}</td>
-                        <td>{{ dockerImage.labels }}</td>
+                        <td>
+                            <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
+                                <td>
+                                    <span class="badge rounded-pill bg-primary">
+                                        {{ imageLabels }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </td>
                     </tr>
                 </tbody>
             </table>
