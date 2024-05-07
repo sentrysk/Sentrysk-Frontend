@@ -52,6 +52,11 @@
                 </span>
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dockerInfoTab" data-bs-toggle="tab" data-bs-target="#dockerInfo" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="fa-brands fa-docker"></i> Docker
+            </button>
+        </li>
       </ul>
 
         <!-- Tab Contents-->
@@ -81,19 +86,24 @@
             <div class="tab-pane fade" id="npmPackages" role="tabpanel" aria-labelledby="npmPackagesTab">
                 <NpmPackagesTab></NpmPackagesTab>
             </div>
+            <!-- Docker Info Tab -->
+            <div class="tab-pane fade" id="dockerInfo" role="tabpanel" aria-labelledby="dockerInfoTab">
+                <DockerInfoTab></DockerInfoTab>
+            </div>
         </div>
 
     </div>
 </template>
     
 <script>
-    import Navbar from '../components/Navbar.vue'
-    import SystemInformationTab from '../components/Tabs/SystemInformationTab.vue'
-    import SystemUsersTab from '../components/Tabs/SystemUsersTab.vue'
+    import Navbar from '../components/Navbar.vue';
+    import SystemInformationTab from '../components/Tabs/SystemInformationTab.vue';
+    import SystemUsersTab from '../components/Tabs/SystemUsersTab.vue';
     import SystemInstalledAppsTab from '../components/Tabs/SystemInstalledApps.vue';
-    import SystemServicesTab from '../components/Tabs/SystemServicesTab.vue'
-    import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue'
+    import SystemServicesTab from '../components/Tabs/SystemServicesTab.vue';
+    import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue';
     import NpmPackagesTab from '../components/Tabs/NpmPackagesTab.vue';
+    import DockerInfoTab from '@/components/Tabs/DockerInfoTab.vue';
 
     import { getAgentStatistics } from '../utils/requestUtils';
     
@@ -105,7 +115,8 @@
         SystemInstalledAppsTab,
         SystemServicesTab,
         PipPackagesTab,
-        NpmPackagesTab
+        NpmPackagesTab,
+        DockerInfoTab
       },
       data(){
             return{
