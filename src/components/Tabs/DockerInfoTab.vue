@@ -135,7 +135,18 @@
                       <td>{{ dockerContainer.image }}</td>
                       <td>{{ dockerContainer.ports }}</td>
                       <td>{{ dockerContainer.networks }}</td>
-                      <td>{{ dockerContainer.labels }}</td>
+                      <td>
+                          <tr v-for="(containerLabels, index) in dockerContainer.labels" :key="index">
+                              <td>
+                                <span class="badge bg-secondary">
+                                      {{ index+" : " }}
+                                  </span>
+                                  <span class="badge bg-primary">
+                                      {{ containerLabels }}
+                                  </span>
+                              </td>
+                          </tr>
+                      </td>
                       <td>{{ dockerContainer.created }}</td>
                   </tr>
               </tbody>
