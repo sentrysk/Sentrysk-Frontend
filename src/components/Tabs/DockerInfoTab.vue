@@ -13,6 +13,14 @@
               </span>
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dockerContainersTab" data-bs-toggle="tab" data-bs-target="#dockerContainersDiv" type="button" role="tab" aria-controls="dockerContainersDiv" aria-selected="false">
+              <i class="bi bi-boxes"></i> Containers
+              <span class="badge rounded-pill bg-primary">
+                {{ dockerContainerCount }}
+              </span>
+            </button>
+        </li>
     </ul>
 
     <!-- Last Update -->
@@ -20,6 +28,7 @@
       <span :title=localUpdateTime>Last Update : {{ timeDiff }}</span>
     </div>
 
+    <!-- Docker Info Tab -->
     <div class="tab-content" id="dockerInfoTabContent">
         <div class="tab-pane fade show active" id="dockerInfoDiv" role="tabpanel" aria-labelledby="dockerInfoTab">
           <div class="row">
@@ -57,45 +66,76 @@
         </div>
     </div>
 
+    <!-- Docker Images Tab -->
     <div class="tab-content" id="dockerImagesTabContent">
-        <div class="tab-pane fade show" id="dockerImagesDiv" role="tabpanel" aria-labelledby="dockerImagesTab">
-            <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerImagesTable">
-                <thead>
-                    <tr>
-                        <th>Image ID</th>
-                        <th>Size</th>
-                        <th>Tags</th>
-                        <th>Labels</th>
-                        <th>Created</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(dockerImage, index) in dockerInfo.images" :key="index">
-                        <td>{{ dockerImage.image_id }}</td>
-                        <td>{{ dockerImage.size }}</td>
-                        <td>
-                            <tr v-for="(imageTags, index) in dockerImage.tags" :key="index">
-                                <td>
-                                    <span class="badge rounded-pill bg-primary">
-                                        {{ imageTags }}
-                                    </span>
-                                </td>
-                            </tr>
-                        </td>
-                        <td>
-                            <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
-                                <td>
-                                    <span class="badge rounded-pill bg-primary">
-                                        {{ imageLabels }}
-                                    </span>
-                                </td>
-                            </tr>
-                        </td>
-                        <td>{{ dockerImage.created }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="tab-pane fade show" id="dockerImagesDiv" role="tabpanel" aria-labelledby="dockerImagesTab">
+          <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerImagesTable">
+              <thead>
+                  <tr>
+                      <th>Image ID</th>
+                      <th>Size</th>
+                      <th>Tags</th>
+                      <th>Labels</th>
+                      <th>Created</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(dockerImage, index) in dockerInfo.images" :key="index">
+                      <td>{{ dockerImage.image_id }}</td>
+                      <td>{{ dockerImage.size }}</td>
+                      <td>
+                          <tr v-for="(imageTags, index) in dockerImage.tags" :key="index">
+                              <td>
+                                  <span class="badge rounded-pill bg-primary">
+                                      {{ imageTags }}
+                                  </span>
+                              </td>
+                          </tr>
+                      </td>
+                      <td>
+                          <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
+                              <td>
+                                  <span class="badge rounded-pill bg-primary">
+                                      {{ imageLabels }}
+                                  </span>
+                              </td>
+                          </tr>
+                      </td>
+                      <td>{{ dockerImage.created }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
+    <!-- Docker Containers Tab -->
+    <div class="tab-content" id="dockerContainersTabContent">
+      <div class="tab-pane fade show" id="dockerContainersDiv" role="tabpanel" aria-labelledby="dockerContainersTab">
+          <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerContainersTable">
+              <thead>
+                  <tr>
+                      <th>Status</th>
+                      <th>Container ID</th>
+                      <th>Image</th>
+                      <th>Ports</th>
+                      <th>Networks</th>
+                      <th>Labels</th>
+                      <th>Created</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(dockerContainer, index) in dockerInfo.containers" :key="index">
+                      <td>{{ dockerContainer.status }}</td>
+                      <td>{{ dockerContainer.container_id }}</td>
+                      <td>{{ dockerContainer.image }}</td>
+                      <td>{{ dockerContainer.ports }}</td>
+                      <td>{{ dockerContainer.networks }}</td>
+                      <td>{{ dockerContainer.labels }}</td>
+                      <td>{{ dockerContainer.created }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
     </div>
 
 </template>
@@ -113,6 +153,7 @@
           dockerInfo: {},
           isInstalled: false,
           dockerImageCount: 0,
+          dockerContainerCount: 0,
           changeLogData: [],
           changeLogCount: 0,
           localUpdateTime: "",
@@ -135,6 +176,8 @@
             this.isInstalled =  this.dockerInfo.is_installed;
             // Set Docker Image Count if it's installed
             this.dockerImageCount = this.dockerInfo.images.length;
+            // Set Docker Container Count if it's installed
+            this.dockerContainerCount = this.dockerInfo.containers.length;
 
             // Set Local Update Time and Time Diff
             this.localUpdateTime = formatToLocalTime(this.dockerInfo.updated);
