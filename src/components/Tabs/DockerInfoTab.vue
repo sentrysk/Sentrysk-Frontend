@@ -131,7 +131,7 @@
                         <i v-else class="bi bi-x-octagon-fill text-danger"></i>
                         </span>
                       </td>
-                      <td>{{ dockerContainer.container_id }}</td>
+                      <td><span :title="dockerContainer.container_id">{{ dockerContainer.container_id.substring(0,12)+"..."}}</span></td>
                       <td>{{ dockerContainer.image }}</td>
                       <td>{{ dockerContainer.ports }}</td>
                       <td>{{ dockerContainer.networks }}</td>
