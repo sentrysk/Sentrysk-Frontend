@@ -125,7 +125,12 @@
               </thead>
               <tbody>
                   <tr v-for="(dockerContainer, index) in dockerInfo.containers" :key="index">
-                      <td>{{ dockerContainer.status }}</td>
+                      <td>
+                        <span :title=dockerContainer.status>
+                        <i v-if="dockerContainer.status=='running'" class="bi bi-patch-check-fill text-success"></i>
+                        <i v-else class="bi bi-x-octagon-fill text-danger"></i>
+                        </span>
+                      </td>
                       <td>{{ dockerContainer.container_id }}</td>
                       <td>{{ dockerContainer.image }}</td>
                       <td>{{ dockerContainer.ports }}</td>
