@@ -193,10 +193,16 @@
                 dockerImage.created = formatToLocalTime(dockerImage.created)
             }
 
+            // Set Docker Containers Created Time to Local Time
+            for(let dockerContainer of this.dockerInfo.containers){
+              dockerContainer.created = formatToLocalTime(dockerContainer.created)
+            }
+
           } catch (error) {
             // If any error occurs, set properties
             this.isInstalled = false;
             this.dockerImageCount = 0;
+            this.dockerContainerCount = 0;
             // Print error to console
             console.error(error);
           }
