@@ -138,7 +138,21 @@
                           <span :title="JSON.stringify(containerPort)" class="badge bg-primary">{{ index }}</span>
                         </tr>
                       </td>
-                      <td>{{ dockerContainer.networks }}</td>
+                      <td>
+                        <tr v-for="(containerNetworks, index) in dockerContainer.networks" :key="index">
+                          <td>
+                            <b>{{ index }}</b>
+                            <table class="table table-striped table-bordered table-sm">
+                              <tbody>
+                                <tr v-for="(contNetVal, contNetKey) in containerNetworks" :key="contNetKey">
+                                  <td><b>{{ contNetKey }}</b></td>
+                                  <td>{{ contNetVal }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </td>
                       <td>
                           <tr v-for="(containerLabels, index) in dockerContainer.labels" :key="index">
                               <td>
