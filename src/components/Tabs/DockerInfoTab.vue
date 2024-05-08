@@ -1,8 +1,12 @@
 <template>
-    <p>IsInstalled: {{ isInstalled }}</p>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="dockerImagesTab" data-bs-toggle="tab" data-bs-target="#dockerImagesDiv" type="button" role="tab" aria-controls="dockerImagesDiv" aria-selected="true">
+            <button class="nav-link active" id="dockerInfoTab" data-bs-toggle="tab" data-bs-target="#dockerInfoDiv" type="button" role="tab" aria-controls="dockerInfoDiv" aria-selected="true">
+              <i class="bi bi-info-circle"></i> Info
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dockerImagesTab" data-bs-toggle="tab" data-bs-target="#dockerImagesDiv" type="button" role="tab" aria-controls="dockerImagesDiv" aria-selected="false">
               <i class="fa-solid fa-database"></i> Images
               <span class="badge rounded-pill bg-primary">
                 {{ dockerImageCount }}
@@ -16,8 +20,45 @@
       <span :title=localUpdateTime>Last Update : {{ timeDiff }}</span>
     </div>
 
+    <div class="tab-content" id="dockerInfoTabContent">
+        <div class="tab-pane fade show active" id="dockerInfoDiv" role="tabpanel" aria-labelledby="dockerInfoTab">
+          <div class="row">
+            <!-- Is Installed Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><i class="fa-brands fa-instalod"></i> Is Installed</div>
+                    <div class="card-body">
+                        <p class="card-text fw-bold">
+                          <i v-if="isInstalled" class="fa-regular fa-thumbs-up"></i>
+                          <i v-else class="fa-regular fa-thumbs-down"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- ID Card -->
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="card-header"><i class="fa-regular fa-id-card"></i> ID</div>
+                      <div class="card-body">
+                          <p class="card-text fw-bold">{{ dockerInfo.id }}</p>
+                      </div>
+                  </div>
+              </div>
+              <!-- Disk Usage Card -->
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="card-header"><i class="bi bi-hdd-stack"></i> Disk Usage</div>
+                      <div class="card-body">
+                          <p class="card-text fw-bold">{{ dockerInfo.disk_usage }}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
     <div class="tab-content" id="dockerImagesTabContent">
-        <div class="tab-pane fade show active" id="dockerImagesDiv" role="tabpanel" aria-labelledby="dockerImagesTab">
+        <div class="tab-pane fade show" id="dockerImagesDiv" role="tabpanel" aria-labelledby="dockerImagesTab">
             <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerImagesTable">
                 <thead>
                     <tr>
