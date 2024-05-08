@@ -141,15 +141,18 @@
                       <td>
                         <tr v-for="(containerNetworks, index) in dockerContainer.networks" :key="index">
                           <td>
-                            <b>{{ index }}</b>
-                            <table class="table table-striped table-bordered table-sm">
-                              <tbody>
-                                <tr v-for="(contNetVal, contNetKey) in containerNetworks" :key="contNetKey">
-                                  <td><b>{{ contNetKey }}</b></td>
-                                  <td>{{ contNetVal }}</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <div class="tooltipdiv"><span class="badge bg-primary">{{ index }}</span>
+                              <span class="tooltiptext">
+                                <table class="table table-dark table-striped table-bordered table-sm">
+                                  <tbody>
+                                    <tr v-for="(contNetVal, contNetKey) in containerNetworks" :key="contNetKey">
+                                      <td><b>{{ contNetKey }}</b></td>
+                                      <td>{{ contNetVal }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </span>
+                            </div>
                           </td>
                         </tr>
                       </td>
@@ -241,29 +244,40 @@
 </script>
 
 <style>
-.tooltip {
-  --r: 30px; /* control the radius */
-  --h: 50px; /* control the height of the tail */
-  --p: 30%;  /* control the position of the tail */
+.tooltipdiv {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
 
-  padding: var(--r);
-  border-bottom: var(--h) solid #0000;
-  --m:
-    /* adjust the angles of the 1st conic-gradient to control the shape */
-    conic-gradient(from 30deg at var(--p) 100%,#0000,#000 1deg 30deg,#0000 31deg)
-     0 100%/100% calc(100% - var(--r)) no-repeat,
-    conic-gradient(at calc(var(--r)/2) calc(var(--r)/2),#000 270deg,#0000 0)
-     0 0/calc(100% - var(--r)/2) calc(100% - var(--r)/2) padding-box,
-    radial-gradient(50% 50%,#000 98%,#0000) 
-     0 0/var(--r) var(--r) space padding-box;
-  -webkit-mask: var(--m);
-          mask: var(--m);
-  
-    
-  margin: 50px auto;
-  max-width: 350px;
-  font-size: 20px;
-  background: linear-gradient(135deg,#FE6D00,#1384C5) border-box;
+.tooltipdiv .tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  height: fit-content;
+  background-color: #212529;
   color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltipdiv .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltipdiv:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 </style>
