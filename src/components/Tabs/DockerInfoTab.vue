@@ -135,7 +135,18 @@
                       <td>{{ dockerContainer.image }}</td>
                       <td>
                         <tr v-for="(containerPort, index) in dockerContainer.ports" :key="index">
-                          <span :title="JSON.stringify(containerPort)" class="badge bg-primary">{{ index }}</span>
+                          <div class="tooltipdiv"><span class="badge bg-primary">{{ index }}</span>
+                              <span class="tooltiptext">
+                                <table v-for="elem in containerPort" class="table table-dark table-striped table-bordered table-sm">
+                                  <tbody>
+                                    <tr v-for="(contPortVal, contPortKey) in elem" :key="contPortKey">
+                                      <td><b>{{ contPortKey }}</b></td>
+                                      <td>{{ contPortVal }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </span>
+                            </div>
                         </tr>
                       </td>
                       <td>
