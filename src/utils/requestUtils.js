@@ -255,6 +255,23 @@ export async function getDockerInfoByAgentId(agentId){
     }
 }
 
+// Retrive Docker Info Changelog
+export async function getDockerInfoChangeLog(dockerInfoId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + DCKR_INF_EP + dockerInfoId + CHLG_EP;
+        const changelog = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return changelog.data
+    } catch (error) {
+        console.error('Error fetching Docker Info Changelog:', error);
+    }
+}
+
 // Retrive my User Last Dashboard Logins
 export async function getMyLastDashboardLogins(){
     try {
