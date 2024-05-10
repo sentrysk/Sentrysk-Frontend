@@ -9,7 +9,7 @@
             <button class="nav-link" id="dockerImagesTab" data-bs-toggle="tab" data-bs-target="#dockerImagesDiv" type="button" role="tab" aria-controls="dockerImagesDiv" aria-selected="false">
               <i class="fa-solid fa-database"></i> Images
               <span class="badge rounded-pill bg-primary">
-                {{ dockerImageCount }}
+                {{ dockerImagesCount }}
               </span>
             </button>
         </li>
@@ -17,7 +17,7 @@
             <button class="nav-link" id="dockerContainersTab" data-bs-toggle="tab" data-bs-target="#dockerContainersDiv" type="button" role="tab" aria-controls="dockerContainersDiv" aria-selected="false">
               <i class="bi bi-boxes"></i> Containers
               <span class="badge rounded-pill bg-primary">
-                {{ dockerContainerCount }}
+                {{ dockerContainersCount }}
               </span>
             </button>
         </li>
@@ -94,7 +94,7 @@
                       <td>
                           <tr v-for="(imageTags, index) in dockerImage.tags" :key="index">
                               <td>
-                                  <span class="badge rounded-pill bg-primary">
+                                  <span class="badge bg-primary">
                                       {{ imageTags }}
                                   </span>
                               </td>
@@ -103,7 +103,10 @@
                       <td>
                           <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
                               <td>
-                                  <span class="badge rounded-pill bg-primary">
+                                <span class="badge bg-secondary">
+                                      {{ index+" : " }}
+                                  </span>
+                                  <span class="badge bg-primary">
                                       {{ imageLabels }}
                                   </span>
                               </td>
@@ -242,8 +245,8 @@
         return {
           dockerInfo: {},
           isInstalled: false,
-          dockerImageCount: 0,
-          dockerContainerCount: 0,
+          dockerImagesCount: 0,
+          dockerContainersCount: 0,
           dockerVolumesCount: 0,
           changeLogData: [],
           changeLogCount: 0,
@@ -265,10 +268,12 @@
             console.log(this.dockerInfo)
             // Set isInstalled value
             this.isInstalled =  this.dockerInfo.is_installed;
-            // Set Docker Image Count if it's installed
-            this.dockerImageCount = this.dockerInfo.images.length;
-            // Set Docker Container Count if it's installed
-            this.dockerContainerCount = this.dockerInfo.containers.length;
+            // Set Docker Images Count if it's installed
+            this.dockerImagesCount = this.dockerInfo.images.length;
+            // Set Docker Containers Count if it's installed
+            this.dockerContainersCount = this.dockerInfo.containers.length;
+            // Set Docker Volumes Count if it's installed
+            this.dockerVolumesCount = this.dockerInfo.volumes.length;
 
             // Set Local Update Time and Time Diff
             this.localUpdateTime = formatToLocalTime(this.dockerInfo.updated);
