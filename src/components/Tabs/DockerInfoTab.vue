@@ -239,6 +239,33 @@
           </table>
       </div>
     </div>
+
+    <!-- Docker Networks Tab -->
+    <div class="tab-content" id="dockerNetworksTabContent">
+      <div class="tab-pane fade show" id="dockerNetworksDiv" role="tabpanel" aria-labelledby="dockerNetworksTab">
+          <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerNetworksTable">
+              <thead>
+                  <tr>
+                      <th>Network Id</th>
+                      <th>Name</th>
+                      <th>Driver</th>
+                      <th>Labels</th>
+                      <th>Created</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(dockerNetwork, index) in dockerInfo.networks" :key="index">
+                      <td>{{ dockerNetwork.network_id }}</td>
+                      <td>{{ dockerNetwork.name }}</td>
+                      <td>{{ dockerNetwork.driver }}</td>
+                      <td>{{ dockerNetwork.labels }}</td>
+                      <td>{{ dockerNetwork.created }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
 </template>
 
 
