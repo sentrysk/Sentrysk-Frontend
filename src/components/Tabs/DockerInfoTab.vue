@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="dockerVolumesTab" data-bs-toggle="tab" data-bs-target="#dockerVolumesDiv" type="button" role="tab" aria-controls="dockerVolumesDiv" aria-selected="false">
-              <i class="bi bi-boxes"></i> Volumes
+              <i class="bi bi-hdd-fill"></i> Volumes
               <span class="badge rounded-pill bg-primary">
                 {{ dockerVolumesCount }}
               </span>
@@ -194,6 +194,29 @@
       </div>
     </div>
 
+    <!-- Docker Volumes Tab -->
+    <div class="tab-content" id="dockerVolumesTabContent">
+      <div class="tab-pane fade show" id="dockerVolumesDiv" role="tabpanel" aria-labelledby="dockerVolumesTab">
+          <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="dockerVolumesTable">
+              <thead>
+                  <tr>
+                      <th>Volume Name</th>
+                      <th>Mountpoint</th>
+                      <th>Labels</th>
+                      <th>Created</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(dockerVolume, index) in dockerInfo.volumes" :key="index">
+                      <td>{{ dockerVolume.volume_name }}</td>
+                      <td>{{ dockerVolume.mountpoint }}</td>
+                      <td>{{ dockerVolume.labels }}</td>
+                      <td>{{ dockerVolume.created }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
 </template>
 
 
