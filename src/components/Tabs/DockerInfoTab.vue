@@ -210,7 +210,18 @@
                   <tr v-for="(dockerVolume, index) in dockerInfo.volumes" :key="index">
                       <td>{{ dockerVolume.volume_name }}</td>
                       <td>{{ dockerVolume.mountpoint }}</td>
-                      <td>{{ dockerVolume.labels }}</td>
+                      <td>
+                          <tr v-for="(volumeLabels, index) in dockerVolume.labels" :key="index">
+                              <td>
+                                <span class="badge bg-secondary">
+                                      {{ index+" : " }}
+                                  </span>
+                                  <span class="badge bg-primary">
+                                      {{ volumeLabels }}
+                                  </span>
+                              </td>
+                          </tr>
+                      </td>
                       <td>{{ dockerVolume.created }}</td>
                   </tr>
               </tbody>
