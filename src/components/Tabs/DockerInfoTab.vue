@@ -29,6 +29,14 @@
               </span>
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dockerNetworksTab" data-bs-toggle="tab" data-bs-target="#dockerNetworksDiv" type="button" role="tab" aria-controls="dockerNetworksDiv" aria-selected="false">
+              <i class="fa-solid fa-network-wired"></i> Netowrks
+              <span class="badge rounded-pill bg-primary">
+                {{ dockerNetworksCount }}
+              </span>
+            </button>
+        </li>
     </ul>
 
     <!-- Last Update -->
