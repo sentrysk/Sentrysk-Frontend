@@ -256,6 +256,7 @@
           dockerImagesCount: 0,
           dockerContainersCount: 0,
           dockerVolumesCount: 0,
+          dockerNetworksCount: 0,
           changeLogData: [],
           changeLogCount: 0,
           localUpdateTime: "",
@@ -282,6 +283,8 @@
             this.dockerContainersCount = this.dockerInfo.containers.length;
             // Set Docker Volumes Count if it's installed
             this.dockerVolumesCount = this.dockerInfo.volumes.length;
+            // Set Docker Networks Count if it's installed
+            this.dockerNetworksCount = this.dockerInfo.networks.length;
 
             // Set Local Update Time and Time Diff
             this.localUpdateTime = formatToLocalTime(this.dockerInfo.updated);
@@ -308,6 +311,7 @@
             this.dockerImageCount = 0;
             this.dockerContainerCount = 0;
             this.dockerVolumesCount = 0;
+            this.dockerNetworksCount = 0;
             // Print error to console
             console.error(error);
           }
