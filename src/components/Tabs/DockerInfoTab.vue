@@ -31,7 +31,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="dockerNetworksTab" data-bs-toggle="tab" data-bs-target="#dockerNetworksDiv" type="button" role="tab" aria-controls="dockerNetworksDiv" aria-selected="false">
-              <i class="fa-solid fa-network-wired"></i> Netowrks
+              <i class="fa-solid fa-network-wired"></i> Networks
               <span class="badge rounded-pill bg-primary">
                 {{ dockerNetworksCount }}
               </span>
@@ -281,8 +281,8 @@
 
 
 <script>
-    import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
-    import { getDockerInfoByAgentId } from '../../utils/requestUtils'
+    import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
+    import { getDockerInfoByAgentId, getDockerInfoChangeLog } from '../../utils/requestUtils'
 
     
     export default {
@@ -312,7 +312,8 @@
 
             // Retrieve Docker Info
             this.dockerInfo =  await getDockerInfoByAgentId(agentId);
-            console.log(this.dockerInfo)
+            // Retrieve Docker Info Changelogs
+            this.changeLogData = await getDockerInfoChangeLog(this.dockerInfo.id)
             // Set isInstalled value
             this.isInstalled =  this.dockerInfo.is_installed;
             // Set Docker Images Count if it's installed
