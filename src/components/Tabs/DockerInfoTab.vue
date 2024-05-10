@@ -343,6 +343,11 @@
               dockerVolume.created = formatToLocalTime(dockerVolume.created)
             }
 
+            // Set Docker Networks Created Time to Local Time
+            for(let dockerNetwork of this.dockerInfo.networks){
+              dockerNetwork.created = formatToLocalTime(dockerNetwork.created)
+            }
+
           } catch (error) {
             // If any error occurs, set properties
             this.isInstalled = false;
