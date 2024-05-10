@@ -289,11 +289,17 @@
               dockerContainer.created = formatToLocalTime(dockerContainer.created)
             }
 
+            // Set Docker Volumes Created Time to Local Time
+            for(let dockerVolume of this.dockerInfo.volumes){
+              dockerVolume.created = formatToLocalTime(dockerVolume.created)
+            }
+
           } catch (error) {
             // If any error occurs, set properties
             this.isInstalled = false;
             this.dockerImageCount = 0;
             this.dockerContainerCount = 0;
+            this.dockerVolumesCount = 0;
             // Print error to console
             console.error(error);
           }
