@@ -21,6 +21,14 @@
               </span>
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dockerVolumesTab" data-bs-toggle="tab" data-bs-target="#dockerVolumesDiv" type="button" role="tab" aria-controls="dockerVolumesDiv" aria-selected="false">
+              <i class="bi bi-boxes"></i> Volumes
+              <span class="badge rounded-pill bg-primary">
+                {{ dockerVolumesCount }}
+              </span>
+            </button>
+        </li>
     </ul>
 
     <!-- Last Update -->
@@ -202,6 +210,7 @@
           isInstalled: false,
           dockerImageCount: 0,
           dockerContainerCount: 0,
+          dockerVolumesCount: 0,
           changeLogData: [],
           changeLogCount: 0,
           localUpdateTime: "",
