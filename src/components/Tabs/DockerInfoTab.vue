@@ -258,7 +258,18 @@
                       <td>{{ dockerNetwork.network_id }}</td>
                       <td>{{ dockerNetwork.name }}</td>
                       <td>{{ dockerNetwork.driver }}</td>
-                      <td>{{ dockerNetwork.labels }}</td>
+                      <td>
+                          <tr v-for="(networkLabels, index) in dockerNetwork.labels" :key="index">
+                              <td>
+                                <span class="badge bg-secondary">
+                                      {{ index+" : " }}
+                                  </span>
+                                  <span class="badge bg-primary">
+                                      {{ networkLabels }}
+                                  </span>
+                              </td>
+                          </tr>
+                      </td>
                       <td>{{ dockerNetwork.created }}</td>
                   </tr>
               </tbody>
