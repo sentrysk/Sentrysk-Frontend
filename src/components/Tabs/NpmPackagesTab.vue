@@ -190,7 +190,7 @@
             }).flat();
 
             $(document).ready(() => {
-              // Set Pip Packages Table as Data Table
+              // Set Npm Packages Table as Data Table
               $('#npmPackagesTable').DataTable({
                 searching: true,
                 lengthChange: true,
@@ -201,10 +201,28 @@
                 ],
               });
               // Style length Menu
-              const pageEntrySize = document.getElementById('npmPackagesTable_length')
-              pageEntrySize.style = "margin-right:100%"
-              const pageInfoText = document.getElementById('npmPackagesTable_info')
-              pageInfoText.style = "float:left"
+              const pageEntrySize = document.getElementById('npmPackagesTable_length');
+              pageEntrySize.style = "margin-right:100%";
+              const pageInfoText = document.getElementById('npmPackagesTable_info');
+              pageInfoText.style = "float:left";
+
+              // Set Changelogs as Data Table
+              $('#npmPackagesChangelogTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250, -1],
+                    [25, 50, 100, 250,'All']
+                ],
+                order: [ 0, 'desc' ],
+                select: true,
+              });
+              // Style length Menu
+              const chlgPageEntrySize = document.getElementById('npmPackagesChangelogTable_length');
+              chlgPageEntrySize.style = "margin-right:100%";
+              const chlgPageInfoText = document.getElementById('npmPackagesChangelogTable_info');
+              chlgPageInfoText.style = "float:left";
             });
 
           } catch (error) {
