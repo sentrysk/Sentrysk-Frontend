@@ -24,6 +24,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/agents"><i class="bi bi-cpu"></i> Agents</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/apps"><i class="bi bi-code-square"></i> Apps</router-link>
+            </li>
           </ul>
           <div class="dropdown d-flex">
             <button
