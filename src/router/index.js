@@ -5,6 +5,8 @@ import LoginPage from '../components/LoginPage.vue'
 import RegisterPage from '../components/RegisterPage.vue'
 import AgentsView from '../views/AgentsView'
 import AgentSystemData from '../views/AgentSystemData'
+import InstalledAppsView from '../views/InstalledAppsView'
+import PipPackagesView from '../views/PipPackagesView'
 import axios from "axios";
 
 const routes = [
@@ -46,6 +48,12 @@ const routes = [
     path:'/apps',
     name:'InstalledApps',
     component: InstalledAppsView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/pippackages',
+    name:'PipPackages',
+    component: PipPackagesView,
     meta: { requiresAuth: true }
   },
   {
