@@ -1,13 +1,16 @@
 <template>
   <Navbar /> <!-- Include the Navbar component here -->
-  <GeneralStatistics></GeneralStatistics>
   <div class="container mt-5">
     <div class="jumbotron">
-      <h1 class="display-4">Welcome to Our App</h1>
-      <p class="lead">This is a beautiful home view created with Vue.js and Bootstrap.</p>
+      <h1 class="display-4">Welcome to Sentrysk</h1>
+      <p class="lead">
+        <GeneralStatistics></GeneralStatistics>
+      </p>
       <hr class="my-4">
-      <p>Enjoy exploring our app's features and functionality.</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      <p>Enjoy exploring Sentrysk features and functionality.</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">
+        <router-link class="nav-link" to="/agents"><i class="bi bi-cpu"></i> Agents</router-link>
+      </a>
     </div>
   </div>
 </template>
