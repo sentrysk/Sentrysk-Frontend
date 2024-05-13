@@ -188,6 +188,23 @@ export async function getServicesChangeLog(sysServicesId){
 }
 
 // Retrive System Pip Packages
+export async function getAllPipPackages(){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + PIP_PKGS_EP;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching Pip Packages:', error);
+    }
+}
+
+// Retrive System Pip Packages
 export async function getPipPackagesByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
