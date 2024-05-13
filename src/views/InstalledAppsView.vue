@@ -6,14 +6,16 @@
             <tr>
               <th>App Name</th>
               <th>Version</th>
-              <th>Installed By</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="installedApp in apps">
-                <td>{{ installedApp.name }}</td>
-                <td>{{ installedApp.version }}</td>
-                <td>{{ installedApp.installed_by }}</td>
+            <tr v-for="(installedApp, index) in installedAppsData" :key="index">
+                <td>{{ index }}</td>
+                <td>
+                  <span class="badge rounded-pill bg-primary" v-for="(agnets,version) in installedApp" :key="version">
+                    {{ version }}
+                  </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -25,7 +27,7 @@
   // @ is an alias to /src
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
-  import { getAllInstalledApps } from '@/utils/requestUtils';
+  import { getAllInstalledAppsFormatted } from '@/utils/requestUtils';
   
   export default {
     name: 'InstalledAppsView',
@@ -34,8 +36,7 @@
     },
     data(){
         return{
-            installedAppsData: {},
-            apps: []
+            installedAppsData: {}
         }
     },
     mounted(){
@@ -43,11 +44,7 @@
     },
     methods:{
         async fillInstalledApps(){
-            this.installedAppsData = await getAllInstalledApps();
-
-            for(const agentApps of this.installedAppsData){
-              this.apps = this.apps.concat(agentApps.apps)
-            }
+            this.installedAppsData = await getAllInstalledAppsFormatted();
         }
     }
   }
