@@ -43,6 +43,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path:'/apps',
+    name:'InstalledApps',
+    component: InstalledAppsView,
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
