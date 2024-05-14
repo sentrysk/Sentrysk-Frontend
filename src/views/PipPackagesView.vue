@@ -12,7 +12,7 @@
             <tr v-for="(pipPkg, index) in pipPackagesData" :key="index">
                 <td>{{ index }}</td>
                 <td>
-                  <span class="badge rounded-pill bg-primary" v-for="(agnets,version) in pipPkg" :key="version">
+                  <span class="badge rounded-pill bg-primary" v-for="(agents,version) in pipPkg" :key="version">
                     {{ version }}
                   </span>
               </td>
@@ -45,6 +45,25 @@
     methods:{
         async fillPipPackages(){
             this.pipPackagesData = await getAllPipPackagesFormatted();
+
+            // Make Pip Packages Table as DataTable
+            $(document).ready(() => {
+                $('#allPipPackagesTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250, -1],
+                    [25, 50, 100, 250, 'All']
+                ],
+                order: [ 0, 'asc' ]
+                });
+                // Style length Menu
+                const pageEntrySize = document.getElementById('allPipPackagesTable_length');
+                pageEntrySize.style = "float:left";
+                const pageInfoText = document.getElementById('allPipPackagesTable_info');
+                pageInfoText.style = "float:left";
+            });
         }
     }
   }
