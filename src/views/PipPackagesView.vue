@@ -9,9 +9,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="pipPkg in pipPackages">
-                <td>{{ pipPkg.name }}</td>
-                <td>{{ pipPkg.version }}</td>
+            <tr v-for="(pipPkg, index) in pipPackagesData" :key="index">
+                <td>{{ index }}</td>
+                <td>
+                  <span class="badge rounded-pill bg-primary" v-for="(agnets,version) in pipPkg" :key="version">
+                    {{ version }}
+                  </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -23,7 +27,7 @@
   // @ is an alias to /src
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
-  import { getAllPipPackages } from '@/utils/requestUtils';
+  import { getAllPipPackagesFormatted } from '@/utils/requestUtils';
   
   export default {
     name: 'PipPackagesView',
@@ -32,20 +36,15 @@
     },
     data(){
         return{
-            pipPackagesData: {},
-            pipPackages: []
+            pipPackagesData: {}
         }
     },
     mounted(){
-        this.fillInstalledApps();
+        this.fillPipPackages();
     },
     methods:{
-        async fillInstalledApps(){
-            this.pipPackagesData = await getAllPipPackages();
-
-            for(const agentPipPackages of this.pipPackagesData){
-              this.pipPackages = this.pipPackages.concat(agentPipPackages.pip_packages)
-            }
+        async fillPipPackages(){
+            this.pipPackagesData = await getAllPipPackagesFormatted();
         }
     }
   }
