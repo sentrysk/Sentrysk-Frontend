@@ -12,10 +12,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(pipPkg, index) in pipPackagesData" :key="index">
-                  <td>{{ index }}</td>
+              <tr v-for="(versions, packageName) in pipPackagesData" :key="packageName">
                   <td>
-                    <span class="badge rounded-pill bg-primary" v-for="(agents,version) in pipPkg" :key="version">
+                    <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#pipPackageDetailsModal" @click="setModalAttributes(packageName, versions)">
+                      {{ packageName }}
+                    </a>
+                  </td>
+                  <td>
+                    <span class="badge bg-primary" v-for="(agent, version) in versions" :key="version">
                       {{ version }}
                     </span>
                 </td>
@@ -25,7 +29,7 @@
         </div>
       </div>
     </div>
-    
+    <PipPackageDetailsModal :packageName="selectedPackageName" :versions="selectedVersions"></PipPackageDetailsModal>
 </template>
   
 <script>
@@ -33,15 +37,20 @@
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
   import { getAllPipPackagesFormatted } from '@/utils/requestUtils';
+  import PipPackageDetailsModal from '@/components/PipPackageDetailsModal.vue';
   
   export default {
     name: 'PipPackagesView',
     components: {
       Navbar,
+      PipPackageDetailsModal
     },
     data(){
         return{
-            pipPackagesData: {}
+            pipPackagesData: {},
+            isModalOpen: false,
+            selectedPackageName: '',
+            selectedVersions: []
         }
     },
     mounted(){
@@ -69,6 +78,10 @@
                 const pageInfoText = document.getElementById('allPipPackagesTable_info');
                 pageInfoText.style = "float:left";
             });
+        },
+        setModalAttributes(packageName, versions) {
+          this.selectedPackageName = packageName;
+          this.selectedVersions = versions;
         }
     }
   }
