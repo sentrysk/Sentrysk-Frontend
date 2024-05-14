@@ -1,24 +1,29 @@
 <template>
     <Navbar /> <!-- Include the Navbar component here -->
     <div class="container">
-        <table class="table table-striped table-bordered table-hover" id="allInstalledAppsTable">
-          <thead>
-            <tr>
-              <th>App Name</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(installedApp, index) in installedAppsData" :key="index">
-                <td>{{ index }}</td>
-                <td>
-                  <span class="badge rounded-pill bg-primary" v-for="(agents,version) in installedApp" :key="version">
-                    {{ version }}
-                  </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"><strong><i class="bi bi-code-square"></i> Apps</strong></h4>
+          <table class="table table-striped table-bordered table-hover" id="allInstalledAppsTable">
+            <thead class="table-primary">
+              <tr>
+                <th>App Name</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(installedApp, index) in installedAppsData" :key="index">
+                  <td>{{ index }}</td>
+                  <td>
+                    <span class="badge rounded-pill bg-primary" v-for="(agents,version) in installedApp" :key="version">
+                      {{ version }}
+                    </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     
 </template>
@@ -70,6 +75,26 @@
 </script>
 
 <style>
-
+  .container {
+    margin-top: 20px;
+  }
+  
+  .table thead th {
+    background-color: #007bff; /* Blue header background color */
+    color: white;
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Alternate row background color */
+  }
+  
+  .table tbody tr:hover {
+    background-color: #dcdcdc; /* Hover row background color */
+  }
+  
+  .table td,
+  .table th {
+    vertical-align: middle;
+  }
 </style>
   
