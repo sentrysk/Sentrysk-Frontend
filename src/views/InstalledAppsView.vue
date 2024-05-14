@@ -12,7 +12,7 @@
             <tr v-for="(installedApp, index) in installedAppsData" :key="index">
                 <td>{{ index }}</td>
                 <td>
-                  <span class="badge rounded-pill bg-primary" v-for="(agnets,version) in installedApp" :key="version">
+                  <span class="badge rounded-pill bg-primary" v-for="(agents,version) in installedApp" :key="version">
                     {{ version }}
                   </span>
               </td>
@@ -45,6 +45,25 @@
     methods:{
         async fillInstalledApps(){
             this.installedAppsData = await getAllInstalledAppsFormatted();
+
+            // Make Installed Apps Table as DataTable
+            $(document).ready(() => {
+                $('#allInstalledAppsTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250],
+                    [25, 50, 100, 250]
+                ],
+                order: [ 0, 'asc' ]
+                });
+                // Style length Menu
+                const pageEntrySize = document.getElementById('allInstalledAppsTable_length');
+                pageEntrySize.style = "float:left";
+                const pageInfoText = document.getElementById('allInstalledAppsTable_info');
+                pageInfoText.style = "float:left";
+            });
         }
     }
   }
