@@ -12,10 +12,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(installedApp, index) in installedAppsData" :key="index">
-                  <td>{{ index }}</td>
+              <tr v-for="(versions, appName) in installedAppsData" :key="appName">
                   <td>
-                    <span class="badge rounded-pill bg-primary" v-for="(agents,version) in installedApp" :key="version">
+                    <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#installedAppDetailsModal" @click="setModalAttributes(appName, versions)">
+                      {{ appName }}
+                    </a>
+                  </td>
+                  <td>
+                    <span class="badge bg-primary" v-for="(agents,version) in versions" :key="version">
                       {{ version }}
                     </span>
                 </td>
@@ -25,7 +29,7 @@
         </div>
       </div>
     </div>
-    
+    <InstalledAppDetailsModal :appName="selectedAppName" :versions="selectedVersions"></InstalledAppDetailsModal>
 </template>
   
 <script>
@@ -33,15 +37,19 @@
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
   import { getAllInstalledAppsFormatted } from '@/utils/requestUtils';
+  import InstalledAppDetailsModal from '@/components/InstalledAppDetailsModal.vue'
   
   export default {
     name: 'InstalledAppsView',
     components: {
       Navbar,
+      InstalledAppDetailsModal
     },
     data(){
         return{
-            installedAppsData: {}
+            installedAppsData: {},
+            selectedAppName: '',
+            selectedVersions: []
         }
     },
     mounted(){
@@ -69,6 +77,10 @@
                 const pageInfoText = document.getElementById('allInstalledAppsTable_info');
                 pageInfoText.style = "float:left";
             });
+        },
+        setModalAttributes(appName, versions) {
+          this.selectedAppName = appName;
+          this.selectedVersions = versions;
         }
     }
   }
