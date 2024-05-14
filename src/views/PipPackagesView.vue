@@ -48,7 +48,6 @@
     data(){
         return{
             pipPackagesData: {},
-            isModalOpen: false,
             selectedPackageName: '',
             selectedVersions: []
         }
