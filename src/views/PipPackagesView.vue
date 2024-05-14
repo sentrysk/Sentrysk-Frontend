@@ -1,24 +1,29 @@
 <template>
     <Navbar /> <!-- Include the Navbar component here -->
     <div class="container">
-        <table class="table table-striped table-bordered table-hover" id="allPipPackagesTable">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(pipPkg, index) in pipPackagesData" :key="index">
-                <td>{{ index }}</td>
-                <td>
-                  <span class="badge rounded-pill bg-primary" v-for="(agents,version) in pipPkg" :key="version">
-                    {{ version }}
-                  </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-brands fa-python"></i> Pip Packages </h5>
+          <table class="table table-striped table-bordered table-hover" id="allPipPackagesTable">
+            <thead class="table-primary">
+              <tr>
+                <th>Name</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(pipPkg, index) in pipPackagesData" :key="index">
+                  <td>{{ index }}</td>
+                  <td>
+                    <span class="badge rounded-pill bg-primary" v-for="(agents,version) in pipPkg" :key="version">
+                      {{ version }}
+                    </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     
 </template>
@@ -53,8 +58,8 @@
                 lengthChange: true,
                 pageLength: 25,
                 lengthMenu: [
-                    [25, 50, 100, 250, -1],
-                    [25, 50, 100, 250, 'All']
+                    [25, 50, 100, 250],
+                    [25, 50, 100, 250]
                 ],
                 order: [ 0, 'asc' ]
                 });
@@ -70,6 +75,26 @@
 </script>
 
 <style>
-
+  .container {
+    margin-top: 20px;
+  }
+  
+  .table thead th {
+    background-color: #007bff; /* Blue header background color */
+    color: white;
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Alternate row background color */
+  }
+  
+  .table tbody tr:hover {
+    background-color: #dcdcdc; /* Hover row background color */
+  }
+  
+  .table td,
+  .table th {
+    vertical-align: middle;
+  }
 </style>
   
