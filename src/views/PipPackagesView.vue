@@ -3,7 +3,7 @@
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title"><i class="fa-brands fa-python"></i> Pip Packages </h5>
+          <h4 class="card-title"><strong><i class="fa-brands fa-python"></i> Pip Packages</strong></h4>
           <table class="table table-striped table-bordered table-hover" id="allPipPackagesTable">
             <thead class="table-primary">
               <tr>
