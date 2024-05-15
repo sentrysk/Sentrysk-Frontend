@@ -14,7 +14,7 @@
             <tbody>
               <tr v-for="(versions, packageName) in npmPackagesData" :key="packageName">
                   <td>
-                    <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#npmPackageDetailsModal">
+                    <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#npmPackageDetailsModal" @click="setModalAttributes(packageName, versions)">
                       {{ packageName }}
                     </a>
                   </td>
@@ -29,6 +29,7 @@
         </div>
       </div>
     </div>
+    <NpmPackagesDetailsModal :npmPackageName="selectedNpmPackageName" :versions="selectedVersions"></NpmPackagesDetailsModal>
 </template>
   
 <script>
@@ -36,15 +37,19 @@
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
   import { getAllNpmPackagesFormatted } from '@/utils/requestUtils';
+  import NpmPackagesDetailsModal from '@/components/NpmPackagesDetailsModal.vue';
   
   export default {
     name: 'PipPackagesView',
     components: {
-      Navbar
+      Navbar,
+      NpmPackagesDetailsModal
     },
     data(){
         return{
-            npmPackagesData: {}
+            npmPackagesData: {},
+            selectedNpmPackageName: '',
+            selectedVersions: []
         }
     },
     mounted(){
@@ -72,7 +77,10 @@
                 const pageInfoText = document.getElementById('allNpmPackagesTable_info');
                 pageInfoText.style = "float:left";
             });
-
+        },
+        setModalAttributes(npmPackageName, versions) {
+          this.selectedNpmPackageName = npmPackageName;
+          this.selectedVersions = versions;
         }
     }
   }
