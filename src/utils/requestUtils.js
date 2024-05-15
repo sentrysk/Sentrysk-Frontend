@@ -120,7 +120,7 @@ export async function getAllInstalledApps(){
     }
 }
 
-// Retrive All System Apps
+// Retrive All System Apps Formatted
 export async function getAllInstalledAppsFormatted(){
     try {
         // Retrieve JWT token from session storage
@@ -222,7 +222,7 @@ export async function getAllPipPackages(){
     }
 }
 
-// Retrive All Pip Packages Formatter
+// Retrive All Pip Packages Formatted
 export async function getAllPipPackagesFormatted(){
     try {
         // Retrieve JWT token from session storage
@@ -270,6 +270,23 @@ export async function getPipPackagesChangeLog(pipPkgsId){
         return changelog.data
     } catch (error) {
         console.error('Error fetching System Apps Changelog:', error);
+    }
+}
+
+// Retrive All Npm Packages Formatted
+export async function getAllNpmPackagesFormatted(){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + NPM_PKGS_EP + FRMTD_DP
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching Npm Packages:', error);
     }
 }
 
