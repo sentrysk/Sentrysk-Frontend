@@ -20,9 +20,7 @@
                                 <td>{{ version }}</td>
                                 <td>
                                     <tr v-for="agent in agents">
-                                        <router-link :to="{ name: 'agentData', params: { id:agent } }">
-                                            {{ agent }} 
-                                        </router-link>
+                                        <a href="#" @click.prevent="goToDetails(agent)" data-bs-dismiss="modal">{{ agent }}</a>
                                     </tr>
                                 </td>
                             </tr>
@@ -42,8 +40,9 @@
     name: 'InstalledAppDetailsModal',
     props: ['appName', 'versions'],
     methods: {
-      close() {
-        this.$emit('close');
+      goToDetails(id) {
+        // Navigate to the dynamic route /agents/:id
+        this.$router.push({ name: 'agentData', params: { id: id } });
       }
     }
   };
