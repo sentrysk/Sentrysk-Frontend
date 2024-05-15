@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(versions, packageName) in pipPackagesData" :key="packageName">
+              <tr v-for="(versions, packageName) in npmPackagesData" :key="packageName">
                   <td>
                     <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#npmPackageDetailsModal">
                       {{ packageName }}
@@ -53,6 +53,25 @@
     methods:{
         async fillNpmPackages(){
             this.npmPackagesData = await getAllNpmPackagesFormatted();
+
+            // Make Npm Packages Table as DataTable
+            $(document).ready(() => {
+                $('#allNpmPackagesTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 25,
+                lengthMenu: [
+                    [25, 50, 100, 250],
+                    [25, 50, 100, 250]
+                ],
+                order: [ 0, 'asc' ]
+                });
+                // Style length Menu
+                const pageEntrySize = document.getElementById('allNpmPackagesTable_length');
+                pageEntrySize.style = "float:left";
+                const pageInfoText = document.getElementById('allNpmPackagesTable_info');
+                pageInfoText.style = "float:left";
+            });
 
         }
     }
