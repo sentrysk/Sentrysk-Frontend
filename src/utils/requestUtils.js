@@ -273,6 +273,23 @@ export async function getPipPackagesChangeLog(pipPkgsId){
     }
 }
 
+// Retrive All Npm Packages
+export async function getAllNpmPackages(){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + NPM_PKGS_EP;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching Npm Packages:', error);
+    }
+}
+
 // Retrive All Npm Packages Formatted
 export async function getAllNpmPackagesFormatted(){
     try {
