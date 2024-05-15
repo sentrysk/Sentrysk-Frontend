@@ -1,12 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import DashboardLastLoginsView from '@/views/DashboardLastLoginsView'
-import LoginPage from '../components/LoginPage.vue'
-import RegisterPage from '../components/RegisterPage.vue'
-import AgentsView from '../views/AgentsView'
-import AgentSystemData from '../views/AgentSystemData'
-import InstalledAppsView from '../views/InstalledAppsView'
-import PipPackagesView from '../views/PipPackagesView'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import DashboardLastLoginsView from '@/views/DashboardLastLoginsView';
+import LoginPage from '../components/LoginPage.vue';
+import RegisterPage from '../components/RegisterPage.vue';
+import AgentsView from '../views/AgentsView';
+import AgentSystemData from '../views/AgentSystemData';
+import InstalledAppsView from '../views/InstalledAppsView';
+import PipPackagesView from '../views/PipPackagesView';
+import NpmPackagesView from '../views/NpmPackagesView';
 import axios from "axios";
 
 const routes = [
@@ -54,6 +55,12 @@ const routes = [
     path:'/pippackages',
     name:'PipPackages',
     component: PipPackagesView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/npmpackages',
+    name:'NpmPackages',
+    component: NpmPackagesView,
     meta: { requiresAuth: true }
   },
   {
