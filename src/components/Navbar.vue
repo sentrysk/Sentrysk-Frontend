@@ -30,6 +30,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/pippackages"><i class="fa-brands fa-python"></i> Pip Packages</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/npmpackages"><i class="fa-brands fa-npm"></i> Npm Packages</router-link>
+            </li>
           </ul>
           <div class="dropdown d-flex">
             <button
