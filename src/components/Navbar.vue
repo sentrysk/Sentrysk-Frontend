@@ -41,22 +41,21 @@
               </ul>
             </li>
           </ul>
-          <div class="dropdown d-flex">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="userDropdown"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-            <i class="bi bi-person-circle"></i> <!-- Replace with the user's name or username -->
-            </button>
-            <div class="dropdown-menu" aria-labelledby="userDropdown">
-              <li><router-link class="dropdown-item" to="/user/lastlogins"><i class="bi bi-people"></i> Last Logins</router-link></li>
-              <li><button class="dropdown-item" @click="logout"><i class="bi bi-box-arrow-in-right"></i> Logout</button></li>
-            </div>
-          </div>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> Username
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <router-link class="nav-link dropdown-item" to="/user/lastlogins"><i class="bi bi-people"></i> Last Logins</router-link>
+                </li>
+                <li>
+                  <a href="#" class="nav-link dropdown-item" @click.prevent="logout"><i class="bi bi-box-arrow-in-right"></i> Logout</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
