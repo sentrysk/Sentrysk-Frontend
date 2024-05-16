@@ -24,14 +24,21 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/agents"><i class="bi bi-cpu"></i> Agents</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/apps"><i class="bi bi-code-square"></i> Apps</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/pippackages"><i class="fa-brands fa-python"></i> Pip Packages</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/npmpackages"><i class="fa-brands fa-npm"></i> Npm Packages</router-link>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-code-slash"></i> Software Packages
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <router-link class="nav-link dropdown-item" to="/apps"><i class="bi bi-code-square"></i> Apps</router-link>
+                </li>
+                <li>
+                  <router-link class="nav-link dropdown-item" to="/pippackages"><i class="fa-brands fa-python"></i> Pip Packages</router-link>
+                </li>
+                <li>
+                  <router-link class="nav-link dropdown-item" to="/npmpackages"><i class="fa-brands fa-npm"></i> Npm Packages</router-link>
+                </li>
+              </ul>
             </li>
           </ul>
           <div class="dropdown d-flex">
