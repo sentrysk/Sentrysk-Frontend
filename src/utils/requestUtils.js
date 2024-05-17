@@ -2,6 +2,8 @@ import axios from 'axios';
 
 // Global Variables
 const API_URL  =  "http://localhost:8000"
+const USER_EP = "/user/"
+const USER_DETAILS_EP = "details"
 const SESSIONS_EP = "/session"
 const MY_LOGINS_EP = SESSIONS_EP + "/prev_sessions"
 const SYS_INFO_EP = "/sysinfo/"
@@ -423,5 +425,21 @@ export async function getAgentStatistics(agentId){
         return agentStats.data
     } catch (error) {
         console.error('Error fetching Agent Statistics:', error);
+    }
+}
+
+// Retrive Agent Statistics
+export async function getLoggedUserInfo(jwtToken){
+    try {
+        // Retrieve JWT token from session storage
+        const URL = API_URL + USER_EP + USER_DETAILS_EP;
+        const userInfo = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return userInfo
+    } catch (error) {
+        console.error('Error fetching Logged User Info:', error);
     }
 }
