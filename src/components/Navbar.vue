@@ -86,6 +86,8 @@
             // Clear the JWT token and session expiration from sessionStorage
             sessionStorage.removeItem("jwtToken");
             sessionStorage.removeItem("tokenExpiration");
+            sessionStorage.removeItem("email");
+            sessionStorage.removeItem("name");
   
             // Show a logout success message with SweetAlert
             Swal.fire({
