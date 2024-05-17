@@ -44,7 +44,7 @@
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-circle"></i> Username
+                <i class="bi bi-person-circle"></i> {{ userName }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
@@ -68,6 +68,11 @@
   export default {
     // ... Your other component options
     name: 'Navbar',
+    data() {
+      return {
+        userName: sessionStorage.getItem("name") || ''
+      };
+    },
     methods: {
       async logout() {
         // Get the JWT token from sessionStorage
