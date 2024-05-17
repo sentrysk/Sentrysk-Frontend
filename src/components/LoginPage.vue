@@ -43,6 +43,7 @@
 <script>
   import axios from "axios";
   import Swal from "sweetalert2"; // Import SweetAlert2
+  import { getLoggedUserInfo } from '@/utils/requestUtils';
 
   
   export default {
@@ -71,14 +72,20 @@
           const jwtPayload = JSON.parse(atob(token.split(".")[1]));
           const expirationTime = new Date(jwtPayload.exp * 1000);
           sessionStorage.setItem("tokenExpiration", expirationTime);
-          
+
           // Show a success message with SweetAlert
           Swal.fire({
             icon: "success",
             title: "Success!",
             text: "Login successful.",
           });
-
+          
+          // Get Logged User Info from jwtToken
+          const currentUserInfo = await getLoggedUserInfo(token);
+          // Set Session Storage Items
+          sessionStorage.setItem("email", currentUserInfo.data.email);
+          sessionStorage.setItem("name", currentUserInfo.data.name);
+          
           // Redirect to another page or perform other actions as needed
           // For example, you can use Vue Router to navigate to a different page
           this.$router.push("/");
