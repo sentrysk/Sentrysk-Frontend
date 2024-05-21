@@ -8,6 +8,7 @@ import AgentSystemData from '../views/AgentSystemData';
 import InstalledAppsView from '../views/InstalledAppsView';
 import PipPackagesView from '../views/PipPackagesView';
 import NpmPackagesView from '../views/NpmPackagesView';
+import MyProfileView from '../views/MyProfileView.vue';
 import axios from "axios";
 
 const routes = [
@@ -61,6 +62,12 @@ const routes = [
     path:'/npmpackages',
     name:'NpmPackages',
     component: NpmPackagesView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/user/myprofile',
+    name:'MyProfile',
+    component: MyProfileView,
     meta: { requiresAuth: true }
   },
   {
