@@ -2,8 +2,24 @@
     <Navbar /> <!-- Include the Navbar component here -->
     <div class="container">
         <div class="card">
+          <div class="card-header bg-dark text-white">
+            <h1 class="text-center">
+              My profile
+            </h1>
+          </div>
             <div class="card-body">
-
+              <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" id="myName" class="form-control" placeholder="Name" disabled/>
+              </div>
+              <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" id="myEmail" class="form-control" placeholder="Email" disabled/>
+              </div>
+              <div class="mb-3 input-group">
+                <span class="input-group-text"><i class="bi bi-calendar-week"></i></span>
+                <input type="text" id="myCreated" class="form-control" placeholder="Created" disabled/>
+              </div>
             </div>
         </div>
     </div>
@@ -32,7 +48,16 @@
     },
     methods:{
         async fillLoggedUserInfo(){
-            const loggedUserData = await getLoggedUserInfo();
+            const loggedUserData = await getLoggedUserInfo(sessionStorage.getItem('jwtToken'));
+
+            this.name = loggedUserData.data.name;
+            this.lastname = loggedUserData.data.lastname;
+            this.email = loggedUserData.data.email;
+            this.created = loggedUserData.data.created;
+
+            document.getElementById('myName').value = this.name + " " + this.lastname;
+            document.getElementById('myEmail').value = this.email;
+            document.getElementById('myCreated').value = this.created;
         }
     }
   }
