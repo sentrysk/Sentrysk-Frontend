@@ -48,6 +48,9 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
+                  <router-link class="nav-link dropdown-item" to="/user/myprofile"><i class="bi bi-person-lines-fill"></i> My Profile</router-link>
+                </li>
+                <li>
                   <router-link class="nav-link dropdown-item" to="/user/lastlogins"><i class="bi bi-people"></i> Last Logins</router-link>
                 </li>
                 <li>
