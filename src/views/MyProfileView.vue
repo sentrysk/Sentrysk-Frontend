@@ -28,6 +28,7 @@
   
 <script>
   import Navbar from '@/components/Navbar.vue';
+  import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   import { getLoggedUserInfo } from '@/utils/requestUtils';
   
   export default {
@@ -55,9 +56,13 @@
             this.email = loggedUserData.data.email;
             this.created = loggedUserData.data.created;
 
+            // Set Local Create Time and Time Diff
+            this.localCreateTime = formatToLocalTime(this.created);
+            this.timeDiff = calculateDatetimeDifference(this.created);
+
             document.getElementById('myName').value = this.name + " " + this.lastname;
             document.getElementById('myEmail').value = this.email;
-            document.getElementById('myCreated').value = this.created;
+            document.getElementById('myCreated').value = this.localCreateTime + " (" + this.timeDiff + ")";
         }
     }
   }
