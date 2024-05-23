@@ -8,7 +8,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input
+                        :type="showPassword ? 'text' : 'Current Password'"
+                        v-model="current_password"
+                        class="form-control"
+                        placeholder="Current Password"
+                        required
+                        />
+                        <button type="button" class="btn btn-outline-secondary" @click="togglePasswordVisibility">
+                        <i :class="['bi', showPassword ? 'bi-eye-slash' : 'bi-eye']"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input
+                        :type="showPassword ? 'text' : 'New Password'"
+                        v-model="new_password"
+                        class="form-control"
+                        placeholder="New Password"
+                        required
+                        />
+                        <button type="button" class="btn btn-outline-secondary" @click="togglePasswordVisibility">
+                        <i :class="['bi', showPassword ? 'bi-eye-slash' : 'bi-eye']"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input
+                        :type="showPassword ? 'text' : 'New Password Repeat'"
+                        v-model="new_password_repeat"
+                        class="form-control"
+                        placeholder="New Password Repeat"
+                        required
+                        />
+                        <button type="button" class="btn btn-outline-secondary" @click="togglePasswordVisibility">
+                        <i :class="['bi', showPassword ? 'bi-eye-slash' : 'bi-eye']"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
