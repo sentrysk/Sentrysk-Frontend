@@ -83,7 +83,49 @@ export default {
     },
   methods:  {
     async updatePassword(){
-        console.log(this.currentPassword,this.newPassword,this.newPasswordRepeat)
+        const passwordData = {
+            current_password: this.currentPassword,
+            new_password: this.newPassword,
+            new_password_repeat: this.newPasswordRepeat
+        };
+
+        // Check if newPassword and newPasswordRepeat same
+        if(this.newPassword != this.newPasswordRepeat){
+            Swal.fire({
+                icon: 'error',
+                title: 'Passwords not match',
+                text: 'New Password and Repeat does not match',
+            });
+            return; // End this function
+        }
+
+        try {
+          const API_URL = "http://localhost:8000/user/updatepass"
+          const response = await axios.post(API_URL, passwordData, {
+            headers: {
+                Authorization: sessionStorage.getItem('jwtToken')
+            }
+          });
+  
+          if (response.status === 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Password Update Successful',
+              text: 'Your password has been updated successfully.',
+            });
+  
+            this.$router.push('/login');
+          }
+        } catch (error) {
+          // Handle registration error (e.g., show an error message)
+          Swal.fire({
+            icon: 'error',
+            title: 'Password Update Failed',
+            text: 'An error occurred during password update. Please try again later.',
+          });
+  
+          console.error('Password Update Failed:', error);
+        }
     },
     toggleCurrentPasswordVisibility() {
         this.showCurrentPassword = !this.showCurrentPassword;
