@@ -82,6 +82,50 @@ export default {
       };
     },
   methods:  {
+    async logout() {
+        // Get the JWT token from sessionStorage
+        const jwtToken = sessionStorage.getItem("jwtToken");
+  
+        if (jwtToken) {
+          try {
+            const API_URL = "http://localhost:8000/user/logout"
+            // Send a POST request to the logout endpoint with Authorization header
+            await axios.post(API_URL, null, {
+              headers: {
+                Authorization: jwtToken,
+              },
+            });
+  
+            // Clear the JWT token and session expiration from sessionStorage
+            sessionStorage.removeItem("jwtToken");
+            sessionStorage.removeItem("tokenExpiration");
+            sessionStorage.removeItem("email");
+            sessionStorage.removeItem("name");
+  
+            // Show a logout success message with SweetAlert
+            Swal.fire({
+              icon: "success",
+              title: "Logged out",
+              text: "You have been successfully logged out.",
+            });
+  
+            // Redirect to the login page
+            this.$router.push("/login"); // You can change "/login" to the actual login route
+          } catch (error) {
+            console.error("Logout failed:", error);
+  
+            // Handle logout error and show an error message with SweetAlert
+            Swal.fire({
+              icon: "error",
+              title: "Logout error",
+              text: "An error occurred during the logout process.",
+            });
+          }
+        } else {
+          // User is not authenticated (no JWT token), redirect to the login page
+          this.$router.push("/login"); // You can change "/login" to the actual login route
+        }
+    },
     async updatePassword(){
         const passwordData = {
             current_password: this.currentPassword,
@@ -113,7 +157,8 @@ export default {
               title: 'Password Update Successful',
               text: 'Your password has been updated successfully.',
             });
-            this.$router.push('/login');
+            
+            this.logout(); // Call Logout function to logout
           }
         } catch (error) {
           // Handle registration error (e.g., show an error message)
