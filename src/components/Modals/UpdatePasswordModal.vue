@@ -56,7 +56,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Update</button>
                 </div>
             </div>
             </form>
@@ -156,9 +156,9 @@ export default {
               icon: 'success',
               title: 'Password Update Successful',
               text: 'Your password has been updated successfully.',
+            }).then((result) => {
+                this.logout(); // Call Logout function to logout
             });
-            
-            this.logout(); // Call Logout function to logout
           }
         } catch (error) {
           // Handle registration error (e.g., show an error message)
