@@ -113,7 +113,6 @@ export default {
               title: 'Password Update Successful',
               text: 'Your password has been updated successfully.',
             });
-  
             this.$router.push('/login');
           }
         } catch (error) {
@@ -123,7 +122,6 @@ export default {
             title: 'Password Update Failed',
             text: 'An error occurred during password update. Please try again later.',
           });
-  
           console.error('Password Update Failed:', error);
         }
     },
