@@ -18,6 +18,7 @@
                                     v-model="currentPassword"
                                     class="form-control"
                                     placeholder="Password"
+                                    autocomplete="off"
                                     required
                                 />
                                 <button type="button" class="btn btn-outline-secondary" @click="toggleCurrentPasswordVisibility">
@@ -31,6 +32,7 @@
                                     v-model="newPassword"
                                     class="form-control"
                                     placeholder="Password"
+                                    autocomplete="off"
                                     required
                                 />
                                 <button type="button" class="btn btn-outline-secondary" @click="toggleNewPasswordVisibility">
@@ -44,6 +46,7 @@
                                     v-model="newPasswordRepeat"
                                     class="form-control"
                                     placeholder="Password"
+                                    autocomplete="off"
                                     required
                                 />
                                 <button type="button" class="btn btn-outline-secondary" @click="toggleNewPasswordRepeatVisibility">
