@@ -21,13 +21,19 @@
                 <input type="text" id="myCreated" class="form-control" placeholder="Created" disabled/>
               </div>
             </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-warning btn-sm d-flex" data-bs-toggle="modal" data-bs-target="#updatePasswordModal">
+                <i class="bi bi-lock"></i> Update Password
+            </button>
+            </div>
         </div>
     </div>
-    
+    <UpdatePasswordModal></UpdatePasswordModal>
 </template>
   
 <script>
   import Navbar from '@/components/Navbar.vue';
+  import UpdatePasswordModal from '@/components/Modals/UpdatePasswordModal.vue';
   import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   import { getLoggedUserInfo } from '@/utils/requestUtils';
   
@@ -35,6 +41,7 @@
     name: 'DashboardLastLoginsView',
     components: {
       Navbar,
+      UpdatePasswordModal
     },
     data(){
         return{
