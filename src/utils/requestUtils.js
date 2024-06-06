@@ -19,6 +19,8 @@ const NPM_PKGS_EP = "/npmpkgs/"
 const AGNT_PG_STS_EP = INF_DT_EP + "/agent/"
 const DCKR_INF_EP = "/dockerinfo/"
 const FRMTD_DP = "formatted"
+const AGNT_EP = "/agent/"
+const AGNT_CFG_EP = AGNT_EP + "config/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
@@ -374,6 +376,23 @@ export async function getDockerInfoChangeLog(dockerInfoId){
         return changelog.data
     } catch (error) {
         console.error('Error fetching Docker Info Changelog:', error);
+    }
+}
+
+// Retrive Agent Configs by Agent ID
+export async function getAgentConfigByAgentId(agentId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + AGNT_CFG_EP + AGNT_EP + agentId.toString();
+        const agentConfig = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return agentConfig.data
+    } catch (error) {
+        console.error('Error fetching Agent Config:', error);
     }
 }
 
