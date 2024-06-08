@@ -90,6 +90,10 @@
             <div class="tab-pane fade" id="dockerInfo" role="tabpanel" aria-labelledby="dockerInfoTab">
                 <DockerInfoTab></DockerInfoTab>
             </div>
+            <!-- Agent Config Tab -->
+            <div class="tab-pane fade" id="agentConfig" role="tabpanel" aria-labelledby="agentConfigTab">
+                <AgentConfigTab></AgentConfigTab>
+            </div>
         </div>
 
     </div>
@@ -104,6 +108,7 @@
     import PipPackagesTab from '../components/Tabs/PipPackagesTab.vue';
     import NpmPackagesTab from '../components/Tabs/NpmPackagesTab.vue';
     import DockerInfoTab from '@/components/Tabs/DockerInfoTab.vue';
+    import AgentConfigTab from '@/components/Tabs/AgentConfigTab.vue';
 
     import { getAgentStatistics } from '../utils/requestUtils';
     
@@ -116,7 +121,8 @@
         SystemServicesTab,
         PipPackagesTab,
         NpmPackagesTab,
-        DockerInfoTab
+        DockerInfoTab,
+        AgentConfigTab
       },
       data(){
             return{
