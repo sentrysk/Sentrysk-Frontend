@@ -384,7 +384,7 @@ export async function getAgentConfigByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
         const jwtToken = sessionStorage.getItem('jwtToken');
-        const URL = API_URL + AGNT_CFG_EP + AGNT_EP + agentId.toString();
+        const URL = API_URL + AGNT_CFG_EP + "agent/" + agentId.toString();
         const agentConfig = await axios.get(URL, {
             headers: {
                 Authorization: jwtToken,
