@@ -57,6 +57,11 @@
                 <i class="fa-brands fa-docker"></i> Docker
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="agentConfigTab" data-bs-toggle="tab" data-bs-target="#agentConfig" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="bi bi-gear-fill"></i> Agent Config
+            </button>
+        </li>
       </ul>
 
         <!-- Tab Contents-->
