@@ -15,54 +15,72 @@
     <div class="tab-content" id="agentConfigTabContent">
         <div class="tab-pane fade show active" id="agentConfigDiv" role="tabpanel" aria-labelledby="agentConfigTab">
           <div class="container mt-5" v-if="Object.keys(agentConfig).length">
-          <h1 class="mb-4">Agent Information</h1>
-          <div class="card mb-3">
-            <div class="card-header">Agent Details</div>
-            <div class="card-body">
-              <p><strong>Agent ID:</strong> {{ agentConfig.agent }}</p>
-              <p><strong>Updated:</strong> {{ agentConfig.updated }}</p>
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+                <div class="card">
+                  <div class="card-header section-title">Directories</div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label"><strong>Home Directory:</strong></label>
+                      <input type="text" class="form-control" v-model="agentConfig.dirs.home_dir" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label"><strong>Log File:</strong></label>
+                      <input type="text" class="form-control" v-model="agentConfig.dirs.logfile" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="card">
+                  <div class="card-header section-title">API Information</div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label"><strong>Agent Token:</strong></label>
+                      <input type="text" class="form-control" v-model="agentConfig.api.agent_token" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label"><strong>Base URL:</strong></label>
+                      <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="card">
+                  <div class="card-header section-title">Endpoints</div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item" v-for="(value, key) in agentConfig.api.endpoints" :key="key">
+                        <label class="form-label"><strong>{{ key }}:</strong></label>
+                        <input type="text" class="form-control" v-model="agentConfig.api.endpoints[key]" disabled>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="card">
+                  <div class="card-header section-title">Scheduled Jobs</div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item" v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
+                        <label class="form-label"><strong>{{ key }}:</strong></label>
+                        <input type="text" class="form-control" :value="formatScheduledJob(job)" disabled>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="card mb-3">
-            <div class="card-header">API Information</div>
-            <div class="card-body">
-              <p><strong>Agent Token:</strong> {{ agentConfig.api.agent_token }}</p>
-              <p><strong>Base URL:</strong> {{ agentConfig.api.base_url }}</p>
-              <h5 class="mt-3">Endpoints</h5>
-              <ul>
-                <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
-                  <strong>{{ key }}:</strong> {{ value }}
-                </li>
-              </ul>
-            </div>
+          <div v-else class="container mt-5">
+            <h2>Loading...</h2>
           </div>
-
-          <div class="card mb-3">
-            <div class="card-header">Directories</div>
-            <div class="card-body">
-              <p><strong>Home Directory:</strong> {{ agentConfig.dirs.home_dir }}</p>
-              <p><strong>Log File:</strong> {{ agentConfig.dirs.logfile }}</p>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="card-header">Scheduled Jobs</div>
-            <div class="card-body">
-              <ul>
-                <li v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
-                  <strong>{{ key }}:</strong> {{ job.interval ? job.interval + ' ' + job.unit : job.time }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div v-else class="container mt-5">
-          <h2>Loading...</h2>
-        </div>
-            <table class="table table-striped table-bordered table-sm table-hover nowrap"  id="agentConfigTable">
-
-            </table>
         </div>
     </div>
 
@@ -110,13 +128,28 @@
             console.error(error);
           }
         },
+        formatScheduledJob(job) {
+          return job.interval ? `${job.interval} ${job.unit}` : job.time;
+        }
       },
     };
 </script>
 
 <style>
-.sysAppsActionIcons{
-  font-size: 2em;
-  max-width: 4rem;
-}
+  .list-group-item {
+    border: none;
+    padding-left: 0;
+  }
+  .form-control[disabled] {
+    background-color: #f8f9fa;
+    opacity: 1;
+  }
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .card-body {
+    padding: 1rem;
+  }
 </style>
