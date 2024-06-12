@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="card-header"><i class="fa-brands fa-python"></i> Pip Packages</div>
                 <div class="card-body">
-                    <p class="card-text">{{ pipPackagesCount }}</p>
+                    <router-link class="nav-link" to="/pippackages"><p class="card-text">{{ pipPackagesCount }}</p></router-link>
                 </div>
             </div>
         </div>
