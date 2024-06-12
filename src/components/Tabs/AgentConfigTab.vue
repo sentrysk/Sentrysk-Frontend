@@ -5,14 +5,29 @@
         <i class="fa-solid fa-gear"></i> Agent Config
       </button>
     </li>
-    <li class="nav-item">
-      <span :title=localUpdateTime><i class="bi bi-arrow-clockwise"></i>Last Update : {{ timeDiff }}</span>
-    </li>
   </ul>
 
   <div class="tab-content" id="agentConfigTabContent">
     <div class="tab-pane fade show active" id="agentConfigDiv" role="tabpanel" aria-labelledby="agentConfigTab">
-      <div class="config-page">
+      <div v-if="loading">
+        <div class="loading-content">
+          <i class="fas fa-spinner fa-spin fa-3x"></i>
+          <h2>Loading...</h2>
+        </div>
+      </div>
+
+      <div v-else-if="error">
+        <div class="error-content">
+          <i class="fas fa-exclamation-triangle fa-3x"></i>
+          <h2>Error loading data. Please try again later.</h2>
+        </div>
+      </div>
+
+      <div v-else-if="!hasData">
+        <NothingToShowComponent />
+      </div>
+
+      <div v-else class="config-page" >
         <div class="sidebar">
           <ul class="nav flex-column">
             <li class="nav-item" v-for="section in sections" :key="section.id">
@@ -29,75 +44,55 @@
         </div>
 
         <div class="content">
-          <div v-if="loading">
-            <div class="loading-content">
-              <i class="fas fa-spinner fa-spin fa-3x"></i>
-              <h2>Loading...</h2>
+          <div v-if="activeSection === 'agentDetails'" class="config-details-content">
+            <div class="form-group">
+              <label>Agent ID</label>
+              <input type="text" class="form-control" v-model="agentConfig.agent" disabled>
+            </div>
+            <div class="form-group">
+              <label>Updated</label>
+              <input type="text" class="form-control" :title="localUpdateTime" v-model="timeDiff" disabled>
             </div>
           </div>
 
-          <div v-else-if="error">
-            <div class="error-content">
-              <i class="fas fa-exclamation-triangle fa-3x"></i>
-              <h2>Error loading data. Please try again later.</h2>
+          <div v-if="activeSection === 'apiInformation'" class="config-details-content">
+            <div class="form-group">
+              <label>Agent Token</label>
+              <input type="text" class="form-control" v-model="agentConfig.api.agent_token" disabled>
+            </div>
+            <div class="form-group">
+              <label>Base URL</label>
+              <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
             </div>
           </div>
 
-          <div v-else-if="!hasData">
-            <NothingToShowComponent />
+          <div v-if="activeSection === 'endpoints'" class="config-details-content">
+            <ul class="list-unstyled">
+              <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
+                <label>{{ key }}</label>
+                <input type="text" class="form-control" v-model="agentConfig.api.endpoints[key]" disabled>
+              </li>
+            </ul>
           </div>
 
-          <div v-else>
-            <div v-if="activeSection === 'agentDetails'" class="config-details-content">
-              <div class="form-group">
-                <label>Agent ID</label>
-                <input type="text" class="form-control" v-model="agentConfig.agent" disabled>
-              </div>
-              <div class="form-group">
-                <label>Updated</label>
-                <input type="text" class="form-control" v-model="agentConfig.updated" disabled>
-              </div>
+          <div v-if="activeSection === 'directories'" class="config-details-content">
+            <div class="form-group">
+              <label>Home Directory</label>
+              <input type="text" class="form-control" v-model="agentConfig.dirs.home_dir" disabled>
             </div>
+            <div class="form-group">
+              <label>Log File</label>
+              <input type="text" class="form-control" v-model="agentConfig.dirs.logfile" disabled>
+            </div>
+          </div>
 
-            <div v-if="activeSection === 'apiInformation'" class="config-details-content">
-              <div class="form-group">
-                <label>Agent Token</label>
-                <input type="text" class="form-control" v-model="agentConfig.api.agent_token" disabled>
-              </div>
-              <div class="form-group">
-                <label>Base URL</label>
-                <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
-              </div>
-            </div>
-
-            <div v-if="activeSection === 'endpoints'" class="config-details-content">
-              <ul class="list-unstyled">
-                <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
-                  <label>{{ key }}</label>
-                  <input type="text" class="form-control" v-model="agentConfig.api.endpoints[key]" disabled>
-                </li>
-              </ul>
-            </div>
-
-            <div v-if="activeSection === 'directories'" class="config-details-content">
-              <div class="form-group">
-                <label>Home Directory</label>
-                <input type="text" class="form-control" v-model="agentConfig.dirs.home_dir" disabled>
-              </div>
-              <div class="form-group">
-                <label>Log File</label>
-                <input type="text" class="form-control" v-model="agentConfig.dirs.logfile" disabled>
-              </div>
-            </div>
-
-            <div v-if="activeSection === 'scheduledJobs'" class="config-details-content">
-              <ul class="list-unstyled">
-                <li v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
-                  <label>{{ key }}</label>
-                  <input type="text" class="form-control" :value="formatScheduledJob(job)" disabled>
-                </li>
-              </ul>
-            </div>
+          <div v-if="activeSection === 'scheduledJobs'" class="config-details-content">
+            <ul class="list-unstyled">
+              <li v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
+                <label>{{ key }}</label>
+                <input type="text" class="form-control" :value="formatScheduledJob(job)" disabled>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
