@@ -7,11 +7,6 @@
     </li>
   </ul>
 
-  <!-- Last Update -->
-  <div class="row">
-    <span :title="localUpdateTime">Last Update : {{ timeDiff }}</span>
-  </div>
-
   <div class="tab-content" id="agentConfigTabContent">
     <div class="tab-pane fade show active" id="agentConfigDiv" role="tabpanel" aria-labelledby="agentConfigTab">
       <div class="container mt-5">
@@ -28,6 +23,11 @@
         </div>
 
         <div v-else>
+          <!-- Last Update -->
+          <div class="row">
+            <span :title="localUpdateTime">Last Update : {{ timeDiff }}</span>
+          </div>
+          
           <div class="row">
             <div class="col-md-6 mb-3">
               <div class="card">
