@@ -68,7 +68,9 @@
                 <label>Base URL</label>
                 <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
               </div>
-              <h5>Endpoints</h5>
+            </div>
+
+            <div v-if="activeSection === 'endpoints'" class="config-details-content">
               <ul class="list-unstyled">
                 <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
                   <label>{{ key }}</label>
@@ -124,6 +126,7 @@
         sections: [
           { id: 'agentDetails', title: 'Agent Details', icon: 'fas fa-user' },
           { id: 'apiInformation', title: 'API Information', icon: 'fas fa-info-circle' },
+          { id: 'endpoints', title: 'API Endpoints', icon: 'fa-solid fa-code' },
           { id: 'directories', title: 'Directories', icon: 'fas fa-folder' },
           { id: 'scheduledJobs', title: 'Scheduled Jobs', icon: 'fas fa-clock' },
         ],
