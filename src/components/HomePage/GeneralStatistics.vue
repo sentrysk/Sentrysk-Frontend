@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-header"><i class="fa-brands fa-js"></i> Npm Packages</div>
                 <div class="card-body">
-                    <p class="card-text">{{ npmPackagesCount }}</p>
+                    <router-link class="nav-link" to="/npmpackages"><p class="card-text">{{ npmPackagesCount }}</p></router-link>
                 </div>
             </div>
         </div>
