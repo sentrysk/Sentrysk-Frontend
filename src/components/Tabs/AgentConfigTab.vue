@@ -9,93 +9,93 @@
 
   <div class="tab-content" id="agentConfigTabContent">
     <div class="tab-pane fade show active" id="agentConfigDiv" role="tabpanel" aria-labelledby="agentConfigTab">
-      <div class="container mt-5">
-        <div v-if="loading">
-          <h2>Loading...</h2>
+      <div class="config-page">
+        <div class="sidebar">
+          <ul class="nav flex-column">
+            <li class="nav-item" v-for="section in sections" :key="section.id">
+              <a
+                class="nav-link"
+                :class="{ active: activeSection === section.id }"
+                @click="setActiveSection(section.id)"
+                href="#"
+              >
+                <i :class="section.icon"></i> {{ section.title }}
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <div v-else-if="error">
-          <h2>Error loading data. Please try again later.</h2>
-        </div>
-
-        <div v-else-if="!hasData">
-          <NothingToShowComponent />
-        </div>
-
-        <div v-else>
-          <!-- Last Update -->
-          <div class="row">
-            <span :title="localUpdateTime">Last Update : {{ timeDiff }}</span>
+        <div class="content">
+          <div v-if="loading">
+            <div class="loading-content">
+              <i class="fas fa-spinner fa-spin fa-3x"></i>
+              <h2>Loading...</h2>
+            </div>
           </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <div class="card">
-                <div class="card-header section-title">Agent Details</div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Agent ID:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.agent" disabled>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Updated:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.updated" disabled>
-                  </div>
-                </div>
+
+          <div v-else-if="error">
+            <div class="error-content">
+              <i class="fas fa-exclamation-triangle fa-3x"></i>
+              <h2>Error loading data. Please try again later.</h2>
+            </div>
+          </div>
+
+          <div v-else-if="!hasData">
+            <NothingToShowComponent />
+          </div>
+
+          <div v-else>
+            <div v-if="activeSection === 'agentDetails'">
+              <h2>Agent Details</h2>
+              <div>
+                <label><strong>Agent ID:</strong></label>
+                <p>{{ agentConfig.agent }}</p>
+              </div>
+              <div>
+                <label><strong>Updated:</strong></label>
+                <p>{{ agentConfig.updated }}</p>
               </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-              <div class="card">
-                <div class="card-header section-title">API Information</div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Agent Token:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.api.agent_token" disabled>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Base URL:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
-                  </div>
-                  <h5 class="mt-3">Endpoints</h5>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="(value, key) in agentConfig.api.endpoints" :key="key">
-                      <label class="form-label"><strong>{{ key }}:</strong></label>
-                      <input type="text" class="form-control" v-model="agentConfig.api.endpoints[key]" disabled>
-                    </li>
-                  </ul>
-                </div>
+            <div v-if="activeSection === 'apiInformation'">
+              <h2>API Information</h2>
+              <div>
+                <label><strong>Agent Token:</strong></label>
+                <p>{{ agentConfig.api.agent_token }}</p>
+              </div>
+              <div>
+                <label><strong>Base URL:</strong></label>
+                <p>{{ agentConfig.api.base_url }}</p>
+              </div>
+              <h5>Endpoints</h5>
+              <ul>
+                <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
+                  <label><strong>{{ key }}:</strong></label>
+                  <p>{{ value }}</p>
+                </li>
+              </ul>
+            </div>
+
+            <div v-if="activeSection === 'directories'">
+              <h2>Directories</h2>
+              <div>
+                <label><strong>Home Directory:</strong></label>
+                <p>{{ agentConfig.dirs.home_dir }}</p>
+              </div>
+              <div>
+                <label><strong>Log File:</strong></label>
+                <p>{{ agentConfig.dirs.logfile }}</p>
               </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-              <div class="card">
-                <div class="card-header section-title">Directories</div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Home Directory:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.dirs.home_dir" disabled>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label"><strong>Log File:</strong></label>
-                    <input type="text" class="form-control" v-model="agentConfig.dirs.logfile" disabled>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <div class="card">
-                <div class="card-header section-title">Scheduled Jobs</div>
-                <div class="card-body">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
-                      <label class="form-label"><strong>{{ key }}:</strong></label>
-                      <input type="text" class="form-control" :value="formatScheduledJob(job)" disabled>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <div v-if="activeSection === 'scheduledJobs'">
+              <h2>Scheduled Jobs</h2>
+              <ul>
+                <li v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
+                  <label><strong>{{ key }}:</strong></label>
+                  <p>{{ formatScheduledJob(job) }}</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -121,6 +121,13 @@
         error: false,
         localUpdateTime: "",
         timeDiff: "",
+        activeSection: 'agentDetails',
+        sections: [
+          { id: 'agentDetails', title: 'Agent Details', icon: 'fas fa-user' },
+          { id: 'apiInformation', title: 'API Information', icon: 'fas fa-info-circle' },
+          { id: 'directories', title: 'Directories', icon: 'fas fa-folder' },
+          { id: 'scheduledJobs', title: 'Scheduled Jobs', icon: 'fas fa-clock' },
+        ],
       };
     },
     async created() {
@@ -147,6 +154,9 @@
       }
     },
     methods: {
+      setActiveSection(section) {
+        this.activeSection = section;
+      },
       formatScheduledJob(job) {
         return job?.interval ? `${job.interval} ${job.unit}` : job?.time || '';
       }
@@ -155,20 +165,60 @@
 </script>
 
 <style>
-  .list-group-item {
-    border: none;
-    padding-left: 0;
-  }
-  .form-control[disabled] {
-    background-color: #f8f9fa;
-    opacity: 1;
-  }
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  .card-body {
-    padding: 1rem;
-  }
+.config-page {
+  display: flex;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2b2e4a;
+  padding: 20px;
+  border-right: 1px solid #e6e6e6;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.nav-link {
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-link.active {
+  background-color: #3e426a;
+  color: #ffffff;
+}
+
+.nav-link i {
+  margin-right: 10px;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.loading-content,
+.error-content {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+h2 {
+  color: #2b2e4a;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  color: #51568a;
+  margin-bottom: 1rem;
+}
 </style>
