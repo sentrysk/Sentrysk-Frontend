@@ -24,7 +24,7 @@
         </div>
 
         <div v-else-if="!hasData">
-          <h2>Nothing to show</h2>
+          <NothingToShowComponent />
         </div>
 
         <div v-else>
@@ -107,9 +107,13 @@
 <script>
   import { getAgentConfigByAgentId } from '../../utils/requestUtils';
   import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
+  import NothingToShowComponent from '@/components/NothingToShowComponent';
 
   export default {
     name: 'agentConfigTab',
+    components: {
+      NothingToShowComponent,  // Register the component
+    },
     data() {
       return {
         agentConfig: null,
