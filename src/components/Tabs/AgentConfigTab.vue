@@ -5,6 +5,9 @@
         <i class="fa-solid fa-gear"></i> Agent Config
       </button>
     </li>
+    <li class="nav-item">
+      <span :title=localUpdateTime><i class="bi bi-arrow-clockwise"></i>Last Update : {{ timeDiff }}</span>
+    </li>
   </ul>
 
   <div class="tab-content" id="agentConfigTabContent">
@@ -14,7 +17,7 @@
           <ul class="nav flex-column">
             <li class="nav-item" v-for="section in sections" :key="section.id">
               <a
-                class="nav-link"
+                class="nav-link sidebar-link"
                 :class="{ active: activeSection === section.id }"
                 @click="setActiveSection(section.id)"
                 href="#"
@@ -45,55 +48,51 @@
           </div>
 
           <div v-else>
-            <div v-if="activeSection === 'agentDetails'">
-              <h2>Agent Details</h2>
-              <div>
-                <label><strong>Agent ID:</strong></label>
-                <p>{{ agentConfig.agent }}</p>
+            <div v-if="activeSection === 'agentDetails'" class="config-details-content">
+              <div class="form-group">
+                <label>Agent ID</label>
+                <input type="text" class="form-control" v-model="agentConfig.agent" disabled>
               </div>
-              <div>
-                <label><strong>Updated:</strong></label>
-                <p>{{ agentConfig.updated }}</p>
+              <div class="form-group">
+                <label>Updated</label>
+                <input type="text" class="form-control" v-model="agentConfig.updated" disabled>
               </div>
             </div>
 
-            <div v-if="activeSection === 'apiInformation'">
-              <h2>API Information</h2>
-              <div>
-                <label><strong>Agent Token:</strong></label>
-                <p>{{ agentConfig.api.agent_token }}</p>
+            <div v-if="activeSection === 'apiInformation'" class="config-details-content">
+              <div class="form-group">
+                <label>Agent Token</label>
+                <input type="text" class="form-control" v-model="agentConfig.api.agent_token" disabled>
               </div>
-              <div>
-                <label><strong>Base URL:</strong></label>
-                <p>{{ agentConfig.api.base_url }}</p>
+              <div class="form-group">
+                <label>Base URL</label>
+                <input type="text" class="form-control" v-model="agentConfig.api.base_url" disabled>
               </div>
               <h5>Endpoints</h5>
-              <ul>
+              <ul class="list-unstyled">
                 <li v-for="(value, key) in agentConfig.api.endpoints" :key="key">
-                  <label><strong>{{ key }}:</strong></label>
-                  <p>{{ value }}</p>
+                  <label>{{ key }}</label>
+                  <input type="text" class="form-control" v-model="agentConfig.api.endpoints[key]" disabled>
                 </li>
               </ul>
             </div>
 
-            <div v-if="activeSection === 'directories'">
-              <h2>Directories</h2>
-              <div>
-                <label><strong>Home Directory:</strong></label>
-                <p>{{ agentConfig.dirs.home_dir }}</p>
+            <div v-if="activeSection === 'directories'" class="config-details-content">
+              <div class="form-group">
+                <label>Home Directory</label>
+                <input type="text" class="form-control" v-model="agentConfig.dirs.home_dir" disabled>
               </div>
-              <div>
-                <label><strong>Log File:</strong></label>
-                <p>{{ agentConfig.dirs.logfile }}</p>
+              <div class="form-group">
+                <label>Log File</label>
+                <input type="text" class="form-control" v-model="agentConfig.dirs.logfile" disabled>
               </div>
             </div>
 
-            <div v-if="activeSection === 'scheduledJobs'">
-              <h2>Scheduled Jobs</h2>
-              <ul>
+            <div v-if="activeSection === 'scheduledJobs'" class="config-details-content">
+              <ul class="list-unstyled">
                 <li v-for="(job, key) in agentConfig.scheduled_jobs" :key="key">
-                  <label><strong>{{ key }}:</strong></label>
-                  <p>{{ formatScheduledJob(job) }}</p>
+                  <label>{{ key }}</label>
+                  <input type="text" class="form-control" :value="formatScheduledJob(job)" disabled>
                 </li>
               </ul>
             </div>
@@ -168,57 +167,85 @@
 .config-page {
   display: flex;
   height: 100vh;
-  background-color: #f8f9fa;
-}
-
-.sidebar {
-  width: 250px;
-  background-color: #2b2e4a;
-  padding: 20px;
-  border-right: 1px solid #e6e6e6;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.nav-link {
-  color: #ffffff;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.nav-link.active {
-  background-color: #3e426a;
-  color: #ffffff;
-}
-
-.nav-link i {
-  margin-right: 10px;
-}
-
-.content {
-  margin-left: 250px;
-  padding: 20px;
-  overflow-y: auto;
-  height: 100%;
   background-color: #ffffff;
 }
 
-.loading-content,
-.error-content {
+.config-page .sidebar {
+  width: 200px;
+  margin-top: 2rem;
+  height: 100%;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.config-page .nav-link.sidebar-link{
+  color: #b9c4cc;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.config-page .nav-link.sidebar-link i {
+  margin-right: 10px;
+}
+
+.config-page .nav-link.sidebar-link.active {
+  color: #0d6efd;
+}
+
+.config-page .content {
+  margin-left: 140px;
+  padding: 20px;
+  width: 40%;
+}
+
+.config-page .config-details-content{
+  text-align: left;
+}
+
+.config-page .config-details-content label{
+  text-align: left;
+  font-weight: 300;
+}
+
+.config-page .loading-content,
+.config-page .error-content {
   text-align: center;
   margin-top: 2rem;
 }
 
-h2 {
+.config-page h2 {
   color: #2b2e4a;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-p {
-  font-size: 1rem;
+.config-page p, .config-page input.form-control {
+  font-size: 0.9rem;
   color: #51568a;
   margin-bottom: 1rem;
+  max-width: 20rem;
+}
+
+.config-page .form-group {
+  margin-bottom: 1rem;
+}
+
+.config-page label {
+  font-weight: 600;
+  color: #b9c4cc;
+}
+
+.config-page input.form-control {
+  font-size: 0.9rem;
+  padding: 0.4rem;
+  text-align: left;
+}
+
+.config-page .list-unstyled {
+  padding-left: 0;
+  list-style: none;
 }
 </style>
