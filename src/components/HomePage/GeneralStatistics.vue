@@ -18,17 +18,17 @@
         </div>
         <div class="col-sm-auto">
             <div class="card">
-                <div class="card-header"><i class="bi bi-window"></i> Total Installed Apps</div>
+                <div class="card-header"><i class="bi bi-code-square"></i> Total Services </div>
                 <div class="card-body">
-                    <p class="card-text">{{ installedAppsCount }}</p>
+                    <p class="card-text">{{ servicesCount }}</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-auto">
             <div class="card">
-                <div class="card-header"><i class="bi bi-code-square"></i> Total Services </div>
+                <div class="card-header"><i class="bi bi-window"></i> Total Installed Apps</div>
                 <div class="card-body">
-                    <p class="card-text">{{ servicesCount }}</p>
+                    <router-link class="nav-link" to="/apps"><p class="card-text">{{ installedAppsCount }}</p></router-link>
                 </div>
             </div>
         </div>
