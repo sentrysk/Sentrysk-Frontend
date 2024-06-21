@@ -113,6 +113,7 @@
                     </div>
                 </div>
             </div>
+            <DiskUsageChart></DiskUsageChart>
         </div>
        
         <!-- Network Interfaces Tab -->
@@ -229,6 +230,7 @@
     import $ from "jquery";
     import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
     import { getSystemInformation, getSysInfoChangeLog } from '../../utils/requestUtils';
+    import DiskUsageChart from '@/components/Tabs/SystemInfoSubTabs/DiskUsageChart.vue';
     
     export default {
       name: 'SystemInformationTab',
@@ -239,6 +241,9 @@
           localUpdateTime: "",
           timeDiff: "",
         };
+      },
+      components:{
+        DiskUsageChart
       },
       mounted() {
         this.fillSystemInformation();
