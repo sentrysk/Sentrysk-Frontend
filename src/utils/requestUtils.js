@@ -21,6 +21,7 @@ const DCKR_INF_EP = "/dockerinfo/"
 const FRMTD_DP = "formatted"
 const AGNT_EP = "/agent/"
 const AGNT_CFG_EP = AGNT_EP + "config/"
+const DISK_USG_EP = "/diskusage/"
 
 // Retrive System Information
 export async function getSystemInformation(agentId){
@@ -461,4 +462,14 @@ export async function getLoggedUserInfo(jwtToken){
     } catch (error) {
         console.error('Error fetching Logged User Info:', error);
     }
+}
+
+export async function getDiskUsageData(agentId) {
+    try {
+        const response = await axios.get(`http://localhost:8000/diskusage/${agentId}`);
+        const data = response.data;
+        return data
+      } catch (error) {
+        console.error('Error fetching disk usage data:', error);
+      }
 }
