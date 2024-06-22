@@ -20,7 +20,6 @@ export default {
   name: 'DiskUsageChart',
   data() {
     return {
-      agentId: this.$route.params.id,
       disks: {},
     };
   },
@@ -31,7 +30,9 @@ export default {
   methods: {
     async fetchDiskUsageData() {
       try {
-        const response = await getDiskUsageData(this.agentId);
+        // Get the ID from the URL
+        const agentId = this.$route.params.id;
+        const response = await getDiskUsageData(agentId);
         this.processDiskUsageData(response);
       } catch (error) {
         console.error('Error fetching disk usage data:', error);
