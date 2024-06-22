@@ -14,6 +14,7 @@
 <script>
 import axios from 'axios';
 import Chart from 'chart.js/auto';
+import { getDiskUsageData } from '@/utils/requestUtils';
 
 export default {
   name: 'DiskUsageChart',
@@ -30,9 +31,8 @@ export default {
   methods: {
     async fetchDiskUsageData() {
       try {
-        const response = await axios.get(`http://localhost:8000/diskusage/${this.agentId}`);
-        const data = response.data;
-        this.processDiskUsageData(data);
+        const response = await getDiskUsageData(this.agentId);
+        this.processDiskUsageData(response);
       } catch (error) {
         console.error('Error fetching disk usage data:', error);
       }
