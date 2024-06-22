@@ -466,7 +466,8 @@ export async function getLoggedUserInfo(jwtToken){
 
 export async function getDiskUsageData(agentId) {
     try {
-        const response = await axios.get(`http://localhost:8000/diskusage/${agentId}`);
+        const URL = API_URL + DISK_USG_EP + agentId.toString();
+        const response = await axios.get(URL);
         const data = response.data;
         return data
       } catch (error) {
