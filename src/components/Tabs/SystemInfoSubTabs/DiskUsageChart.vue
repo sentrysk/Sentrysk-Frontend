@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Chart from 'chart.js/auto';
 import { getDiskUsageData } from '@/utils/requestUtils';
+import 'chartjs-adapter-date-fns';  // Import the date adapter
 
 export default {
   name: 'DiskUsageChart',
@@ -71,31 +71,27 @@ export default {
           },
           options: {
             responsive: true,
-            title: {
-              display: true,
-              text: `Disk Usage Over Time for ${device}`,
+            plugins: {
+              title: {
+                display: true,
+                text: `Disk Usage Over Time for ${device}`,
+              }
             },
             scales: {
-              xAxes: [{
+              x: {
                 type: 'time',
-                time: {
-                  unit: 'day',
-                },
-                scaleLabel: {
+                title: {
                   display: true,
-                  labelString: 'Date',
-                },
-              }],
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Size (GB)',
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: maxSize,  // Set the max value to the total disk space
-                },
-              }],
+                  text: 'Date'
+                }
+              },
+              y: {
+                  title: {
+                    display: true,
+                    text: 'Size (GB)'
+                  },
+                  suggestedMax: maxSize,  // Set the max value to the total disk space
+              },
             },
             tooltips: {
               callbacks: {
