@@ -80,17 +80,20 @@ export default {
             scales: {
               x: {
                 type: 'time',
+                time: {
+                  unit: 'day',
+                },
                 title: {
                   display: true,
                   text: 'Date'
-                }
+                },
               },
               y: {
                   title: {
                     display: true,
                     text: 'Size (GB)'
                   },
-                  suggestedMax: maxSize,  // Set the max value to the total disk space
+                  max: maxSize,  // Set the max value to the total disk space
               },
             },
             tooltips: {
