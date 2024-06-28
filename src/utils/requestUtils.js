@@ -479,3 +479,19 @@ export async function getDiskUsageData(agentId) {
     console.error('Error fetching disk usage data:', error);
     }
 }
+
+export async function getAllUsers() {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + USER_EP;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching all users data:', error);
+    }
+}
