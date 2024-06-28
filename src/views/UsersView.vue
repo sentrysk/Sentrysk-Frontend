@@ -59,7 +59,10 @@
             // Retrieve Agent Config
             this.users = await getAllUsers();
 
-
+            // Set User Created Time to Local Time
+            for(let user of this.users){
+                user.created = formatToLocalTime(user.created)
+            }
 
             // Make table to Data Table
             $(document).ready(() => {
