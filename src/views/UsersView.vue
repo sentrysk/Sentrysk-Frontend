@@ -37,7 +37,10 @@
   <script>
     import Navbar from '../components/Navbar.vue'
     import { getAllUsers } from '@/utils/requestUtils';
+    import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
     import $ from "jquery";
+    import moment from 'moment';
+
 
     export default {
       components: {
@@ -56,8 +59,23 @@
             // Retrieve Agent Config
             this.users = await getAllUsers();
 
+
+
             // Make table to Data Table
             $(document).ready(() => {
+                // Custom sorting plugin for DataTables
+                $.extend($.fn.dataTable.ext.type.order, {
+                    "date-gmt-pre": function (d) {
+                        return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                    },
+                    "date-gmt-asc": function (a, b) {
+                        return a - b;
+                    },
+                    "date-gmt-desc": function (a, b) {
+                        return b - a;
+                    }
+                });
+              
                 $('#usersTable').DataTable({
                     responsive: true,
                     searching: true,
@@ -68,6 +86,12 @@
                         [ 10, 25, 50, 100 ],
                         [ 10, 25, 50, 100 ]
                     ],
+                    columnDefs: [
+                        {
+                            targets: 3, // Adjust the column index to date column
+                            type: 'date-gmt'
+                        }
+                    ]
                 });
                 // Style length Menu
                 const pageEntrySize = document.getElementById('usersTable_length')
