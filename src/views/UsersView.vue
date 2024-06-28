@@ -37,7 +37,8 @@
   <script>
     import Navbar from '../components/Navbar.vue'
     import { getAllUsers } from '@/utils/requestUtils';
-    
+    import $ from "jquery";
+
     export default {
       components: {
         Navbar, // Declare Navbar as a component
@@ -54,6 +55,24 @@
         async getAgents() {
             // Retrieve Agent Config
             this.users = await getAllUsers();
+
+            // Make table to Data Table
+            $(document).ready(() => {
+                $('#usersTable').DataTable({
+                    responsive: true,
+                    searching: true,
+                    lengthChange: true,
+                    pageLength: 10,
+                    order: [[3, 'desc']],
+                    lengthMenu: [
+                        [ 10, 25, 50, 100 ],
+                        [ 10, 25, 50, 100 ]
+                    ],
+                });
+                // Style length Menu
+                const pageEntrySize = document.getElementById('usersTable_length')
+                pageEntrySize.style = "margin-right:100%"
+            });
         },
       },
     };
