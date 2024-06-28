@@ -9,6 +9,7 @@ import InstalledAppsView from '../views/InstalledAppsView';
 import PipPackagesView from '../views/PipPackagesView';
 import NpmPackagesView from '../views/NpmPackagesView';
 import MyProfileView from '../views/MyProfileView.vue';
+import UsersView from '@/views/UsersView.vue';
 import axios from "axios";
 
 const routes = [
@@ -29,6 +30,24 @@ const routes = [
     component: RegisterPage
   },
   {
+    path:'/user/myprofile',
+    name:'MyProfile',
+    component: MyProfileView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/user/lastlogins',
+    name:'lastLogins',
+    component: DashboardLastLoginsView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: UsersView,
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/agents',
     name: 'agents',
     component: AgentsView,
@@ -38,12 +57,6 @@ const routes = [
     path: '/agents/:id',
     name: 'agentData',
     component: AgentSystemData,
-    meta: { requiresAuth: true }
-  },
-  {
-    path:'/user/lastlogins',
-    name:'lastLogins',
-    component: DashboardLastLoginsView,
     meta: { requiresAuth: true }
   },
   {
@@ -62,12 +75,6 @@ const routes = [
     path:'/npmpackages',
     name:'NpmPackages',
     component: NpmPackagesView,
-    meta: { requiresAuth: true }
-  },
-  {
-    path:'/user/myprofile',
-    name:'MyProfile',
-    component: MyProfileView,
     meta: { requiresAuth: true }
   },
   {
