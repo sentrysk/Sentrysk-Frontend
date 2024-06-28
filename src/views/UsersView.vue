@@ -37,7 +37,7 @@
   <script>
     import Navbar from '../components/Navbar.vue'
     import { getAllUsers } from '@/utils/requestUtils';
-    import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
+    import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
     import $ from "jquery";
     import moment from 'moment';
 
