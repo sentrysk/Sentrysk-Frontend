@@ -4,19 +4,23 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" id="usersTable">
         <thead>
             <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>email</th>
-            <th>created</th>
+            <th>Actions</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created Date</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(user, index) in users" :key="user.id">
                 <td>
-                   <b>{{ user.id }}</b>
+                    <router-link class="navbar-brand" :to="'/users/'+user.id">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </router-link>
                 </td>
                 <td>
-                    {{ user.name + user.lastname }}
+                    {{ user.name + " " + user.lastname }}
                 </td>
                 <td>
                     {{ user.email }}
