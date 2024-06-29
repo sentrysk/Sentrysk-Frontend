@@ -29,6 +29,7 @@
     import $ from "jquery";
     import { getSystemUsersLastLogons } from '../../../utils/requestUtils';
     import { formatToLocalTime, calculateDatetimeDifference } from '../../../utils/timeUtils';
+    import moment from 'moment';
 
     export default {
         name: 'LastLogonsTab',
@@ -57,17 +58,30 @@
                     // Set Time Diff
                     this.timeDiff = calculateDatetimeDifference(this.systemUsersLastLogons.updated);
 
+                    // Set Last Login Time to Local Time
+                    for(let userLogin of this.systemUsersLastLogons.last_logons){
+                        userLogin.last_logon = formatToLocalTime(userLogin.last_logon)
+                    }
+
                     // Make Users Last Logons Table as DataTable
                     $(document).ready(() => {
+
+
                         $('#sysUsersLastLogonsTable').DataTable({
-                        searching: true,
-                        lengthChange: true,
-                        pageLength: 25,
-                        lengthMenu: [
-                            [25, 50, 100, 250, -1],
-                            [25, 50, 100, 250, 'All']
-                        ],
-                        order: [ 1, 'desc' ]
+                            searching: true,
+                            lengthChange: true,
+                            pageLength: 25,
+                            order: [ 1, 'desc' ],
+                            lengthMenu: [
+                                [25, 50, 100, 250, -1],
+                                [25, 50, 100, 250, 'All']
+                            ],
+                            columnDefs: [
+                                {
+                                    targets: 1, // Adjust the column index to date column
+                                    type: 'date-gmt'
+                                }
+                            ]
                         }); 
                     });
 
