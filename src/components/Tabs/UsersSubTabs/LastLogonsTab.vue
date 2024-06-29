@@ -65,7 +65,18 @@
 
                     // Make Users Last Logons Table as DataTable
                     $(document).ready(() => {
-
+                        // Custom sorting plugin for DataTables
+                        $.extend($.fn.dataTable.ext.type.order, {
+                            "date-gmt-pre": function (d) {
+                                return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                            },
+                            "date-gmt-asc": function (a, b) {
+                                return a - b;
+                            },
+                            "date-gmt-desc": function (a, b) {
+                                return b - a;
+                            }
+                        });
 
                         $('#sysUsersLastLogonsTable').DataTable({
                             searching: true,
