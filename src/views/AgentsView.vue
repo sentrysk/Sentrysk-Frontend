@@ -96,6 +96,11 @@
           // Get Agents Data
           this.agents = await getAllAgents();
 
+          // Set Last Login Time to Local Time
+          for(let agent of this.agents){
+            agent.created = formatToLocalTime(agent.created)
+          }
+
           $(document).ready(() => {
             $('#agentsTable').DataTable({
               responsive: true,
