@@ -40,7 +40,7 @@
                   <i :class="['bi', agent.showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
                 </button>
               </td>
-              <td>{{ formatToLocalTime(agent.created) }}</td>
+              <td>{{ agent.created }}</td>
               <td>
                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateAgentModal" @click="setUpdateAttributes(agent.id,agent.token,agent.type)">
                   <i class="bi bi-plus-circle"></i> Update
@@ -67,6 +67,8 @@
   import Navbar from '../components/Navbar.vue'
   import AgentCreateModal from '@/components/AgentCreateModal.vue';
   import AgentUpdateModal from '@/components/AgentUpdateModal.vue';
+  import { formatToLocalTime } from '@/utils/timeUtils';
+  import { getAllAgents } from '@/utils/requestUtils';
   import $ from "jquery";
   
   export default {
@@ -84,24 +86,6 @@
       this.getAgents();
     },
     methods: {
-      formatToLocalTime(utcTime) {
-        // Create a Date object from the UTC time
-        const utcDate = new Date(utcTime);
-
-        // Format the date and time to the user's locale and timezone
-        const formattedTime = utcDate.toLocaleString(undefined, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          timeZoneName: 'short',
-          hour12: false,
-        });
-
-        return formattedTime;
-      },
       setUpdateAttributes(agentId,agentToken,selectedAgentType){
         document.getElementById('updateAgentId').value = agentId;
         document.getElementById('updateAgentToken').value = agentToken;
@@ -109,16 +93,9 @@
       },
       async getAgents() {
         try {
-          // Retrieve JWT token from session storage
-          const jwtToken = sessionStorage.getItem('jwtToken');
-          const API_URL  =  "http://localhost:8000/agent/"
-          const response = await axios.get(API_URL, {
-            headers: {
-              Authorization: jwtToken,
-            },
-          });
-  
-          this.agents = response.data;
+          // Get Agents Data
+          this.agents = await getAllAgents();
+
           $(document).ready(() => {
             $('#agentsTable').DataTable({
               responsive: true,
