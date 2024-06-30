@@ -70,6 +70,7 @@
   import { formatToLocalTime } from '@/utils/timeUtils';
   import { getAllAgents } from '@/utils/requestUtils';
   import $ from "jquery";
+  import moment from 'moment';
   
   export default {
     components: {
@@ -102,6 +103,19 @@
           }
 
           $(document).ready(() => {
+            // Custom sorting plugin for DataTables
+            $.extend($.fn.dataTable.ext.type.order, {
+                "date-gmt-pre": function (d) {
+                    return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                },
+                "date-gmt-asc": function (a, b) {
+                    return a - b;
+                },
+                "date-gmt-desc": function (a, b) {
+                    return b - a;
+                }
+            });
+
             $('#agentsTable').DataTable({
               responsive: true,
               searching: true,
@@ -112,6 +126,12 @@
                   [10, 25, 50, 100, -1],
                   [10, 25, 50, 100, 'All']
               ],
+              columnDefs: [
+                  {
+                      targets: 3, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+              ]
             });
             // Style length Menu
             const pageEntrySize = document.getElementById('agentsTable_length')
