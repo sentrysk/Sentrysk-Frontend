@@ -517,7 +517,7 @@ export async function deleteAgentByID(agentId) {
         // Retrieve JWT token from session storage
         const jwtToken = sessionStorage.getItem('jwtToken');
         const URL = API_URL + AGNT_EP + agentId.toString();
-        const response = await axios.get(URL, {
+        const response = await axios.delete(URL, {
             headers: {
                 Authorization: jwtToken,
             },
