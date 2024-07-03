@@ -68,7 +68,7 @@
   import AgentCreateModal from '@/components/AgentCreateModal.vue';
   import AgentUpdateModal from '@/components/AgentUpdateModal.vue';
   import { formatToLocalTime } from '@/utils/timeUtils';
-  import { getAllAgents } from '@/utils/requestUtils';
+  import { getAllAgents, deleteAgentByID } from '@/utils/requestUtils';
   import $ from "jquery";
   import moment from 'moment';
   
@@ -161,11 +161,7 @@
             const jwtToken = sessionStorage.getItem('jwtToken');
 
             // Send DELETE request to delete the agent by ID
-            await axios.delete(`http://localhost:8000/agent/${agentId}`, {
-              headers: {
-                Authorization: jwtToken,
-              },
-            });
+            await deleteAgentByID(agentId);
 
             // Show success message
             Swal.fire({
