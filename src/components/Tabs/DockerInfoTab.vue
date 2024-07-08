@@ -351,19 +351,36 @@
 
             // Set Docker Images Table as Data Table
             $('#dockerImagesTable').DataTable({
-                searching: true,
-                lengthChange: true,
-                pageLength: 25,
-                lengthMenu: [
-                    [25, 50, 100, 250, -1],
-                    [25, 50, 100, 250, 'All']
-                ],
-              });
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+            });
             // Style length Menu
-            const pageEntrySize = document.getElementById('dockerImagesTable_length');
-            pageEntrySize.style = "margin-right:100%";
-            const pageInfoText = document.getElementById('dockerImagesTable_info');
-            pageInfoText.style = "float:left";
+            const imgPageEntrySize = document.getElementById('dockerImagesTable_length');
+            imgPageEntrySize.style = "margin-right:100%";
+            const imgPageInfoText = document.getElementById('dockerImagesTable_info');
+            imgPageInfoText.style = "float:left";
+            
+            // Set Docker Images Table as Data Table
+            $('#dockerContainersTable').DataTable({
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+            });
+            // Style length Menu
+            const containerPageEntrySize = document.getElementById('dockerContainersTable_length');
+            containerPageEntrySize.style = "margin-right:100%";
+            const containerPageInfoText = document.getElementById('dockerContainersTable_info');
+            containerPageInfoText.style = "float:left";
+            
 
           } catch (error) {
             // If any error occurs, set properties
