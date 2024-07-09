@@ -365,7 +365,7 @@
             const imgPageInfoText = document.getElementById('dockerImagesTable_info');
             imgPageInfoText.style = "float:left";
             
-            // Set Docker Images Table as Data Table
+            // Set Docker Containers Table as Data Table
             $('#dockerContainersTable').DataTable({
               searching: true,
               lengthChange: true,
@@ -381,6 +381,22 @@
             const containerPageInfoText = document.getElementById('dockerContainersTable_info');
             containerPageInfoText.style = "float:left";
             
+            // Set Docker Volumes Table as Data Table
+            $('#dockerVolumesTable').DataTable({
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+            });
+            // Style length Menu
+            const volumePageEntrySize = document.getElementById('dockerVolumesTable_length');
+            volumePageEntrySize.style = "margin-right:100%";
+            const volumePageInfoText = document.getElementById('dockerVolumesTable_info');
+            volumePageInfoText.style = "float:left";
+
 
           } catch (error) {
             // If any error occurs, set properties
