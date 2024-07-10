@@ -397,6 +397,21 @@
             const volumePageInfoText = document.getElementById('dockerVolumesTable_info');
             volumePageInfoText.style = "float:left";
 
+            // Set Docker Networks Table as Data Table
+            $('#dockerNetworksTable').DataTable({
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+            });
+            // Style length Menu
+            const networkPageEntrySize = document.getElementById('dockerNetworksTable_length');
+            networkPageEntrySize.style = "margin-right:100%";
+            const networkPageInfoText = document.getElementById('dockerNetworksTable_info');
+            networkPageInfoText.style = "float:left";
 
           } catch (error) {
             // If any error occurs, set properties
