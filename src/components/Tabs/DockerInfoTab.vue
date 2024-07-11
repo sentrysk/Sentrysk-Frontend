@@ -281,6 +281,7 @@
 
 
 <script>
+    import $ from "jquery";
     import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
     import { getDockerInfoByAgentId, getDockerInfoChangeLog } from '../../utils/requestUtils'
 
@@ -349,69 +350,71 @@
               dockerNetwork.created = formatToLocalTime(dockerNetwork.created)
             }
 
-            // Set Docker Images Table as Data Table
-            $('#dockerImagesTable').DataTable({
-              searching: true,
-              lengthChange: true,
-              pageLength: 25,
-              lengthMenu: [
-                  [25, 50, 100, 250, -1],
-                  [25, 50, 100, 250, 'All']
-              ],
-            });
-            // Style length Menu
-            const imgPageEntrySize = document.getElementById('dockerImagesTable_length');
-            imgPageEntrySize.style = "margin-right:100%";
-            const imgPageInfoText = document.getElementById('dockerImagesTable_info');
-            imgPageInfoText.style = "float:left";
-            
-            // Set Docker Containers Table as Data Table
-            $('#dockerContainersTable').DataTable({
-              searching: true,
-              lengthChange: true,
-              pageLength: 25,
-              lengthMenu: [
-                  [25, 50, 100, 250, -1],
-                  [25, 50, 100, 250, 'All']
-              ],
-            });
-            // Style length Menu
-            const containerPageEntrySize = document.getElementById('dockerContainersTable_length');
-            containerPageEntrySize.style = "margin-right:100%";
-            const containerPageInfoText = document.getElementById('dockerContainersTable_info');
-            containerPageInfoText.style = "float:left";
-            
-            // Set Docker Volumes Table as Data Table
-            $('#dockerVolumesTable').DataTable({
-              searching: true,
-              lengthChange: true,
-              pageLength: 25,
-              lengthMenu: [
-                  [25, 50, 100, 250, -1],
-                  [25, 50, 100, 250, 'All']
-              ],
-            });
-            // Style length Menu
-            const volumePageEntrySize = document.getElementById('dockerVolumesTable_length');
-            volumePageEntrySize.style = "margin-right:100%";
-            const volumePageInfoText = document.getElementById('dockerVolumesTable_info');
-            volumePageInfoText.style = "float:left";
+            $(document).ready(() => {
+              // Set Docker Images Table as Data Table
+              $('#dockerImagesTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100, 250, -1],
+                    [10, 25, 50, 100, 250, 'All']
+                ],
+              });
+              // Style length Menu
+              const imgPageEntrySize = document.getElementById('dockerImagesTable_length');
+              imgPageEntrySize.style = "margin-right:100%";
+              const imgPageInfoText = document.getElementById('dockerImagesTable_info');
+              imgPageInfoText.style = "float:left";
+              
+              // Set Docker Containers Table as Data Table
+              $('#dockerContainersTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100, 250, -1],
+                    [10, 25, 50, 100, 250, 'All']
+                ],
+              });
+              // Style length Menu
+              const containerPageEntrySize = document.getElementById('dockerContainersTable_length');
+              containerPageEntrySize.style = "margin-right:100%";
+              const containerPageInfoText = document.getElementById('dockerContainersTable_info');
+              containerPageInfoText.style = "float:left";
+              
+              // Set Docker Volumes Table as Data Table
+              $('#dockerVolumesTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100, 250, -1],
+                    [10, 25, 50, 100, 250, 'All']
+                ],
+              });
+              // Style length Menu
+              const volumePageEntrySize = document.getElementById('dockerVolumesTable_length');
+              volumePageEntrySize.style = "margin-right:100%";
+              const volumePageInfoText = document.getElementById('dockerVolumesTable_info');
+              volumePageInfoText.style = "float:left";
 
-            // Set Docker Networks Table as Data Table
-            $('#dockerNetworksTable').DataTable({
-              searching: true,
-              lengthChange: true,
-              pageLength: 25,
-              lengthMenu: [
-                  [25, 50, 100, 250, -1],
-                  [25, 50, 100, 250, 'All']
-              ],
+              // Set Docker Networks Table as Data Table
+              $('#dockerNetworksTable').DataTable({
+                searching: true,
+                lengthChange: true,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100, 250, -1],
+                    [10, 25, 50, 100, 250, 'All']
+                ],
+              });
+              // Style length Menu
+              const networkPageEntrySize = document.getElementById('dockerNetworksTable_length');
+              networkPageEntrySize.style = "margin-right:100%";
+              const networkPageInfoText = document.getElementById('dockerNetworksTable_info');
+              networkPageInfoText.style = "float:left";
             });
-            // Style length Menu
-            const networkPageEntrySize = document.getElementById('dockerNetworksTable_length');
-            networkPageEntrySize.style = "margin-right:100%";
-            const networkPageInfoText = document.getElementById('dockerNetworksTable_info');
-            networkPageInfoText.style = "float:left";
 
           } catch (error) {
             // If any error occurs, set properties
