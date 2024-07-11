@@ -73,6 +73,10 @@
 
             this.userInfo = await getUserById(userId);
 
+            // Convert Created Time to Local Time and set the Difference
+            this.userInfo.created = formatToLocalTime(this.this.userInfo.created);
+            this.userInfo.created = this.userInfo.created + ' (' + calculateDatetimeDifference(this.userInfo.created) + ')';
+
         } catch (error) {
             // Print error to console
             console.error(error);
