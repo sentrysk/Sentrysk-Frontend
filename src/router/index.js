@@ -10,6 +10,7 @@ import PipPackagesView from '../views/PipPackagesView';
 import NpmPackagesView from '../views/NpmPackagesView';
 import MyProfileView from '../views/MyProfileView.vue';
 import UsersView from '@/views/UsersView.vue';
+import UserDetailsView from '@/views/UserDetailsView.vue';
 import axios from "axios";
 
 const routes = [
@@ -45,6 +46,12 @@ const routes = [
     path: '/users',
     name: 'Users',
     component: UsersView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/users/:id',
+    name: 'UserDetails',
+    component: UserDetailsView,
     meta: { requiresAuth: true }
   },
   {
