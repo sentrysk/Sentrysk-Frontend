@@ -543,3 +543,19 @@ export async function getAgentDataById(agentId) {
     console.error('Error fetching agent data:', error);
     }
 }
+
+export async function getUserById(userId) {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + USER_EP + userId.toString();
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching user data:', error);
+    }
+}
