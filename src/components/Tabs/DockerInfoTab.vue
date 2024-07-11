@@ -283,7 +283,8 @@
 <script>
     import $ from "jquery";
     import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
-    import { getDockerInfoByAgentId, getDockerInfoChangeLog } from '../../utils/requestUtils'
+    import { getDockerInfoByAgentId, getDockerInfoChangeLog } from '../../utils/requestUtils';
+    import moment from 'moment';
 
     
     export default {
@@ -351,15 +352,34 @@
             }
 
             $(document).ready(() => {
+                // Custom sorting plugin for DataTables
+                $.extend($.fn.dataTable.ext.type.order, {
+                    "date-gmt-pre": function (d) {
+                        return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                    },
+                    "date-gmt-asc": function (a, b) {
+                        return a - b;
+                    },
+                    "date-gmt-desc": function (a, b) {
+                        return b - a;
+                    }
+                });
               // Set Docker Images Table as Data Table
               $('#dockerImagesTable').DataTable({
                 searching: true,
                 lengthChange: true,
                 pageLength: 10,
+                order: [[4, 'desc']],
                 lengthMenu: [
                     [10, 25, 50, 100, 250, -1],
                     [10, 25, 50, 100, 250, 'All']
                 ],
+                columnDefs: [
+                  {
+                      targets: 4, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ]
               });
               // Style length Menu
               const imgPageEntrySize = document.getElementById('dockerImagesTable_length');
