@@ -30,15 +30,16 @@
                 <div class="card-body">
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                    <b>{{ userInfo.name + " " + userInfo.lastname }}</b>
+                    <input type="text" class="form-control" placeholder="Name" :value=" userInfo.name + ' ' + userInfo.lastname" disabled/>
+                    <b></b>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <b>{{ userInfo.email }}</b>
+                    <input type="email" class="form-control" placeholder="Email" :value="userInfo.email" disabled/>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="bi bi-calendar-week"></i></span>
-                    <b>{{ userInfo.created }}</b>
+                    <input type="text" class="form-control" placeholder="Created" :value="userInfo.created" disabled/>
                 </div>
                 </div>
             </div>
