@@ -9,41 +9,62 @@
 
     <div class="tab-content" id="agentHomeTabContent">
         <div class="tab-pane fade show active" id="agentHomeDiv" role="tabpanel" aria-labelledby="agentHomeTab">
+          <div v-if="loading">
+            <div class="loading-content">
+              <i class="fas fa-spinner fa-spin fa-3x"></i>
+              <h2>Loading...</h2>
+            </div>
+          </div>
+
+          <div v-else-if="error">
+            <div class="error-content">
+              <i class="fas fa-exclamation-triangle fa-3x"></i>
+              <h2>Error loading data. Please try again later.</h2>
+            </div>
+          </div>
+
+          <div v-else-if="!hasData">
+            <NothingToShowComponent />
+          </div>
+
+          <!-- Agent Home Page -->
+          <div v-else>
             <!-- Agent Information Table -->
             <table class="table table-striped table-bordered dt-responsive nowrap" id="agentDataTable">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Token</th>
-              <th>Created</th>
-              <th>Created By</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <span v-if="agentData.type === 'windows'" title="Windows">
-                  <i class="bi bi-windows"></i>
-                </span>
-                <span v-else-if="agentData.type === 'linux'" title="Linux">
-                  <i class="fab fa-linux"></i>
-                </span>
-                <span v-else-if="agentData.type === 'macos'" title="macOS">
-                  <i class="bi bi-apple"></i>
-                </span>
-              </td>
-              <td>
-                {{ agentData.token }}
-              </td>
-              <td>
-                {{ agentData.created }}
-              </td>
-              <td>
-                {{ agentData.created_by }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Token</th>
+                  <th>Created</th>
+                  <th>Created By</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span v-if="agentData.type === 'windows'" title="Windows">
+                      <i class="bi bi-windows"></i>
+                    </span>
+                    <span v-else-if="agentData.type === 'linux'" title="Linux">
+                      <i class="fab fa-linux"></i>
+                    </span>
+                    <span v-else-if="agentData.type === 'macos'" title="macOS">
+                      <i class="bi bi-apple"></i>
+                    </span>
+                  </td>
+                  <td>
+                    {{ agentData.token }}
+                  </td>
+                  <td>
+                    {{ agentData.created }}
+                  </td>
+                  <td>
+                    {{ agentData.created_by }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
     </div>
 
@@ -58,15 +79,13 @@
       name: 'agentHomeTab',
       data() {
         return {
+          loading: true,
+          error: false,
           agentData: null,
         };
       },
-      mounted() {
-        this.fillAgentHome();
-      },
-      methods: {
-        async fillAgentHome() {
-          try {
+      async created() {
+        try {
             // Get the ID from the URL
             const agentId = this.$route.params.id;
 
@@ -76,8 +95,18 @@
           } catch (error) {
             // Print error to console
             console.error(error);
+            // Set error property true
+            this.error = true;
+          } finally {
+            this.loading = false;
           }
-        },
+      },
+      computed: {
+        hasData() {
+          return this.agentData && Object.keys(this.agentData).length > 0;
+        }
+      },
+      methods: {
       },
     };
 </script>
