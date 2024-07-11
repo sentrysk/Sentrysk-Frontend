@@ -438,10 +438,17 @@
                 searching: true,
                 lengthChange: true,
                 pageLength: 10,
+                order: [[4, 'desc']],
                 lengthMenu: [
                     [10, 25, 50, 100, 250, -1],
                     [10, 25, 50, 100, 250, 'All']
                 ],
+                columnDefs: [
+                  {
+                      targets: 4, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ]
               });
               // Style length Menu
               const networkPageEntrySize = document.getElementById('dockerNetworksTable_length');
