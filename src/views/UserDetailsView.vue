@@ -21,26 +21,33 @@
 
         <!-- Data -->
         <div v-else>
-            <div class="card">
-            <div class="card-header bg-dark text-white">
-                <h1 class="text-center">
-                User Profile
-                </h1>
-            </div>
-                <div class="card-body">
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                    <input type="text" class="form-control" placeholder="Name" :value=" userInfo.name + ' ' + userInfo.lastname" disabled/>
-                    <b></b>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="@/assets/ppl.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <h5 class="my-3">{{ userInfo.name + ' ' + userInfo.lastname }}</h5>
+                            <p class="text-muted mb-1">Dasboard User</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" placeholder="Email" :value="userInfo.email" disabled/>
-                </div>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar-week"></i></span>
-                    <input type="text" class="form-control" placeholder="Created" :value="userInfo.created" disabled/>
-                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                            <input type="text" class="form-control" placeholder="Name" :value="userInfo.name + ' ' + userInfo.lastname" disabled/>
+                        </div>
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" placeholder="Email" :value="userInfo.email" disabled/>
+                        </div>
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text"><i class="bi bi-calendar-week"></i></span>
+                            <input type="text" class="form-control" placeholder="Created" :value="userInfo.created" disabled/>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +81,7 @@
             this.userInfo = await getUserById(userId);
 
             // Convert Created Time to Local Time and set the Difference
-            this.userInfo.created = formatToLocalTime(this.this.userInfo.created);
+            this.userInfo.created = formatToLocalTime(this.userInfo.created);
             this.userInfo.created = this.userInfo.created + ' (' + calculateDatetimeDifference(this.userInfo.created) + ')';
 
         } catch (error) {
