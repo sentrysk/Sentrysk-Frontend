@@ -415,10 +415,17 @@
                 searching: true,
                 lengthChange: true,
                 pageLength: 10,
+                order: [[3, 'desc']],
                 lengthMenu: [
                     [10, 25, 50, 100, 250, -1],
                     [10, 25, 50, 100, 250, 'All']
                 ],
+                columnDefs: [
+                  {
+                      targets: 3, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ]
               });
               // Style length Menu
               const volumePageEntrySize = document.getElementById('dockerVolumesTable_length');
