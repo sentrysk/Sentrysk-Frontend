@@ -392,10 +392,17 @@
                 searching: true,
                 lengthChange: true,
                 pageLength: 10,
+                order: [[1, 'desc']],
                 lengthMenu: [
                     [10, 25, 50, 100, 250, -1],
                     [10, 25, 50, 100, 250, 'All']
                 ],
+                columnDefs: [
+                  {
+                      targets: 6, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ]
               });
               // Style length Menu
               const containerPageEntrySize = document.getElementById('dockerContainersTable_length');
