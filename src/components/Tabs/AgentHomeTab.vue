@@ -60,7 +60,15 @@
                   </div>
                   <div class="mb-3 input-group">
                     <span class="input-group-text" title="Token"><i class="bi bi-lock"></i></span>
-                      <input type="text" class="form-control" placeholder="Token" :value="agentData.token" disabled/>
+                    <input 
+                      :type="showToken ? 'text' : 'password'"
+                      class="form-control" 
+                      placeholder="Token" 
+                      :value="agentData.token" 
+                      disabled/>
+                    <button type="button" class="btn btn-outline-secondary" @click="toggleTokenVisibility">
+                      <i :class="['bi', showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -88,6 +96,7 @@
         loading: true,
         error: false,
         agentData: null,
+        showToken: false,
       };
     },
     async created() {
@@ -113,10 +122,9 @@
       }
     },
     methods: {
-      navigateToUser(id){
-        console.log("clicked");
-        this.$router.push({ name: 'UserDetailsView', params: { id: id } });
-      }
+      toggleTokenVisibility() {
+        this.showToken = !this.showToken;
+      },
     },
   };
 </script>
