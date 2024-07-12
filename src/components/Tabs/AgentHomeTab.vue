@@ -36,13 +36,13 @@
                 <div class="card-body text-center">
                   <!-- Icon Div-->
                   <div class="icon-div rounded-circle img-fluid">
-                    <span v-if="agentData.type === 'windows'" title="Windows" style="font-size: 6rem;" class="icon-content">
+                    <span v-if="agentData.type === 'windows'" title="Windows" class="icon-content">
                       <i class="bi bi-windows"></i>
                     </span>
-                    <span v-else-if="agentData.type === 'linux'" title="Linux" style="font-size: 6rem;" class="icon-content">
+                    <span v-else-if="agentData.type === 'linux'" title="Linux" class="icon-content">
                       <i class="fab fa-linux"></i>
                     </span>
-                    <span v-else-if="agentData.type === 'macos'" title="macOS" style="font-size: 6rem;" class="icon-content">
+                    <span v-else-if="agentData.type === 'macos'" title="macOS" class="icon-content">
                       <i class="bi bi-apple"></i>
                     </span>
                   </div>
@@ -146,5 +146,6 @@
 }
 .icon-content{
   color: white;
+  font-size: 6rem;
 }
 </style>
