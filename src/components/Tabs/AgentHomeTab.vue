@@ -87,7 +87,8 @@
 
 
 <script>
-  import { getAgentDataById } from '@/utils/requestUtils'
+  import { getAgentDataById } from '@/utils/requestUtils';
+  import { formatToLocalTime } from '@/utils/timeUtils';
   
   export default {
     name: 'agentHomeTab',
@@ -106,6 +107,8 @@
 
           // Retrieve Npm Packages
           this.agentData = await getAgentDataById(agentId);
+
+          this.agentData.created = formatToLocalTime(this.agentData.created);
 
         } catch (error) {
           // Print error to console
