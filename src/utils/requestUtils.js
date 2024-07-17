@@ -512,6 +512,22 @@ export async function getAllAgents() {
     }
 }
 
+export async function getAllAgentsWithInfo() {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + AGNT_EP + "info";
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching all agents data with info:', error);
+    }
+}
+
 export async function deleteAgentByID(agentId) {
     try {
         // Retrieve JWT token from session storage
