@@ -11,8 +11,6 @@
                     <section class="modal-card-body">
                         <label class="label">Agent Id</label>
                         <input type="text" id="updateAgentId" ref="agentId" class="form-control" disabled="true">
-                        <label class="label">Token</label>
-                        <input type="text" id="updateAgentToken" ref="agentToken" class="form-control" disabled="true">
                         <!-- Agent Type dropdown -->
                         <div class="field">
                             <label class="label">Agent Type</label>
