@@ -12,8 +12,9 @@
             <tr>
               <th>#</th>
               <th>Type</th>
-              <th>Token</th>
+              <th>Hostname</th>
               <th>Created</th>
+              <th>Created By</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -34,13 +35,16 @@
                 </span>
               </td>
               <td>
-                <span v-if="!agent.showToken">************************************</span> <!-- Masked token -->
-                <span v-else>{{ agent.token }}</span> <!-- Revealed token -->
-                <button class="btn btn-link btn-sm" @click="toggleTokenVisibility(agent)">
-                  <i :class="['bi', agent.showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
-                </button>
+                {{ agent.hostname }}
               </td>
-              <td>{{ agent.created }}</td>
+              <td>
+                {{ agent.created }}
+              </td>
+              <td>
+                <router-link class="navbar-brand" :to="'/users/'+agent.created_by.id">
+                  {{ agent.created_by.name + ' ' + agent.created_by.lastname }}
+                </router-link>
+              </td>
               <td>
                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateAgentModal" @click="setUpdateAttributes(agent.id,agent.token,agent.type)">
                   <i class="bi bi-plus-circle"></i> Update
@@ -62,13 +66,12 @@
 </template>
   
 <script>
-  import axios from 'axios';
   import Swal from 'sweetalert2';
-  import Navbar from '../components/Navbar.vue'
+  import Navbar from '@/components/Navbar.vue'
   import AgentCreateModal from '@/components/AgentCreateModal.vue';
   import AgentUpdateModal from '@/components/AgentUpdateModal.vue';
   import { formatToLocalTime } from '@/utils/timeUtils';
-  import { getAllAgents, deleteAgentByID } from '@/utils/requestUtils';
+  import { getAllAgentsWithInfo, deleteAgentByID } from '@/utils/requestUtils';
   import $ from "jquery";
   import moment from 'moment';
   
@@ -95,7 +98,7 @@
       async getAgents() {
         try {
           // Get Agents Data
-          this.agents = await getAllAgents();
+          this.agents = await getAllAgentsWithInfo();
 
           // Set Last Login Time to Local Time
           for(let agent of this.agents){
@@ -141,9 +144,6 @@
           console.error('Error fetching agents:', error);
         }
       },
-      toggleTokenVisibility(agent) {
-        agent.showToken = !agent.showToken;
-      },
       async deleteAgent(agentId) {
         try {
           const confirmResult = await Swal.fire({
@@ -157,9 +157,6 @@
           });
 
           if (confirmResult.isConfirmed) {
-            // Retrieve JWT token from session storage
-            const jwtToken = sessionStorage.getItem('jwtToken');
-
             // Send DELETE request to delete the agent by ID
             await deleteAgentByID(agentId);
 
