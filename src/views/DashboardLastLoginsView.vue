@@ -23,6 +23,7 @@
   import Navbar from '@/components/Navbar.vue';
   import { getMyLastDashboardLogins } from '@/utils/requestUtils';
   import { formatToLocalTime } from '@/utils/timeUtils';
+  import moment from 'moment';
   
   export default {
     name: 'DashboardLastLoginsView',
@@ -47,7 +48,18 @@
             }
             
             $(document).ready(() => {
-
+                // Custom sorting plugin for DataTables
+                $.extend($.fn.dataTable.ext.type.order, {
+                    "date-gmt-pre": function (d) {
+                        return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                    },
+                    "date-gmt-asc": function (a, b) {
+                        return a - b;
+                    },
+                    "date-gmt-desc": function (a, b) {
+                        return b - a;
+                    }
+                });
                 
                 // Make Users Last Logins Table as DataTable
                 $('#dashboardLastLoginsTable').DataTable({
@@ -58,7 +70,13 @@
                     [25, 50, 100, 250, -1],
                     [25, 50, 100, 250, 'All']
                 ],
-                order: [ 0, 'desc' ]
+                order: [ 0, 'desc' ],
+                columnDefs: [
+                  {
+                      targets: 0, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ]
                 });
                 // Style length Menu
                 const pageEntrySize = document.getElementById('dashboardLastLoginsTable_length')
