@@ -46,7 +46,7 @@
                 </router-link>
               </td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateAgentModal" @click="setUpdateAttributes(agent.id,agent.token,agent.type)">
+                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateAgentModal" @click="setUpdateAttributes(agent.id,agent.type)">
                   <i class="bi bi-plus-circle"></i> Update
                 </button>&nbsp;
                 <button class="btn btn-danger btn-sm" @click="deleteAgent(agent.id)">
@@ -90,9 +90,8 @@
       this.getAgents();
     },
     methods: {
-      setUpdateAttributes(agentId,agentToken,selectedAgentType){
+      setUpdateAttributes(agentId,selectedAgentType){
         document.getElementById('updateAgentId').value = agentId;
-        document.getElementById('updateAgentToken').value = agentToken;
         document.querySelector(`#updateAgentModal input[type=radio][value=${selectedAgentType}]`).click()
       },
       async getAgents() {
