@@ -44,7 +44,7 @@
               </td>
               <td>
                 <router-link class="navbar-brand" :to="'/users/'+agent.created_by.id">
-                  {{ agent.created_by.name + ' ' + agent.created_by.lastname }}
+                  <span :title="agent.created_by.email"><u>{{ agent.created_by.name + ' ' + agent.created_by.lastname }}</u></span>
                 </router-link>
               </td>
               <td>
