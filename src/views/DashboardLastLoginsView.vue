@@ -22,6 +22,7 @@
   import $ from "jquery";
   import Navbar from '@/components/Navbar.vue';
   import { getMyLastDashboardLogins } from '@/utils/requestUtils';
+  import { formatToLocalTime } from '@/utils/timeUtils';
   
   export default {
     name: 'DashboardLastLoginsView',
@@ -40,8 +41,15 @@
         async fillLastDasboardLogins(){
             this.lastLoginsData = await getMyLastDashboardLogins();
 
-            // Make Users Last Logons Table as DataTable
+            // Convert Login Date to Local DateTime
+            for (let loginData of this.lastLoginsData) {
+              loginData.created = formatToLocalTime(loginData.created);
+            }
+            
             $(document).ready(() => {
+
+                
+                // Make Users Last Logins Table as DataTable
                 $('#dashboardLastLoginsTable').DataTable({
                 searching: true,
                 lengthChange: true,
