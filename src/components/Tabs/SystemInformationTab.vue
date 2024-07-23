@@ -87,6 +87,7 @@
                     </div>
                 </div>
             </div>
+            <MemoryUsageChart></MemoryUsageChart>
         </div>
         
         <!-- Disks Tab -->
@@ -231,6 +232,7 @@
     import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
     import { getSystemInformation, getSysInfoChangeLog } from '../../utils/requestUtils';
     import DiskUsageChart from '@/components/Tabs/SystemInfoSubTabs/DiskUsageChart.vue';
+    import MemoryUsageChart from '@/components/Tabs/SystemInfoSubTabs/MemoryUsageChart.vue';
     
     export default {
       name: 'SystemInformationTab',
@@ -243,7 +245,8 @@
         };
       },
       components:{
-        DiskUsageChart
+        DiskUsageChart,
+        MemoryUsageChart
       },
       mounted() {
         this.fillSystemInformation();
