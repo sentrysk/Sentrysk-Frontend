@@ -22,6 +22,7 @@ const FRMTD_DP = "formatted"
 const AGNT_EP = "/agent/"
 const AGNT_CFG_EP = AGNT_EP + "config/"
 const DISK_USG_EP = "/diskusage/"
+const MEM_USG_EP = "/memusage/"
 
 // Get System Information by Agent Id
 export async function getSystemInformation(agentId){
@@ -580,5 +581,22 @@ export async function getUserById(userId) {
         return response.data;
     } catch (error) {
     console.error('Error fetching user data:', error);
+    }
+}
+
+// Get Memory Usage Data by Agent ID
+export async function getMemoryUsageData(agentId) {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + MEM_USG_EP + agentId.toString();
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching memory usage data:', error);
     }
 }
