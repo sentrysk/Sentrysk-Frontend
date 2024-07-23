@@ -23,7 +23,7 @@ const AGNT_EP = "/agent/"
 const AGNT_CFG_EP = AGNT_EP + "config/"
 const DISK_USG_EP = "/diskusage/"
 
-// Retrive System Information
+// Get System Information by Agent Id
 export async function getSystemInformation(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -40,7 +40,7 @@ export async function getSystemInformation(agentId){
     }
 }
 
-// Retrive System Information Changelog
+// Get System Information Changelog by System Info Id
 export async function getSysInfoChangeLog(sysInfoId){
     try {
         // Retrieve JWT token from session storage
@@ -57,7 +57,7 @@ export async function getSysInfoChangeLog(sysInfoId){
     }
 }
 
-// Retrive System Users
+// Get System Users by Agent Id
 export async function getSystemUsers(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -74,7 +74,7 @@ export async function getSystemUsers(agentId){
     }
 }
 
-// Retrive System Users Last Logons
+// Get System Users Last Logons by Agent Id
 export async function getSystemUsersLastLogons(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -91,7 +91,7 @@ export async function getSystemUsersLastLogons(agentId){
     }
 }
 
-// Retrive System Users Changelog
+// Get System Users Changelog by System Users Id
 export async function getSysUsersChangeLog(sysUsersId){
     try {
         // Retrieve JWT token from session storage
@@ -108,7 +108,7 @@ export async function getSysUsersChangeLog(sysUsersId){
     }
 }
 
-// Retrive All System Apps
+// Get All System Apps
 export async function getAllInstalledApps(){
     try {
         // Retrieve JWT token from session storage
@@ -125,7 +125,7 @@ export async function getAllInstalledApps(){
     }
 }
 
-// Retrive All System Apps Formatted
+// Get All System Apps Formatted
 export async function getAllInstalledAppsFormatted(){
     try {
         // Retrieve JWT token from session storage
@@ -142,7 +142,7 @@ export async function getAllInstalledAppsFormatted(){
     }
 }
 
-// Retrive System Apps
+// Get System Apps by Agent Id
 export async function getInstalledApps(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -159,7 +159,7 @@ export async function getInstalledApps(agentId){
     }
 }
 
-// Retrive Installed Apps Changelog
+// Get Installed Apps Changelog by System Installed Apps Id
 export async function getInstalledAppsChangeLog(sysInstalledAppsId){
     try {
         // Retrieve JWT token from session storage
@@ -176,7 +176,7 @@ export async function getInstalledAppsChangeLog(sysInstalledAppsId){
     }
 }
 
-// Retrive System Services
+// Get System Services by Agent Id
 export async function getServices(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -193,7 +193,7 @@ export async function getServices(agentId){
     }
 }
 
-// Retrive System Services Changelog
+// Get System Services Changelog by System Services Id
 export async function getServicesChangeLog(sysServicesId){
     try {
         // Retrieve JWT token from session storage
@@ -210,7 +210,7 @@ export async function getServicesChangeLog(sysServicesId){
     }
 }
 
-// Retrive System Pip Packages
+// Get System Pip Packages
 export async function getAllPipPackages(){
     try {
         // Retrieve JWT token from session storage
@@ -227,7 +227,7 @@ export async function getAllPipPackages(){
     }
 }
 
-// Retrive All Pip Packages Formatted
+// Get All Pip Packages Formatted
 export async function getAllPipPackagesFormatted(){
     try {
         // Retrieve JWT token from session storage
@@ -244,7 +244,7 @@ export async function getAllPipPackagesFormatted(){
     }
 }
 
-// Retrive System Pip Packages
+// Get System Pip Packages by Agent Id
 export async function getPipPackagesByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -261,7 +261,7 @@ export async function getPipPackagesByAgentId(agentId){
     }
 }
 
-// Retrive Pip Packages Changelog
+// Get Pip Packages Changelog by Pip Packages Id
 export async function getPipPackagesChangeLog(pipPkgsId){
     try {
         // Retrieve JWT token from session storage
@@ -278,7 +278,7 @@ export async function getPipPackagesChangeLog(pipPkgsId){
     }
 }
 
-// Retrive All Npm Packages
+// Get All Npm Packages
 export async function getAllNpmPackages(){
     try {
         // Retrieve JWT token from session storage
@@ -295,7 +295,7 @@ export async function getAllNpmPackages(){
     }
 }
 
-// Retrive All Npm Packages Formatted
+// Get All Npm Packages Formatted
 export async function getAllNpmPackagesFormatted(){
     try {
         // Retrieve JWT token from session storage
@@ -312,7 +312,7 @@ export async function getAllNpmPackagesFormatted(){
     }
 }
 
-// Retrive System Npm Packages
+// Get System Npm Packages by Agent Id
 export async function getNpmPackagesByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -329,7 +329,7 @@ export async function getNpmPackagesByAgentId(agentId){
     }
 }
 
-// Retrive Npm Packages Changelog
+// Get Npm Packages Changelog by Npm Package Id
 export async function getNpmPackagesChangeLog(npmPkgsId){
     try {
         // Retrieve JWT token from session storage
@@ -346,7 +346,7 @@ export async function getNpmPackagesChangeLog(npmPkgsId){
     }
 }
 
-// Retrive Docker Info by Agent ID
+// Get Docker Info by Agent Id
 export async function getDockerInfoByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -363,7 +363,7 @@ export async function getDockerInfoByAgentId(agentId){
     }
 }
 
-// Retrive Docker Info Changelog
+// Get Docker Info Changelog by Docker Info Id
 export async function getDockerInfoChangeLog(dockerInfoId){
     try {
         // Retrieve JWT token from session storage
@@ -380,7 +380,7 @@ export async function getDockerInfoChangeLog(dockerInfoId){
     }
 }
 
-// Retrive Agent Configs by Agent ID
+// Get Agent Configs by Agent ID
 export async function getAgentConfigByAgentId(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -397,7 +397,7 @@ export async function getAgentConfigByAgentId(agentId){
     }
 }
 
-// Retrive my User Last Dashboard Logins
+// Get my User Last Dashboard Logins
 export async function getMyLastDashboardLogins(){
     try {
         // Retrieve JWT token from session storage
@@ -414,7 +414,7 @@ export async function getMyLastDashboardLogins(){
     }
 }
 
-// Retrive Home Page Statistics
+// Get Home Page Statistics
 export async function getHomePageStatistics(){
     try {
         // Retrieve JWT token from session storage
@@ -431,7 +431,7 @@ export async function getHomePageStatistics(){
     }
 }
 
-// Retrive Agent Statistics
+// Get Agent Statistics
 export async function getAgentStatistics(agentId){
     try {
         // Retrieve JWT token from session storage
@@ -448,7 +448,7 @@ export async function getAgentStatistics(agentId){
     }
 }
 
-// Retrive Agent Statistics
+// Get Logged User Info
 export async function getLoggedUserInfo(jwtToken){
     try {
         // Retrieve JWT token from session storage
@@ -464,6 +464,7 @@ export async function getLoggedUserInfo(jwtToken){
     }
 }
 
+// Get Disk Usage Data by Agent ID
 export async function getDiskUsageData(agentId) {
     try {
         // Retrieve JWT token from session storage
@@ -480,6 +481,7 @@ export async function getDiskUsageData(agentId) {
     }
 }
 
+// Get All Users
 export async function getAllUsers() {
     try {
         // Retrieve JWT token from session storage
@@ -496,6 +498,7 @@ export async function getAllUsers() {
     }
 }
 
+// Get All Agents
 export async function getAllAgents() {
     try {
         // Retrieve JWT token from session storage
@@ -512,6 +515,7 @@ export async function getAllAgents() {
     }
 }
 
+// Get All Agents with Info
 export async function getAllAgentsWithInfo() {
     try {
         // Retrieve JWT token from session storage
@@ -528,6 +532,7 @@ export async function getAllAgentsWithInfo() {
     }
 }
 
+// Delete Agent by Agent Id
 export async function deleteAgentByID(agentId) {
     try {
         // Retrieve JWT token from session storage
@@ -544,6 +549,7 @@ export async function deleteAgentByID(agentId) {
     }
 }
 
+// Get Agent Data by Agent Id
 export async function getAgentDataById(agentId) {
     try {
         // Retrieve JWT token from session storage
@@ -560,6 +566,7 @@ export async function getAgentDataById(agentId) {
     }
 }
 
+// Get User by User Id
 export async function getUserById(userId) {
     try {
         // Retrieve JWT token from session storage
