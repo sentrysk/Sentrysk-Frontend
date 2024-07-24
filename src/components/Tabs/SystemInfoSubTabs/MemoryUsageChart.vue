@@ -89,6 +89,7 @@
                       text: 'Size (GB)'
                     },
                     max: maxSize,  // Set the max value to the total disk space
+                    beginAtZero: true
                 },
               },
               tooltips: {
