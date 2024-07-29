@@ -72,6 +72,7 @@
                     </div>
                 </div>
             </div>
+            <CpuUsageChart></CpuUsageChart>
         </div>
 
         <!-- Memory Tab -->
@@ -233,6 +234,7 @@
     import { getSystemInformation, getSysInfoChangeLog } from '../../utils/requestUtils';
     import DiskUsageChart from '@/components/Tabs/SystemInfoSubTabs/DiskUsageChart.vue';
     import MemoryUsageChart from '@/components/Tabs/SystemInfoSubTabs/MemoryUsageChart.vue';
+    import CpuUsageChart from "@/components/Tabs/SystemInfoSubTabs/CpuUsageChart.vue";
     
     export default {
       name: 'SystemInformationTab',
@@ -246,7 +248,8 @@
       },
       components:{
         DiskUsageChart,
-        MemoryUsageChart
+        MemoryUsageChart,
+        CpuUsageChart
       },
       mounted() {
         this.fillSystemInformation();
