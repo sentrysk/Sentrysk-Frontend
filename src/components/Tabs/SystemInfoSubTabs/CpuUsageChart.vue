@@ -82,7 +82,10 @@
                       text: 'Percent(%)'
                     },
                     max: 100,
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
                 },
               },
               tooltips: {
@@ -95,14 +98,7 @@
               },
             },
           });
-      },
-      parseSize(sizeStr) {
-        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const unit = sizeStr.match(/[a-zA-Z]+/)[0];
-        const value = parseFloat(sizeStr.match(/[0-9.]+/)[0]);
-        const index = units.indexOf(unit);
-        return value * Math.pow(1024, index) / (1024 * 1024 * 1024); // Convert to GB
-      },
+      }
     },
   };
   </script>
