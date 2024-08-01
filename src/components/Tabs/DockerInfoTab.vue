@@ -114,7 +114,7 @@
                                 <span class="badge bg-secondary">
                                     {{ index+" : " }}
                                   </span>
-                                  <span class="badge bg-primary">
+                                  <span class="badge bg-primary" :title="imageLabels">
                                     {{ imageLabels.length > 12 ? imageLabels.substring(0, 12) + '...' : imageLabels }}
                                   </span>
                               </td>
@@ -192,7 +192,7 @@
                                 <span class="badge bg-secondary">
                                     {{ index+" : " }}
                                   </span>
-                                  <span class="badge bg-primary">
+                                  <span class="badge bg-primary" :title="containerLabels">
                                     {{ containerLabels.length > 12 ? containerLabels.substring(0, 12) + '...' : containerLabels }}
                                   </span>
                               </td>
@@ -227,7 +227,7 @@
                                 <span class="badge bg-secondary">
                                     {{ index+" : " }}
                                   </span>
-                                  <span class="badge bg-primary">
+                                  <span class="badge bg-primary" :title="volumeLabels">
                                     {{ volumeLabels.length > 12 ? volumeLabels.substring(0, 12) + '...' : volumeLabels }}
                                   </span>
                               </td>
@@ -264,7 +264,7 @@
                                 <span class="badge bg-secondary">
                                       {{ index+" : " }}
                                   </span>
-                                  <span class="badge bg-primary">
+                                  <span class="badge bg-primary" :title="networkLabels">
                                       {{ networkLabels.length > 12 ? networkLabels.substring(0, 12) + '...' : networkLabels }}
                                   </span>
                               </td>
