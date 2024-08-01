@@ -112,10 +112,10 @@
                           <tr v-for="(imageLabels, index) in dockerImage.labels" :key="index">
                               <td>
                                 <span class="badge bg-secondary">
-                                      {{ index+" : " }}
+                                    {{ index+" : " }}
                                   </span>
                                   <span class="badge bg-primary">
-                                      {{ imageLabels }}
+                                    {{ imageLabels.length > 12 ? imageLabels.substring(0, 12) + '...' : imageLabels }}
                                   </span>
                               </td>
                           </tr>
@@ -190,10 +190,10 @@
                           <tr v-for="(containerLabels, index) in dockerContainer.labels" :key="index">
                               <td>
                                 <span class="badge bg-secondary">
-                                      {{ index+" : " }}
+                                    {{ index+" : " }}
                                   </span>
                                   <span class="badge bg-primary">
-                                      {{ containerLabels }}
+                                    {{ containerLabels.length > 12 ? containerLabels.substring(0, 12) + '...' : containerLabels }}
                                   </span>
                               </td>
                           </tr>
@@ -225,10 +225,10 @@
                           <tr v-for="(volumeLabels, index) in dockerVolume.labels" :key="index">
                               <td>
                                 <span class="badge bg-secondary">
-                                      {{ index+" : " }}
+                                    {{ index+" : " }}
                                   </span>
                                   <span class="badge bg-primary">
-                                      {{ volumeLabels }}
+                                    {{ volumeLabels.length > 12 ? volumeLabels.substring(0, 12) + '...' : volumeLabels }}
                                   </span>
                               </td>
                           </tr>
@@ -265,7 +265,7 @@
                                       {{ index+" : " }}
                                   </span>
                                   <span class="badge bg-primary">
-                                      {{ networkLabels }}
+                                      {{ networkLabels.length > 12 ? networkLabels.substring(0, 12) + '...' : networkLabels }}
                                   </span>
                               </td>
                           </tr>
