@@ -242,9 +242,11 @@
             select: true,
             // Column Filtering
             initComplete: function () {
+              let columnsToFilter = [1]; // Array of column indices to add the select filter
               this.api()
                   .columns()
-                  .every(function () {
+                  .every(function (index) {
+                    if (columnsToFilter.includes(index)) {
                       let column = this;
        
                       // Create select element
@@ -267,6 +269,7 @@
                           .each(function (d, j) {
                               select.add(new Option(d));
                           });
+                    }
                   });
             },
             });
