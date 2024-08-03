@@ -93,8 +93,9 @@
 
 <script>
     import $ from "jquery";
-    import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
-    import { getNpmPackagesByAgentId, getNpmPackagesChangeLog } from '../../utils/requestUtils'
+    import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
+    import { getNpmPackagesByAgentId, getNpmPackagesChangeLog } from '@/utils/requestUtils';
+    import moment from 'moment';
 
     
     export default {
@@ -190,6 +191,19 @@
             }).flat();
 
             $(document).ready(() => {
+              // Custom sorting plugin for DataTables
+              $.extend($.fn.dataTable.ext.type.order, {
+                  "date-gmt-pre": function (d) {
+                      return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+                  },
+                  "date-gmt-asc": function (a, b) {
+                      return a - b;
+                  },
+                  "date-gmt-desc": function (a, b) {
+                      return b - a;
+                  }
+              });
+
               // Set Npm Packages Table as Data Table
               $('#npmPackagesTable').DataTable({
                 searching: true,
@@ -216,6 +230,12 @@
                     [25, 50, 100, 250,'All']
                 ],
                 order: [ 0, 'desc' ],
+                columnDefs: [
+                  {
+                      targets: 0, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  }
+                ],
                 select: true,
               });
               // Style length Menu
