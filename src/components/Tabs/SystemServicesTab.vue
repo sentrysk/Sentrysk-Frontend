@@ -231,6 +231,7 @@
                   orderable: false
                 },
               ],
+              ordering: false,
               //Column Filtering
               initComplete: function () {
                 let columnsToFilter = [0]; // Array of column indices to add the select filter
