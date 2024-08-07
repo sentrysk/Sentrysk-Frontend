@@ -236,9 +236,45 @@
                   {
                       targets: 0, // Adjust the column index to date column
                       type: 'date-gmt'
+                  },
+                  {
+                    targets: [1,2,3,4,5],
+                    orderable: false
                   }
                 ],
                 select: true,
+                // Column Filtering
+                initComplete: function () {
+                  let columnsToFilter = [1]; // Array of column indices to add the select filter
+                  this.api()
+                      .columns()
+                      .every(function (index) {
+                        if (columnsToFilter.includes(index)) {
+                          let column = this;
+          
+                          // Create select element
+                          let select = document.createElement('select');
+                          select.add(new Option(''));
+                          column.header().replaceChildren(select);
+          
+                          // Apply listener for user change in value
+                          select.addEventListener('change', function () {
+                              column
+                                  .search(select.value, {exact: true})
+                                  .draw();
+                          });
+          
+                          // Add list of options
+                          column
+                              .data()
+                              .unique()
+                              .sort()
+                              .each(function (d, j) {
+                                  select.add(new Option(d));
+                              });
+                        }
+                      });
+                },
               });
               // Style length Menu
               const chlgPageEntrySize = document.getElementById('pipPackagesChangelogTable_length')
