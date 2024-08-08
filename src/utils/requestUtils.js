@@ -399,6 +399,23 @@ export async function getAgentConfigByAgentId(agentId){
     }
 }
 
+// Get Agent Config Changelog by Agent Config ID
+export async function getAgentConfigChangelog(agentConfigId){
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + AGNT_CFG_EP + agentConfigId.toString() + CHLG_EP;
+        const agentConfig = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return agentConfig.data
+    } catch (error) {
+        console.error('Error fetching Agent Config Changelog:', error);
+    }
+}
+
 // Get my User Last Dashboard Logins
 export async function getMyLastDashboardLogins(){
     try {
