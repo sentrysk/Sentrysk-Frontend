@@ -101,8 +101,8 @@
 </template>
 
 <script>
-  import { getAgentConfigByAgentId } from '../../utils/requestUtils';
-  import { formatToLocalTime, calculateDatetimeDifference } from '../../utils/timeUtils';
+  import { getAgentConfigByAgentId, getAgentConfigChangelog } from '@/utils/requestUtils';
+  import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   import NothingToShowComponent from '@/components/NothingToShowComponent';
 
   export default {
