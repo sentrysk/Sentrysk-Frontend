@@ -115,6 +115,8 @@
         agentConfig: null,
         loading: true,
         error: false,
+        changeLogData: [],
+        changeLogCount: 0,
         localUpdateTime: "",
         timeDiff: "",
         activeSection: 'agentDetails',
