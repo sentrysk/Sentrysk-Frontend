@@ -137,6 +137,8 @@
         const response = await getAgentConfigByAgentId(agentId);
         if (response) {
           this.agentConfig = response;
+          // Get Agent Config Changelog
+          this.changeLogData = await getAgentConfigChangelog(this.agentConfig.id); 
           this.localUpdateTime = formatToLocalTime(this.agentConfig.updated);
           this.timeDiff = calculateDatetimeDifference(this.agentConfig.updated);
         }
