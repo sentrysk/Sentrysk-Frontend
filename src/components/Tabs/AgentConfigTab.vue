@@ -171,7 +171,7 @@
           this.agentConfig = response;
           // Get Agent Config Changelog
           this.changeLogData = await getAgentConfigChangelog(this.agentConfig._id);
-          
+          // Format Changelog Data
           this.changeLogData.forEach((changeObj) => {
             const id = changeObj.id;
             const timestamp = changeObj.timestamp;
