@@ -178,7 +178,7 @@
             this.flattenChanges(changeObj.changes, "").forEach((change) => {
               this.changesArray.push({
                 id: id,
-                timestamp: timestamp,
+                timestamp: formatToLocalTime(timestamp),
                 path: change.path.split('.').map(part => `[${part}]`).join(''),
                 previous_value: change.previous_value,
                 new_value: change.new_value,
