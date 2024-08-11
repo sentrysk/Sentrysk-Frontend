@@ -5,6 +5,11 @@
         <i class="fa-solid fa-gear"></i> Agent Config
       </button>
     </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="agentConfigChangelogTab" data-bs-toggle="tab" data-bs-target="#agentConfigChangelogDiv" type="button" role="tab" aria-controls="agentConfigChangelogDiv" aria-selected="false">
+        <i class="bi bi-file-diff"></i> Changelogs
+      </button>
+    </li>
   </ul>
 
   <div class="tab-content" id="agentConfigTabContent">
@@ -97,6 +102,32 @@
         </div>
       </div>
     </div>
+     <!-- Changelog Tab -->
+     <div class="tab-pane fade" id="agentConfigChangelogDiv" role="tabpanel" aria-labelledby="agentConfigChangelogDiv">
+        <!-- Use Bootstrap Cards to display the data -->
+        <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Timestamp</th>
+                <th scope="col">Field</th>
+                <th scope="col">Previous Value</th>
+                <th scope="col">New Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="change in changesArray" :key="change.id">
+                <td>{{ change.id }}</td>
+                <td>{{ change.timestamp }}</td>
+                <td>{{ change.path }}</td>
+                <td>{{ change.previous_value }}</td>
+                <td>{{ change.new_value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+     </div>
   </div>
 </template>
 
@@ -115,8 +146,9 @@
         agentConfig: null,
         loading: true,
         error: false,
-        changeLogData: [],
+        changeLogData: null,
         changeLogCount: 0,
+        changesArray: [],
         localUpdateTime: "",
         timeDiff: "",
         activeSection: 'agentDetails',
@@ -138,7 +170,23 @@
         if (response) {
           this.agentConfig = response;
           // Get Agent Config Changelog
-          this.changeLogData = await getAgentConfigChangelog(this.agentConfig.id); 
+          this.changeLogData = await getAgentConfigChangelog(this.agentConfig._id);
+          
+          this.changeLogData.forEach((changeObj) => {
+            const id = changeObj.id;
+            const timestamp = changeObj.timestamp;
+            this.flattenChanges(changeObj.changes, "").forEach((change) => {
+              this.changesArray.push({
+                id: id,
+                timestamp: timestamp,
+                path: change.path.split('.').map(part => `[${part}]`).join(''),
+                previous_value: change.previous_value,
+                new_value: change.new_value,
+              });
+            });
+          });
+
+          console.log(this.changeLogData);
           this.localUpdateTime = formatToLocalTime(this.agentConfig.updated);
           this.timeDiff = calculateDatetimeDifference(this.agentConfig.updated);
         }
@@ -152,7 +200,26 @@
     computed: {
       hasData() {
         return this.agentConfig && Object.keys(this.agentConfig).length > 0;
-      }
+      },
+      formattedChanges() {
+        const changesArray = [];
+
+        this.changeLogData.forEach((changeObj) => {
+          const id = changeObj.id;
+          const timestamp = changeObj.timestamp;
+          this.flattenChanges(changeObj.changes, "").forEach((change) => {
+            changesArray.push({
+              id: id,
+              timestamp: timestamp,
+              path: change.path,
+              previous_value: change.previous_value,
+              new_value: change.new_value,
+            });
+          });
+        });
+
+        return changesArray;
+    },
     },
     methods: {
       setActiveSection(section) {
@@ -160,7 +227,34 @@
       },
       formatScheduledJob(job) {
         return job?.interval ? `${job.interval} ${job.unit}` : job?.time || '';
-      }
+      },
+      flattenChanges(changes, currentPath) {
+        let flattened = [];
+
+        Object.keys(changes).forEach((key) => {
+          const newPath = currentPath ? `${currentPath}.${key}` : key;
+
+          if (
+            changes[key] !== null &&
+            typeof changes[key] === "object" &&
+            "new_value" in changes[key] &&
+            "previous_value" in changes[key]
+          ) {
+            flattened.push({
+              path: newPath,
+              previous_value: changes[key].previous_value,
+              new_value: changes[key].new_value,
+            });
+          } else if (
+            changes[key] !== null &&
+            typeof changes[key] === "object"
+          ) {
+            flattened = flattened.concat(this.flattenChanges(changes[key], newPath));
+          }
+      });
+
+      return flattened;
+    },
     }
   };
 </script>
