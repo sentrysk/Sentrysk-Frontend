@@ -139,6 +139,7 @@
   import { getAgentConfigByAgentId, getAgentConfigChangelog } from '@/utils/requestUtils';
   import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   import NothingToShowComponent from '@/components/NothingToShowComponent';
+  import moment from 'moment';
 
   export default {
     name: 'agentConfigTab',
@@ -196,6 +197,18 @@
 
           // Set DataTable
           $(document).ready(() => {
+            // Custom sorting plugin for DataTables
+            $.extend($.fn.dataTable.ext.type.order, {
+              "date-gmt-pre": function (d) {
+                  return moment(d, 'MMM D, YYYY, HH:mm:ss [GMT]Z').toDate();
+              },
+              "date-gmt-asc": function (a, b) {
+                  return a - b;
+              },
+              "date-gmt-desc": function (a, b) {
+                  return b - a;
+              }
+            });
             // Set Npm Packages Table as Data Table
             $('#agentConfigChangelogTable').DataTable({
               searching: true,
@@ -205,6 +218,17 @@
                   [25, 50, 100, 250, -1],
                   [25, 50, 100, 250, 'All']
               ],
+              order: [ 0, 'desc' ],
+              columnDefs: [
+                  {
+                      targets: 0, // Adjust the column index to date column
+                      type: 'date-gmt'
+                  },
+                  {
+                    targets: [1,2,3,4],
+                    orderable: false
+                  }
+              ]
             });
             // Style length Menu
             const pageEntrySize = document.getElementById('agentConfigChangelogTable_length');
