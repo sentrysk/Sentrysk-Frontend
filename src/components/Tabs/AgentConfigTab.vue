@@ -206,6 +206,12 @@
                   [25, 50, 100, 250, 'All']
               ],
             });
+            // Style length Menu
+            const pageEntrySize = document.getElementById('agentConfigChangelogTable_length');
+            pageEntrySize.style = "margin-right:100%";
+            const pageInfoText = document.getElementById('agentConfigChangelogTable_info');
+            pageInfoText.style = "float:left";
+
           });
         }
       } catch (error) {
