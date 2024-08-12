@@ -8,6 +8,9 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="agentConfigChangelogTab" data-bs-toggle="tab" data-bs-target="#agentConfigChangelogDiv" type="button" role="tab" aria-controls="agentConfigChangelogDiv" aria-selected="false">
         <i class="bi bi-file-diff"></i> Changelogs
+        <span class="badge rounded-pill bg-primary">
+            {{ changeLogCount }}
+        </span>
       </button>
     </li>
   </ul>
@@ -185,6 +188,7 @@
               });
             });
           });
+          this.changeLogCount = this.changesArray.length;
 
           console.log(this.changeLogData);
           this.localUpdateTime = formatToLocalTime(this.agentConfig.updated);
