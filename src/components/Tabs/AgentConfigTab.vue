@@ -124,8 +124,8 @@
                 <td>{{ change.id }}</td>
                 <td>{{ change.timestamp }}</td>
                 <td>{{ change.path }}</td>
-                <td>{{ change.previous_value }}</td>
-                <td>{{ change.new_value }}</td>
+                <td style="color: crimson;">{{ change.previous_value }}</td>
+                <td style="color: green;">{{ change.new_value }}</td>
               </tr>
             </tbody>
           </table>
