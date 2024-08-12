@@ -392,4 +392,8 @@
   padding-left: 0;
   list-style: none;
 }
+
+#agentConfigChangelogDiv{
+  margin-top: 1rem;
+}
 </style>
