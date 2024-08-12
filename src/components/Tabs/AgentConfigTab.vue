@@ -109,11 +109,11 @@
      <div class="tab-pane fade" id="agentConfigChangelogDiv" role="tabpanel" aria-labelledby="agentConfigChangelogDiv">
         <!-- Use Bootstrap Cards to display the data -->
         <div class="row">
-          <table class="table">
+          <table class="table" id="agentConfigChangelogTable">
             <thead>
               <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Timestamp</th>
+                <th scope="col">ID</th>
                 <th scope="col">Field</th>
                 <th scope="col">Previous Value</th>
                 <th scope="col">New Value</th>
@@ -121,8 +121,8 @@
             </thead>
             <tbody>
               <tr v-for="change in changesArray" :key="change.id">
-                <td>{{ change.id }}</td>
                 <td>{{ change.timestamp }}</td>
+                <td>{{ change.id }}</td>
                 <td>{{ change.path }}</td>
                 <td style="color: crimson;">{{ change.previous_value }}</td>
                 <td style="color: green;">{{ change.new_value }}</td>
@@ -135,6 +135,7 @@
 </template>
 
 <script>
+  import $ from "jquery";
   import { getAgentConfigByAgentId, getAgentConfigChangelog } from '@/utils/requestUtils';
   import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   import NothingToShowComponent from '@/components/NothingToShowComponent';
@@ -188,11 +189,24 @@
               });
             });
           });
+          // Set changeLogCount
           this.changeLogCount = this.changesArray.length;
-
-          console.log(this.changeLogData);
           this.localUpdateTime = formatToLocalTime(this.agentConfig.updated);
           this.timeDiff = calculateDatetimeDifference(this.agentConfig.updated);
+
+          // Set DataTable
+          $(document).ready(() => {
+            // Set Npm Packages Table as Data Table
+            $('#agentConfigChangelogTable').DataTable({
+              searching: true,
+              lengthChange: true,
+              pageLength: 25,
+              lengthMenu: [
+                  [25, 50, 100, 250, -1],
+                  [25, 50, 100, 250, 'All']
+              ],
+            });
+          });
         }
       } catch (error) {
         // Set error property true
