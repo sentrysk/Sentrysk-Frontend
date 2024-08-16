@@ -24,6 +24,7 @@ const AGNT_CFG_EP = AGNT_EP + "config/"
 const DISK_USG_EP = "/diskusage/"
 const MEM_USG_EP = "/memusage/"
 const CPU_USG_EP = "/cpu_usage/"
+const LATEST = "/latest"
 
 // Get System Information by Agent Id
 export async function getSystemInformation(agentId){
@@ -633,5 +634,22 @@ export async function getCpuUsageData(agentId) {
         return response.data;
     } catch (error) {
     console.error('Error fetching CPU usage data:', error);
+    }
+}
+
+// Get Latest CPU Usage Data by Agent ID
+export async function getLatestCpuUsageData(agentId) {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + CPU_USG_EP + agentId.toString() + LATEST;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching Latest CPU usage data:', error);
     }
 }
