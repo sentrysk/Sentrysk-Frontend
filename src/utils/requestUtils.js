@@ -653,3 +653,20 @@ export async function getLatestCpuUsageData(agentId) {
     console.error('Error fetching Latest CPU usage data:', error);
     }
 }
+
+// Get Latest Memory Usage Data by Agent ID
+export async function getLatestMemoryUsageData(agentId) {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + MEM_USG_EP + agentId.toString() + LATEST;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching Latest Memory usage data:', error);
+    }
+}
