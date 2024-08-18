@@ -670,3 +670,20 @@ export async function getLatestMemoryUsageData(agentId) {
     console.error('Error fetching Latest Memory usage data:', error);
     }
 }
+
+// Get Latest Disk Usage Data by Agent ID
+export async function getLatestDiskUsageData(agentId) {
+    try {
+        // Retrieve JWT token from session storage
+        const jwtToken = sessionStorage.getItem('jwtToken');
+        const URL = API_URL + DISK_USG_EP + agentId.toString() + LATEST;
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: jwtToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+    console.error('Error fetching Latest Disk usage data:', error);
+    }
+}
