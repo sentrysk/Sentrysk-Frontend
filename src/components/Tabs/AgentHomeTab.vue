@@ -46,7 +46,6 @@
                       <i class="bi bi-apple"></i>
                     </span>
                   </div>
-
                   <div class="mb-3 input-group">
                       <span class="input-group-text" title="Created By"><i class="bi bi-person-badge"></i></span>
                       <input type="text" class="form-control" placeholder="Created By"  :value="agentData.created_by.name + ' ' + agentData.created_by.lastname " disabled/>
@@ -87,7 +86,7 @@
 
 
 <script>
-  import { getAgentDataById } from '@/utils/requestUtils';
+  import { getAgentDataById, getLatestCpuUsageData } from '@/utils/requestUtils';
   import { formatToLocalTime } from '@/utils/timeUtils';
   
   export default {
@@ -98,6 +97,7 @@
         error: false,
         agentData: null,
         showToken: false,
+        latestCpuUsage: null,
       };
     },
     async created() {
@@ -109,6 +109,9 @@
           this.agentData = await getAgentDataById(agentId);
 
           this.agentData.created = formatToLocalTime(this.agentData.created);
+
+          // Retrieve Latest CPU Usage
+          this.latestCpuUsage = await getLatestCpuUsageData(agentId);
 
         } catch (error) {
           // Print error to console
