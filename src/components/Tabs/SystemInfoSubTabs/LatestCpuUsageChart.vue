@@ -5,7 +5,7 @@
           <div class="chart-container col-md-4">
             <h3 class="text-center">Latest CPU Usage</h3>
             <canvas :id="'latestCpuUsageChart'"></canvas>
-            <p>Last Update: {{ lastUpdate }} </p>
+            <span :title="lastUpdate">Last Update: {{ timeDiff }} </span>
           </div>
         </div>
       </div>
@@ -16,13 +16,15 @@
   import Chart from 'chart.js/auto';
   import { getLatestCpuUsageData } from '@/utils/requestUtils';
   import 'chartjs-adapter-date-fns';  // Import the date adapter
+  import { formatToLocalTime, calculateDatetimeDifference } from '@/utils/timeUtils';
   
   export default {
     name: 'LatestCpuUsageChart',
     data() {
       return {
         cpuUsageData: {},
-        lastUpdate: null
+        lastUpdate: null,
+        timeDiffLastUpdate: null,
       };
     },
     async created() {
@@ -36,6 +38,11 @@
           const agentId = this.$route.params.id;
           this.cpuUsageData = await getLatestCpuUsageData(agentId);
           this.lastUpdate = this.cpuUsageData.timestamp;
+
+          // Convert to Local Time
+          this.lastUpdate = formatToLocalTime(this.lastUpdate);
+          // Find the time difference
+          this.timeDiff =  calculateDatetimeDifference(this.lastUpdate);
         } catch (error) {
           console.error('Error fetching Latest CPU usage data:', error);
         }
