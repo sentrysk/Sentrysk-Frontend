@@ -74,7 +74,7 @@
 
             </div>
             <div class="col-md-6">
-
+              <LatestCpuUsageChart></LatestCpuUsageChart>
             </div>
           </div>
         </div>
@@ -88,6 +88,7 @@
 <script>
   import { getAgentDataById, getLatestCpuUsageData } from '@/utils/requestUtils';
   import { formatToLocalTime } from '@/utils/timeUtils';
+  import LatestCpuUsageChart from "@/components/Tabs/SystemInfoSubTabs/LatestCpuUsageChart.vue";
   
   export default {
     name: 'agentHomeTab',
@@ -97,8 +98,11 @@
         error: false,
         agentData: null,
         showToken: false,
-        latestCpuUsage: null,
+        //latestCpuUsage: null,
       };
+    },
+    components:{
+      LatestCpuUsageChart,
     },
     async created() {
       try {
@@ -111,7 +115,7 @@
           this.agentData.created = formatToLocalTime(this.agentData.created);
 
           // Retrieve Latest CPU Usage
-          this.latestCpuUsage = await getLatestCpuUsageData(agentId);
+          //this.latestCpuUsage = await getLatestCpuUsageData(agentId);
 
         } catch (error) {
           // Print error to console
