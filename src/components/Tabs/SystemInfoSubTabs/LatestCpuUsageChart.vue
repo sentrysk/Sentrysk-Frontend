@@ -5,6 +5,7 @@
           <div class="chart-container col-md-4">
             <h3 class="text-center">Latest CPU Usage</h3>
             <canvas :id="'latestCpuUsageChart'"></canvas>
+            <p>Last Update: {{ lastUpdate }} </p>
           </div>
         </div>
       </div>
@@ -21,6 +22,7 @@
     data() {
       return {
         cpuUsageData: {},
+        lastUpdate: null
       };
     },
     async created() {
@@ -33,6 +35,7 @@
           // Get the ID from the URL
           const agentId = this.$route.params.id;
           this.cpuUsageData = await getLatestCpuUsageData(agentId);
+          this.lastUpdate = this.cpuUsageData.timestamp;
         } catch (error) {
           console.error('Error fetching Latest CPU usage data:', error);
         }
