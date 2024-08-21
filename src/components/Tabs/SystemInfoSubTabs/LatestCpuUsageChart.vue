@@ -1,16 +1,10 @@
 <template>
-    <div>
-      <div id="charts" class="container-fluid">
-        <div class="row">
-          <div class="chart-container col-md-4">
-            <h3 class="text-center">Latest CPU Usage</h3>
-            <canvas :id="'latestCpuUsageChart'"></canvas>
-            <span :title="lastUpdate">Last Update: {{ timeDiff }} </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
+  <div class="chart-container col-sm-2">
+    <h3 class="text-center">CPU</h3>
+    <canvas :id="'latestCpuUsageChart'"></canvas>
+    <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+  </div>
+</template>
   
   <script>
   import Chart from 'chart.js/auto';
@@ -42,7 +36,7 @@
           // Convert to Local Time
           this.lastUpdate = formatToLocalTime(this.lastUpdate);
           // Find the time difference
-          this.timeDiff =  calculateDatetimeDifference(this.lastUpdate);
+          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
         } catch (error) {
           console.error('Error fetching Latest CPU usage data:', error);
         }
@@ -56,11 +50,11 @@
             type: 'doughnut',
             data: {
               labels: [
-                'Usage',
+                'Used',
                 'Free',
               ],
               datasets: [{
-                label: 'Latest CPU Usage',
+                label: 'CPU Usage',
                 data: [usedData, 100-usedData],
                 backgroundColor: [
                   'rgb(255, 99, 132)',
