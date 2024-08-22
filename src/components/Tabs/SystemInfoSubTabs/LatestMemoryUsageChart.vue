@@ -1,16 +1,10 @@
 <template>
-    <div>
-      <div id="charts" class="container-fluid">
-        <div class="row">
-          <div class="chart-container col-md-4">
-            <h3 class="text-center">Latest Memory Usage</h3>
-            <canvas :id="'latestMemoryUsageChart'"></canvas>
-            <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
+  <div class="chart-container col-sm-2">
+    <h3 class="text-center">Memory</h3>
+    <canvas :id="'latestMemoryUsageChart'"></canvas>
+    <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+  </div>
+</template>
   
   <script>
   import Chart from 'chart.js/auto';
