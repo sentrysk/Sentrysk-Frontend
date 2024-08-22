@@ -74,8 +74,11 @@
 
             </div>
             <div class="col-md-6">
-              <LatestCpuUsageChart></LatestCpuUsageChart>
-              <LatestMemoryUsageChart></LatestMemoryUsageChart>
+              <div class="row">
+                <LatestCpuUsageChart></LatestCpuUsageChart>
+                <LatestMemoryUsageChart></LatestMemoryUsageChart>
+                <LatestDiskUsageChart></LatestDiskUsageChart>
+              </div>
             </div>
           </div>
         </div>
@@ -91,6 +94,7 @@
   import { formatToLocalTime } from '@/utils/timeUtils';
   import LatestCpuUsageChart from "@/components/Tabs/SystemInfoSubTabs/LatestCpuUsageChart.vue";
   import LatestMemoryUsageChart from '@/components/Tabs/SystemInfoSubTabs/LatestMemoryUsageChart.vue';
+  import LatestDiskUsageChart from '@/components/Tabs/SystemInfoSubTabs/LatestDiskUsageChart.vue';
   
   export default {
     name: 'agentHomeTab',
@@ -105,6 +109,7 @@
     components:{
       LatestCpuUsageChart,
       LatestMemoryUsageChart,
+      LatestDiskUsageChart,
     },
     async created() {
       try {
