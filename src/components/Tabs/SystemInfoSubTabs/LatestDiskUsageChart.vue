@@ -2,6 +2,7 @@
     <div v-for="(diskData, device) in disks" :key="device" class="chart-container col-sm-2">
       <h3 class="text-center">{{ diskData.device }}</h3>
       <canvas :id="'chart-' + device"></canvas>
+      <span :id="'lastUpdate-' + device"></span>
     </div>
   </template>
     
@@ -37,7 +38,9 @@
             Object.keys(this.disks).forEach(device => {
                 const diskData = this.disks[device];
                 const usagePercent = diskData.percent;
-
+                const lastUpdateField = document.getElementById('lastUpdate-' + device);
+                lastUpdateField.textContent  = diskData.timestamp;
+                
                 const ctx = document.getElementById('chart-' + device).getContext('2d');
                 new Chart(ctx, {
                 type: 'doughnut',
