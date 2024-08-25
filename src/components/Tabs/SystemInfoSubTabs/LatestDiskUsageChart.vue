@@ -39,7 +39,8 @@
                 const diskData = this.disks[device];
                 const usagePercent = diskData.percent;
                 const lastUpdateField = document.getElementById('lastUpdate-' + device);
-                lastUpdateField.textContent  = formatToLocalTime(diskData.timestamp);
+                lastUpdateField.textContent = calculateDatetimeDifference(diskData.timestamp)
+                lastUpdateField.title = formatToLocalTime(diskData.timestamp);
                 
                 const ctx = document.getElementById('chart-' + device).getContext('2d');
                 new Chart(ctx, {
