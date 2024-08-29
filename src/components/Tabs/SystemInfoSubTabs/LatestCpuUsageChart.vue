@@ -1,5 +1,20 @@
 <template>
-  <div class="chart-container col-sm-2">
+  <!-- Loading -->
+  <div v-if="loading" class="chart-container col-sm-2">
+    <h3 class="text-center">CPU</h3>
+    <div class="loading-content">
+      <i class="fas fa-spinner fa-spin fa-3x"></i>
+      <h2>Loading...</h2>
+    </div>
+  </div>
+  <div v-else-if="error" class="chart-container col-sm-2">
+    <h3 class="text-center">CPU</h3>
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle fa-3x"></i>
+      <h2>Error loading data.</h2>
+    </div>
+  </div>
+  <div v-else class="chart-container col-sm-2">
     <h3 class="text-center">CPU</h3>
     <canvas :id="'latestCpuUsageChart'"></canvas>
     <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
@@ -16,6 +31,8 @@
     name: 'LatestCpuUsageChart',
     data() {
       return {
+        loading: true,
+        error: false,
         cpuUsageData: {},
         lastUpdate: null,
         timeDiffLastUpdate: null,
@@ -23,7 +40,7 @@
     },
     async created() {
       await this.fetchLatestCpuUsageData();
-      this.renderCharts();
+      
     },
     methods: {
       async fetchLatestCpuUsageData() {
@@ -33,12 +50,21 @@
           this.cpuUsageData = await getLatestCpuUsageData(agentId);
           this.lastUpdate = this.cpuUsageData.timestamp;
 
-          // Convert to Local Time
-          this.lastUpdate = formatToLocalTime(this.lastUpdate);
-          // Find the time difference
-          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+          if (this.cpuUsageData != null){
+            // Convert to Local Time
+            this.lastUpdate = formatToLocalTime(this.lastUpdate);
+            // Find the time difference
+            this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+            // Render
+            this.renderCharts();
+          }
         } catch (error) {
+          // Print error to console
           console.error('Error fetching Latest CPU usage data:', error);
+          // Set error property true
+          this.error = true;
+        } finally {
+          this.loading = false;
         }
       },
       renderCharts() {
