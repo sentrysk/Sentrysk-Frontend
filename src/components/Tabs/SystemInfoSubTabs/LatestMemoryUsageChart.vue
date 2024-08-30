@@ -1,5 +1,20 @@
 <template>
-  <div class="chart-container col-sm-2">
+  <!-- Loading -->
+  <div v-if="loading" class="chart-container col-sm-2">
+    <h3 class="text-center">Memory</h3>
+    <div class="loading-content">
+      <i class="fas fa-spinner fa-spin fa-3x"></i>
+      <h2>Loading...</h2>
+    </div>
+  </div>
+  <div v-else-if="error" class="chart-container col-sm-2">
+    <h3 class="text-center">Memory</h3>
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle fa-3x"></i>
+      <h2>Error loading data.</h2>
+    </div>
+  </div>
+  <div v-else class="chart-container col-sm-2">
     <h3 class="text-center">Memory</h3>
     <canvas :id="'latestMemoryUsageChart'"></canvas>
     <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
@@ -16,6 +31,8 @@
     name: 'LatestMemoryUsageChart',
     data() {
       return {
+        loading: true,
+        error: false,
         memoryUsageData: {},
         lastUpdate: null,
         timeDiffLastUpdate: null,
@@ -23,7 +40,6 @@
     },
     async created() {
       await this.fetchLatestMemoryUsageData();
-      this.renderCharts();
     },
     methods: {
       async fetchLatestMemoryUsageData() {
@@ -31,14 +47,23 @@
           // Get the ID from the URL
           const agentId = this.$route.params.id;
           this.memoryUsageData = await getLatestMemoryUsageData(agentId);
-          this.lastUpdate = this.memoryUsageData.timestamp;
 
-          // Convert to Local Time
-          this.lastUpdate = formatToLocalTime(this.lastUpdate);
-          // Find the time difference
-          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+          if(this.memoryUsageData != null){
+            this.lastUpdate = this.memoryUsageData.timestamp;
+            // Convert to Local Time
+            this.lastUpdate = formatToLocalTime(this.lastUpdate);
+            // Find the time difference
+            this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+            // Render
+            this.renderCharts();
+          }
         } catch (error) {
+          // Print error to console
           console.error('Error fetching Latest Memory usage data:', error);
+          // Set error property true
+          this.error = true;
+        } finally {
+          this.loading = false;
         }
       },
       renderCharts() {
