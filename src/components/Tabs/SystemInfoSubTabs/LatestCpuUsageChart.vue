@@ -48,16 +48,15 @@
           // Get the ID from the URL
           const agentId = this.$route.params.id;
           this.cpuUsageData = await getLatestCpuUsageData(agentId);
-          this.lastUpdate = this.cpuUsageData.timestamp;
 
-          if (this.cpuUsageData != null){
-            // Convert to Local Time
-            this.lastUpdate = formatToLocalTime(this.lastUpdate);
-            // Find the time difference
-            this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
-            // Render
-            this.renderCharts();
-          }
+          this.lastUpdate = this.cpuUsageData.timestamp;
+          // Convert to Local Time
+          this.lastUpdate = formatToLocalTime(this.lastUpdate);
+          // Find the time difference
+          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+          // Render
+          this.renderCharts();
+          
         } catch (error) {
           // Print error to console
           console.error('Error fetching Latest CPU usage data:', error);
