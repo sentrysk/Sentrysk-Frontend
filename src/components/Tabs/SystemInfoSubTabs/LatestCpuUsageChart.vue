@@ -1,23 +1,27 @@
 <template>
-  <!-- Loading -->
-  <div v-if="loading" class="chart-container col-sm-2">
+  <!-- Container Block -->
+  <div class="chart-container col-sm-2">
     <h3 class="text-center">CPU</h3>
-    <div class="loading-content">
-      <i class="fas fa-spinner fa-spin fa-3x"></i>
-      <h2>Loading...</h2>
+    <!-- Loading State -->
+    <div v-if="loading">
+      <div class="loading-content">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <h2>Loading...</h2>
+      </div>
     </div>
-  </div>
-  <div v-else-if="error" class="chart-container col-sm-2">
-    <h3 class="text-center">CPU</h3>
-    <div class="error-content">
-      <i class="fas fa-exclamation-triangle fa-3x"></i>
-      <h2>Error loading data.</h2>
+    <!-- Loaded State -->
+    <!-- If any error occurs -->
+    <div v-if="error">
+      <div class="error-content">
+        <i class="fas fa-exclamation-triangle fa-3x"></i>
+        <h2>Error loading data.</h2>
+      </div>
     </div>
-  </div>
-  <div v-else class="chart-container col-sm-2">
-    <h3 class="text-center">CPU</h3>
-    <canvas :id="'latestCpuUsageChart'"></canvas>
-    <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+    <!-- If any error not occurs -->
+    <div v-else>
+      <canvas :id="'latestCpuUsageChart'"></canvas>
+      <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+    </div>
   </div>
 </template>
   
@@ -40,7 +44,6 @@
     },
     async created() {
       await this.fetchLatestCpuUsageData();
-      
     },
     methods: {
       async fetchLatestCpuUsageData() {
