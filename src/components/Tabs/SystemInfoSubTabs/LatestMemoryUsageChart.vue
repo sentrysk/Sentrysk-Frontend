@@ -1,25 +1,23 @@
 <template>
-  <div v-if="loading" class="chart-container col-sm-2">
-    <!-- Loading -->
+  <!-- Container Block -->
+  <div class="chart-container col-sm-2">
     <h3 class="text-center">Memory</h3>
-    <div class="loading-content">
+    <!-- Loading State -->
+    <div v-if="loading" class="loading-content">
       <i class="fas fa-spinner fa-spin fa-3x"></i>
       <h2>Loading...</h2>
     </div>
-  </div>
-  <div v-else-if="error" class="chart-container col-sm-2">
-    <!-- Error -->
-    <h3 class="text-center">Memory</h3>
-    <div class="error-content">
+    <!-- Loaded State -->
+    <!-- If any error occurs -->
+    <div v-if="error" class="error-content">
       <i class="fas fa-exclamation-triangle fa-3x"></i>
       <h2>Error loading data.</h2>
     </div>
-  </div>
-  <div v-else class="chart-container col-sm-2">
-    <!-- Working Well -->
-    <h3 class="text-center">Memory</h3>
-    <canvas :id="'latestMemoryUsageChart'"></canvas>
-    <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+    <!-- If any error not occurs -->
+    <div v-else>
+      <canvas :id="'latestMemoryUsageChart'"></canvas>
+      <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+    </div>
   </div>
 </template>
   
