@@ -3,19 +3,15 @@
   <div class="chart-container col-sm-2">
     <h3 class="text-center">CPU</h3>
     <!-- Loading State -->
-    <div v-if="loading">
-      <div class="loading-content">
-        <i class="fas fa-spinner fa-spin fa-3x"></i>
-        <h2>Loading...</h2>
-      </div>
+    <div v-if="loading" class="loading-content">
+      <i class="fas fa-spinner fa-spin fa-3x"></i>
+      <h2>Loading...</h2>
     </div>
     <!-- Loaded State -->
     <!-- If any error occurs -->
-    <div v-if="error">
-      <div class="error-content">
-        <i class="fas fa-exclamation-triangle fa-3x"></i>
-        <h2>Error loading data.</h2>
-      </div>
+    <div v-if="error" class="error-content">
+      <i class="fas fa-exclamation-triangle fa-3x"></i>
+      <h2>Error loading data.</h2>
     </div>
     <!-- If any error not occurs -->
     <div v-else>
