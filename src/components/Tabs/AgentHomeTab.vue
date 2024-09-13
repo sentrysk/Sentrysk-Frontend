@@ -75,9 +75,22 @@
             </div>
             <div class="col-md-6">
               <div class="row">
-                <LatestCpuUsageChart></LatestCpuUsageChart>
-                <LatestMemoryUsageChart></LatestMemoryUsageChart>
-                <LatestDiskUsageChart></LatestDiskUsageChart>
+                <div class="accordion" id="accordionCharts">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="true" aria-controls="collapseCharts">
+                        <i class="bi bi-hdd-stack"></i> Charts
+                      </button>
+                    </h2>
+                    <div id="collapseCharts" class="accordion-collapse collapse show" data-bs-parent="#accordionCharts">
+                      <div class="accordion-body">
+                        <LatestCpuUsageChart></LatestCpuUsageChart>
+                        <LatestMemoryUsageChart></LatestMemoryUsageChart>
+                        <LatestDiskUsageChart></LatestDiskUsageChart>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
