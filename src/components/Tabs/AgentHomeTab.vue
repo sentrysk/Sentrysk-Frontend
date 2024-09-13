@@ -83,7 +83,7 @@
                       </button>
                     </h2>
                     <div id="collapseCharts" class="accordion-collapse collapse show" data-bs-parent="#accordionCharts">
-                      <div class="accordion-body">
+                      <div class="accordion-body row">
                         <LatestCpuUsageChart></LatestCpuUsageChart>
                         <LatestMemoryUsageChart></LatestMemoryUsageChart>
                         <LatestDiskUsageChart></LatestDiskUsageChart>
