@@ -38,8 +38,8 @@
         timeDiffLastUpdate: null,
       };
     },
-    async created() {
-      await this.fetchLatestCpuUsageData();
+    mounted() {
+      this.fetchLatestCpuUsageData();
     },
     methods: {
       async fetchLatestCpuUsageData() {
