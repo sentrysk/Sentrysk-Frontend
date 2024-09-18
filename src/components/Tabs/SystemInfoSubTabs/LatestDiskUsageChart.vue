@@ -19,9 +19,8 @@
         disks: {}
       };
     },
-    async created() {
-      await this.fetchLatestDiskUsageData();
-      this.renderCharts();
+    mounted() {
+      this.fetchLatestDiskUsageData();
     },
     methods: {
       async fetchLatestDiskUsageData() {
@@ -29,6 +28,8 @@
           // Get the ID from the URL
           const agentId = this.$route.params.id;
           this.disks = await getLatestDiskUsageData(agentId);
+          // Render Charts
+          this.renderCharts();
 
         } catch (error) {
           console.error('Error fetching Latest Disk usage data:', error);
