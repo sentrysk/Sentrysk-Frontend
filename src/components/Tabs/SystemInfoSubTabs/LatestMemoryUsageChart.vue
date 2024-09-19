@@ -38,8 +38,8 @@
         timeDiffLastUpdate: null,
       };
     },
-    async created() {
-      await this.fetchLatestMemoryUsageData();
+    mounted() {
+      this.fetchLatestMemoryUsageData();
     },
     methods: {
       async fetchLatestMemoryUsageData() {
