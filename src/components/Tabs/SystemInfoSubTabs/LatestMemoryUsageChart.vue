@@ -41,6 +41,11 @@
     },
     mounted() {
       this.fetchLatestMemoryUsageData();
+
+      // Set up the interval to fetch data every 60 seconds
+      this.intervalId = setInterval(() => {
+        this.fetchLatestMemoryUsageData();
+      }, 60000); // 60 seconds
     },
     methods: {
       async fetchLatestMemoryUsageData() {
