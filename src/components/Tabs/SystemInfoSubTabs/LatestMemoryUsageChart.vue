@@ -36,6 +36,7 @@
         memoryUsageData: {},
         lastUpdate: null,
         timeDiffLastUpdate: null,
+        intervalId: null, // Store the interval ID
       };
     },
     mounted() {
