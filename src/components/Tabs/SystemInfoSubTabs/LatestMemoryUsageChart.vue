@@ -48,6 +48,16 @@
         this.fetchLatestMemoryUsageData();
       }, 60000); // 60 seconds
     },
+    beforeUnmount() {
+      // Clear the interval when the component is destroyed to avoid memory leaks
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
+      // Destroy the chart when the component is destroyed
+      if (this.latestMemoryChartInstance) {
+        this.latestMemoryChartInstance.destroy();
+      }
+    },
     methods: {
       async fetchLatestMemoryUsageData() {
         try {
