@@ -76,6 +76,11 @@
           const usedSize = memoryUsageData.percent;
   
           const ctx = document.getElementById('latestMemoryUsageChart').getContext('2d');
+
+          // If a chart already exists, destroy it before creating a new one
+          if (this.latestMemoryChartInstance) {
+            this.latestMemoryChartInstance.destroy();
+          }
           
           this.latestMemoryChartInstance = new Chart(ctx, {
             type: 'doughnut',
