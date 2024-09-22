@@ -76,7 +76,8 @@
           const usedSize = memoryUsageData.percent;
   
           const ctx = document.getElementById('latestMemoryUsageChart').getContext('2d');
-          new Chart(ctx, {
+          
+          this.latestMemoryChartInstance = new Chart(ctx, {
             type: 'doughnut',
             data: {
               labels: [
