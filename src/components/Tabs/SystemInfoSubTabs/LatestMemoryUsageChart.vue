@@ -37,6 +37,7 @@
         lastUpdate: null,
         timeDiffLastUpdate: null,
         intervalId: null, // Store the interval ID
+        latestMemoryChartInstance: null, // Store the chart instance
       };
     },
     mounted() {
