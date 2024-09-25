@@ -59,8 +59,9 @@
           const jwtToken = sessionStorage.getItem('jwtToken');
           const agentId =  this.$refs.agentId.value
 
+          const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
           // Send PUT request to update the agent type by ID
-          await axios.put(`http://localhost:8000/agent/${agentId}`, {
+          await axios.put(`${backend_url}/agent/${agentId}`, {
             type: this.selectedAgentType,
           }, {
             headers: {
