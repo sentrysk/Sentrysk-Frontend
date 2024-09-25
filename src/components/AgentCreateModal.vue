@@ -59,8 +59,9 @@ export default {
     async registerAgent() {
       // Send a POST request to register the agent
       try {
+        const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
         const jwtToken = sessionStorage.getItem("jwtToken");
-        const API_URL = "http://localhost:8000/agent/register"
+        const API_URL = `${backend_url}/agent/register`;
         await axios.post(API_URL, {
           // Request Body
           type: this.selectedAgentType,
