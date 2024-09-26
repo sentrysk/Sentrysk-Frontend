@@ -72,7 +72,8 @@
         };
   
         try {
-          const API_URL = "http://localhost:8000/user/register"
+          const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
+          const API_URL = `${backend_url}/user/register`;
           const response = await axios.post(API_URL, registrationData);
   
           if (response.status === 201) {
