@@ -56,7 +56,8 @@
     methods: {
       async login() {
         try {
-          const API_URL = "http://localhost:8000/user/login"
+          const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
+          const API_URL = `${backend_url}/user/login`;
           const response = await axios.post(API_URL, {
             email: this.email,
             password: this.password,
