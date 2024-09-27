@@ -91,7 +91,8 @@ export default {
   
         if (jwtToken) {
           try {
-            const API_URL = "http://localhost:8000/user/logout"
+            const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
+            const API_URL = `${backend_url}/user/logout`
             // Send a POST request to the logout endpoint with Authorization header
             await axios.post(API_URL, null, {
               headers: {
@@ -147,7 +148,8 @@ export default {
         }
 
         try {
-          const API_URL = "http://localhost:8000/user/updatepass"
+          const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
+          const API_URL = `${backend_url}/user/updatepass`
           const response = await axios.post(API_URL, passwordData, {
             headers: {
                 Authorization: sessionStorage.getItem('jwtToken')
