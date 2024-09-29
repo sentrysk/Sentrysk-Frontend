@@ -109,8 +109,9 @@ router.beforeEach(async (to, from, next) => {
     if (jwtToken) {
       // User is authenticated, proceed to check the session
       try {
+        const backend_url = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
         // Send a GET request to the session check endpoint
-        const response = await axios.get("http://localhost:8000/session/check", {
+        const response = await axios.get(`${backend_url}/session/check`, {
           headers: {
             Authorization: jwtToken,
           },
