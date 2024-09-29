@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Global Variables
-const API_URL  =  "http://localhost:8000"
+const API_URL = process.env.VUE_APP_SENTRYSK_BACKEND_URL;
 const USER_EP = "/user/"
 const USER_DETAILS_EP = "details"
 const SESSIONS_EP = "/session"
