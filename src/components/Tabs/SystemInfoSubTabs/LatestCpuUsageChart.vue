@@ -16,7 +16,7 @@
     <!-- If any error not occurs -->
     <div v-else>
       <canvas :id="'latestCpuUsageChart'"></canvas>
-      <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+      <span :title="lastUpdate">Last Update: {{ latestCpuUsageLastUpdateTimeDiff }} </span>
     </div>
   </div>
 </template>
@@ -34,9 +34,9 @@
         loading: true,
         error: false,
         cpuUsageData: {},
-        lastUpdate: null,
-        timeDiffLastUpdate: null,
-        intervalId: null, // Store the interval ID
+        latestCpuUsageLastUpdate: null,
+        latestCpuUsageLastUpdateTimeDiff: null,
+        latestCpuUsageIntervalId: null, // Store the interval ID
         latestCpuChartInstance: null, // Store the chart instance
       };
     },
@@ -44,14 +44,14 @@
       this.fetchLatestCpuUsageData();
       
       // Set up the interval to fetch data every 60 seconds
-      this.intervalId = setInterval(() => {
+      this.latestCpuUsageIntervalId = setInterval(() => {
         this.fetchLatestCpuUsageData();
       }, 60000); // 60 seconds
     },
     beforeUnmount() {
       // Clear the interval when the component is destroyed to avoid memory leaks
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
+      if (this.latestCpuUsageIntervalId) {
+        clearInterval(this.latestCpuUsageIntervalId);
       }
       // Destroy the chart when the component is destroyed
       if (this.latestCpuChartInstance) {
@@ -65,11 +65,11 @@
           const agentId = this.$route.params.id;
           this.cpuUsageData = await getLatestCpuUsageData(agentId);
 
-          this.lastUpdate = this.cpuUsageData.timestamp;
+          this.latestCpuUsageLastUpdate = this.cpuUsageData.timestamp;
           // Convert to Local Time
-          this.lastUpdate = formatToLocalTime(this.lastUpdate);
+          this.latestCpuUsageLastUpdate = formatToLocalTime(this.latestCpuUsageLastUpdate);
           // Find the time difference
-          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+          this.latestCpuUsageLastUpdateTimeDiff = calculateDatetimeDifference(this.latestCpuUsageLastUpdate);
           // Render
           this.renderCharts();
           
