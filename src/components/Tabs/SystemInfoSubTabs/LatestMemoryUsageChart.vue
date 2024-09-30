@@ -34,9 +34,9 @@
         loading: true,
         error: false,
         memoryUsageData: {},
-        lastUpdate: null,
-        timeDiffLastUpdate: null,
-        intervalId: null, // Store the interval ID
+        latestMemUsageLastUpdate: null,
+        latestMemUsageLastUpdateTimeDiff: null,
+        latestMemUsageIntervalId: null, // Store the interval ID
         latestMemoryChartInstance: null, // Store the chart instance
       };
     },
@@ -44,14 +44,14 @@
       this.fetchLatestMemoryUsageData();
 
       // Set up the interval to fetch data every 60 seconds
-      this.intervalId = setInterval(() => {
+      this.latestMemUsageIntervalId = setInterval(() => {
         this.fetchLatestMemoryUsageData();
       }, 60000); // 60 seconds
     },
     beforeUnmount() {
       // Clear the interval when the component is destroyed to avoid memory leaks
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
+      if (this.latestMemUsageIntervalId) {
+        clearInterval(this.latestMemUsageIntervalId);
       }
       // Destroy the chart when the component is destroyed
       if (this.latestMemoryChartInstance) {
@@ -65,11 +65,11 @@
           const agentId = this.$route.params.id;
           this.memoryUsageData = await getLatestMemoryUsageData(agentId);
 
-          this.lastUpdate = this.memoryUsageData.timestamp;
+          this.latestMemUsageLastUpdate = this.memoryUsageData.timestamp;
           // Convert to Local Time
-          this.lastUpdate = formatToLocalTime(this.lastUpdate);
+          this.latestMemUsageLastUpdate = formatToLocalTime(this.latestMemUsageLastUpdate);
           // Find the time difference
-          this.timeDiffLastUpdate = calculateDatetimeDifference(this.lastUpdate);
+          this.timeDiffLastUpdate = calculateDatetimeDifference(this.latestMemUsageLastUpdate);
           // Render
           this.renderCharts();
         } catch (error) {
