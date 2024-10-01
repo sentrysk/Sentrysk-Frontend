@@ -16,7 +16,7 @@
     <!-- If any error not occurs -->
     <div v-else>
       <canvas :id="'latestMemoryUsageChart'"></canvas>
-      <span :title="lastUpdate">Last Update: {{ timeDiffLastUpdate }} </span>
+      <span :title="lastUpdate">Last Update: {{ latestMemUsageLastUpdateTimeDiff }} </span>
     </div>
   </div>
 </template>
@@ -69,7 +69,7 @@
           // Convert to Local Time
           this.latestMemUsageLastUpdate = formatToLocalTime(this.latestMemUsageLastUpdate);
           // Find the time difference
-          this.timeDiffLastUpdate = calculateDatetimeDifference(this.latestMemUsageLastUpdate);
+          this.latestMemUsageLastUpdateTimeDiff = calculateDatetimeDifference(this.latestMemUsageLastUpdate);
           // Render
           this.renderCharts();
         } catch (error) {
