@@ -86,7 +86,6 @@
                       <div class="accordion-body row">
                         <LatestCpuUsageChart></LatestCpuUsageChart>
                         <LatestMemoryUsageChart></LatestMemoryUsageChart>
-                        <LatestDiskUsageChart></LatestDiskUsageChart>
                       </div>
                     </div>
                   </div>
