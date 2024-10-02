@@ -1,6 +1,6 @@
 <template>
   <!-- Container Block -->
-  <div class="chart-container col-sm-2">
+  <div class="chart-container">
     <h3 class="text-center">CPU</h3>
     <!-- Loading State -->
     <div v-if="loading" class="loading-content">
@@ -123,6 +123,8 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    max-height: 18rem;
   }
   .chart-title {
     text-align: center;
@@ -130,7 +132,7 @@
   }
   canvas {
     max-width: 100%;
-    height: auto;
+    max-height: 10rem;
   }
 </style>
   
