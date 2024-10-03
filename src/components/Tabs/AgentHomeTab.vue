@@ -1,14 +1,5 @@
 <template>
-  <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="agentHomeTab" data-bs-toggle="tab" data-bs-target="#agentHomeDiv" type="button" role="tab" aria-controls="agentHomeDiv" aria-selected="true">
-              <i class="fa-solid fa-house"></i> Home
-          </button>
-      </li>
-  </ul>
-
   <div class="tab-content" id="agentHomeTabContent">
-      <div class="tab-pane fade show active" id="agentHomeDiv" role="tabpanel" aria-labelledby="agentHomeTab">
         <div v-if="loading">
           <div class="loading-content">
             <i class="fas fa-spinner fa-spin fa-3x"></i>
@@ -94,10 +85,7 @@
             </div>
           </div>
         </div>
-      </div>
   </div>
-
-
 </template>
 
 
