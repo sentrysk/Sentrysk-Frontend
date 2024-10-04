@@ -1,17 +1,10 @@
 <template>
     <Navbar /> <!-- Include the Navbar component here -->
     <div class="container-fluid">
-      <h1></h1>
-      
       <!-- Tabs -->
       <ul class="nav nav-tabs" id="mainTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="agentHomeTab" data-bs-toggle="tab" data-bs-target="#agentHome" type="button" role="tab" aria-controls="agentHome" aria-selected="true">
-                <i class="fa-solid fa-house"></i> Agent Home
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="systemTab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab" aria-controls="system" aria-selected="false">
+            <button class="nav-link active" id="systemTab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab" aria-controls="system" aria-selected="false">
                 <i class="bi bi-cpu"></i> System
             </button>
         </li>
@@ -69,12 +62,8 @@
 
         <!-- Tab Contents-->
         <div class="tab-content" id="mainTabContent">
-            <!-- Agent Home Tab -->
-            <div class="tab-pane fade show active" id="agentHome" role="tabpanel" aria-labelledby="agentHomeTab">
-                <AgentHomeTab></AgentHomeTab>
-            </div>
             <!-- System Information Tab -->
-            <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="systemTab">
+            <div class="tab-pane fade show active" id="system" role="tabpanel" aria-labelledby="systemTab">
                 <SystemInformationTab></SystemInformationTab>
             </div>
             <!-- System Users Tab -->
@@ -120,7 +109,6 @@
     import NpmPackagesTab from '../components/Tabs/NpmPackagesTab.vue';
     import DockerInfoTab from '@/components/Tabs/DockerInfoTab.vue';
     import AgentConfigTab from '@/components/Tabs/AgentConfigTab.vue';
-    import AgentHomeTab from '@/components/Tabs/AgentHomeTab.vue'
     import { getAgentStatistics } from '../utils/requestUtils';
     
     export default {
@@ -134,7 +122,6 @@
         NpmPackagesTab,
         DockerInfoTab,
         AgentConfigTab,
-        AgentHomeTab,
       },
       data(){
             return{
