@@ -1,7 +1,10 @@
 <template>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="systemOsTab" data-bs-toggle="tab" data-bs-target="#systemOs" type="button" role="tab" aria-controls="systemOs" aria-selected="true"><i class="bi bi-code-square"></i> OS</button>
+            <button class="nav-link active" id="agentHomeContentTab" data-bs-toggle="tab" data-bs-target="#agentHomeContent" type="button" role="tab" aria-controls="agentHomeContent" aria-selected="true"><i class="fa-solid fa-house"></i> Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="systemOsTab" data-bs-toggle="tab" data-bs-target="#systemOs" type="button" role="tab" aria-controls="systemOs" aria-selected="false"><i class="bi bi-code-square"></i> OS</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="systemDomainTab" data-bs-toggle="tab" data-bs-target="#systemDomain" type="button" role="tab" aria-controls="systemDomain" aria-selected="false"><i class="fa-solid fa-network-wired"></i> Domain</button>
@@ -25,12 +28,100 @@
 
     <!-- Last Update -->
     <div class="row">
-        <span :title=localUpdateTime>Last Update : {{ timeDiff }}</span>
+        <span :title=systemInfoLocalUpdateTime>Last Update : {{ systemInfoUpdateTimeDiff }}</span>
     </div>
 
     <div class="tab-content" id="sysInfoTabContent">
+        
+        <!-- Home Tab -->
+        <div class="tab-pane fade show active" id="agentHomeContent" role="tabpanel" aria-labelledby="agentHomeContent">
+            <div class="tab-content" id="agentHomeTabContent">
+            <div v-if="agentDataLoading">
+            <div class="loading-content">
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+                <h2>Loading...</h2>
+            </div>
+            </div>
+
+            <div v-else-if="agentDataError">
+            <div class="error-content">
+                <i class="fas fa-exclamation-triangle fa-3x"></i>
+                <h2>Error loading data. Please try again later.</h2>
+            </div>
+            </div>
+
+            <!-- Agent Home Page -->
+            <div v-else>
+            <div class="row">
+                <div class="col-md-2">
+
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                    <!-- Icon Div-->
+                    <div class="icon-div rounded-circle img-fluid">
+                        <span v-if="agentData.type === 'windows'" title="Windows" class="icon-content">
+                        <i class="bi bi-windows"></i>
+                        </span>
+                        <span v-else-if="agentData.type === 'linux'" title="Linux" class="icon-content">
+                        <i class="fab fa-linux"></i>
+                        </span>
+                        <span v-else-if="agentData.type === 'macos'" title="macOS" class="icon-content">
+                        <i class="bi bi-apple"></i>
+                        </span>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text" title="Created By"><i class="bi bi-person-badge"></i></span>
+                        <input type="text" class="form-control" placeholder="Created By"  :value="agentData.created_by.name + ' ' + agentData.created_by.lastname " disabled/>
+                        <router-link class="navbar-brand" :to="'/users/'+agentData.created_by.id">
+                        <span class="input-group-text"><i class="bi bi-arrow-right-circle"></i></span>
+                        </router-link>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text" title="Created Time"><i class="bi bi-calendar-week"></i></span>
+                        <input type="text" class="form-control" placeholder="Created" :value="agentData.created" disabled/>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text" title="Token"><i class="bi bi-lock"></i></span>
+                        <input 
+                        :type="showToken ? 'text' : 'password'"
+                        class="form-control" 
+                        placeholder="Token" 
+                        :value="agentData.token" 
+                        disabled/>
+                        <button type="button" class="btn btn-outline-secondary" @click="toggleTokenVisibility">
+                        <i :class="['bi', showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="accordion" id="accordionCharts">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="true" aria-controls="collapseCharts">
+                                    <i class="bi bi-hdd-stack"></i> Charts
+                                </button>
+                                </h2>
+                                <div id="collapseCharts" class="accordion-collapse collapse show" data-bs-parent="#accordionCharts">
+                                    <div class="accordion-body row">
+                                        <LatestCpuUsageChart></LatestCpuUsageChart>
+                                        <LatestMemoryUsageChart></LatestMemoryUsageChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+        </div>
+
         <!-- OS Tab -->
-        <div class="tab-pane fade show active" id="systemOs" role="tabpanel" aria-labelledby="systemOs">
+        <div class="tab-pane fade" id="systemOs" role="tabpanel" aria-labelledby="systemOs">
             <!-- Use Bootstrap Cards to display the data -->
             <div class="row">
                 <div class="col-md-6" v-for="(item, index) in systemInfo.os" :key="index">
@@ -230,26 +321,34 @@
 
 <script>
     import $ from "jquery";
-    import { formatToLocalTime,calculateDatetimeDifference } from '../../utils/timeUtils';
-    import { getSystemInformation, getSysInfoChangeLog } from '../../utils/requestUtils';
+    import { formatToLocalTime,calculateDatetimeDifference } from '@/utils/timeUtils';
+    import { getSystemInformation, getSysInfoChangeLog, getAgentDataById } from '@/utils/requestUtils';
     import DiskUsageChart from '@/components/Tabs/SystemInfoSubTabs/DiskUsageChart.vue';
     import MemoryUsageChart from '@/components/Tabs/SystemInfoSubTabs/MemoryUsageChart.vue';
     import CpuUsageChart from "@/components/Tabs/SystemInfoSubTabs/CpuUsageChart.vue";
+    import LatestCpuUsageChart from "@/components/Tabs/SystemInfoSubTabs/LatestCpuUsageChart.vue";
+    import LatestMemoryUsageChart from '@/components/Tabs/SystemInfoSubTabs/LatestMemoryUsageChart.vue';
     
     export default {
       name: 'SystemInformationTab',
       data() {
         return {
+          agentDataLoading: true,
+          agentDataError: false,
+          agentData: null,
+          showToken: false,
           systemInfo: {},
           changeLog: {},
-          localUpdateTime: "",
-          timeDiff: "",
+          systemInfoLocalUpdateTime: "",
+          systemInfoUpdateTimeDiff: "",
         };
       },
       components:{
         DiskUsageChart,
         MemoryUsageChart,
-        CpuUsageChart
+        CpuUsageChart,
+        LatestCpuUsageChart,
+        LatestMemoryUsageChart
       },
       mounted() {
         this.fillSystemInformation();
@@ -258,6 +357,20 @@
         async fillSystemInformation() {
             // Get the Agent ID from the URL
             const agentId = this.$route.params.id;
+
+            try{
+                // Retrieve Agent Data
+                this.agentData = await getAgentDataById(agentId);
+                // Convert Created Time to Local Time
+                this.agentData.created = formatToLocalTime(this.agentData.created);
+            } catch (error) {
+                // Print error to console
+                console.error(error);
+                // Set error property true
+                this.agentDataError = true;
+            } finally {
+                this.agentDataLoading = false;
+            }
             
             // Get System Information
             this.systemInfo = await getSystemInformation(agentId);
@@ -265,8 +378,8 @@
             this.changeLog = await getSysInfoChangeLog(this.systemInfo.id)
 
             // Set Local Update Time and Time Diff
-            this.localUpdateTime = formatToLocalTime(this.systemInfo.updated);
-            this.timeDiff =  calculateDatetimeDifference(this.systemInfo.updated);
+            this.systemInfoLocalUpdateTime = formatToLocalTime(this.systemInfo.updated);
+            this.systemInfoUpdateTimeDiff = calculateDatetimeDifference(this.systemInfo.updated);
 
             // Set Changelog Timestamps to Local Time
             for (const element of this.changeLog) {
@@ -291,11 +404,28 @@
                 const pageInfoText = document.getElementById('changelogsTable_info')
                 pageInfoText.style = "float:left"
             });
-        }
+        },
+        toggleTokenVisibility() {
+            this.showToken = !this.showToken;
+        },
       },
     };
 </script>
 
 <style>
-
+.icon-div {
+  border-radius: 100%; 
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  padding: 2px;
+  height: 4rem;
+  width: 10rem;
+  background: linear-gradient(to right, #2b2e4a, #51568a);;
+}
+.icon-content{
+  color: white;
+  font-size: 6rem;
+}
 </style>
