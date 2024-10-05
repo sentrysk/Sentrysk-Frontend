@@ -3,13 +3,13 @@
   <div class="chart-container">
     <h3 class="text-center">CPU</h3>
     <!-- Loading State -->
-    <div v-if="loading" class="loading-content">
+    <div v-if="latestCpuUsageLoading" class="loading-content">
       <i class="fas fa-spinner fa-spin fa-3x"></i>
       <h2>Loading...</h2>
     </div>
     <!-- Loaded State -->
     <!-- If any error occurs -->
-    <div v-if="error" class="error-content">
+    <div v-if="latestCpuUsageError" class="error-content">
       <i class="fas fa-exclamation-triangle fa-3x"></i>
       <h2>Error loading data.</h2>
     </div>
@@ -31,8 +31,8 @@
     name: 'LatestCpuUsageChart',
     data() {
       return {
-        loading: true,
-        error: false,
+        latestCpuUsageLoading: true,
+        latestCpuUsageError: false,
         cpuUsageData: {},
         latestCpuUsageLastUpdate: null,
         latestCpuUsageLastUpdateTimeDiff: null,
@@ -77,9 +77,9 @@
           // Print error to console
           console.error('Error fetching Latest CPU usage data:', error);
           // Set error property true
-          this.error = true;
+          this.latestCpuUsageError = true;
         } finally {
-          this.loading = false;
+          this.latestCpuUsageLoading = false;
         }
       },
       renderCharts() {
