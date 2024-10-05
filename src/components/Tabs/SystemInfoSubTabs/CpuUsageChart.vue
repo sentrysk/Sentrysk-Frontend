@@ -4,7 +4,25 @@
         <div class="row">
           <div class="chart-container col-md-4">
             <h3 class="text-center">CPU Usage Chart</h3>
-            <canvas :id="'cpuUsageChart'"></canvas>
+            
+            <!-- Loading -->
+            <div v-if="cpuUsageLoading">
+              <div class="loading-content">
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+                <h2>Loading...</h2>
+              </div>
+            </div>
+
+            <div v-else-if="cpuUsageError">
+              <div class="error-content">
+                <i class="fas fa-exclamation-triangle fa-3x"></i>
+                <h2>Error loading data. Please try again later.</h2>
+              </div>
+            </div>
+            
+            <div v-else>
+              <canvas :id="'cpuUsageChart'"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -20,12 +38,16 @@
     name: 'CpuUsageChart',
     data() {
       return {
-        cpuUsageData: {},
+        cpuUsageLoading: true,
+        cpuUsageError: false,
+        cpuUsageData: null,
       };
     },
     async created() {
       await this.fetchCpuUsageData();
-      this.renderCharts();
+      if(this.cpuUsageData != null){
+        this.renderCharts();
+      }
     },
     methods: {
       async fetchCpuUsageData() {
@@ -33,11 +55,19 @@
           // Get the ID from the URL
           const agentId = this.$route.params.id;
           this.cpuUsageData = await getCpuUsageData(agentId);
-        } catch (error) {
+        } 
+        catch (error) {
+          // Print error to console
           console.error('Error fetching CPU usage data:', error);
+          // Set error property true
+          this.cpuUsageError = true;
+        }  
+        finally {
+          this.cpuUsageLoading = false;
         }
       },
       renderCharts() {
+          if(this.cpuUsageData == null){ return }
           const cpuUsageData = this.cpuUsageData;
           const labels = cpuUsageData.map(record => new Date(record.timestamp));
           const usedData = cpuUsageData.map(record => record.cpu_usage);
