@@ -3,13 +3,13 @@
   <div class="chart-container">
     <h3 class="text-center">Memory</h3>
     <!-- Loading State -->
-    <div v-if="loading" class="loading-content">
+    <div v-if="latestMemoryUsageLoading" class="loading-content">
       <i class="fas fa-spinner fa-spin fa-3x"></i>
       <h2>Loading...</h2>
     </div>
     <!-- Loaded State -->
     <!-- If any error occurs -->
-    <div v-if="error" class="error-content">
+    <div v-if="latestMemoryUsageError" class="error-content">
       <i class="fas fa-exclamation-triangle fa-3x"></i>
       <h2>Error loading data.</h2>
     </div>
@@ -31,9 +31,9 @@
     name: 'LatestMemoryUsageChart',
     data() {
       return {
-        loading: true,
-        error: false,
-        memoryUsageData: {},
+        latestMemoryUsageLoading: true,
+        latestMemoryUsageError: false,
+        latestMemoryUsageData: {},
         latestMemUsageLastUpdate: null,
         latestMemUsageLastUpdateTimeDiff: null,
         latestMemUsageIntervalId: null, // Store the interval ID
@@ -63,9 +63,9 @@
         try {
           // Get the ID from the URL
           const agentId = this.$route.params.id;
-          this.memoryUsageData = await getLatestMemoryUsageData(agentId);
+          this.latestMemoryUsageData = await getLatestMemoryUsageData(agentId);
 
-          this.latestMemUsageLastUpdate = this.memoryUsageData.timestamp;
+          this.latestMemUsageLastUpdate = this.latestMemoryUsageData.timestamp;
           // Convert to Local Time
           this.latestMemUsageLastUpdate = formatToLocalTime(this.latestMemUsageLastUpdate);
           // Find the time difference
@@ -76,14 +76,14 @@
           // Print error to console
           console.error('Error fetching Latest Memory usage data:', error);
           // Set error property true
-          this.error = true;
+          this.latestMemoryUsageError = true;
         } finally {
-          this.loading = false;
+          this.latestMemoryUsageLoading = false;
         }
       },
       renderCharts() {
-          const memoryUsageData = this.memoryUsageData;
-          const usedSize = memoryUsageData.percent;
+          const latestMemoryUsageData = this.latestMemoryUsageData;
+          const usedSize = latestMemoryUsageData.percent;
   
           const ctx = document.getElementById('latestMemoryUsageChart').getContext('2d');
 
