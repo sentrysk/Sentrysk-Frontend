@@ -32,7 +32,6 @@
     </div>
 
     <div class="tab-content" id="sysInfoTabContent">
-        
         <!-- Home Tab -->
         <div class="tab-pane fade show active" id="agentHomeContent" role="tabpanel" aria-labelledby="agentHomeContent">
             <div class="tab-content" id="agentHomeTabContent">
@@ -52,70 +51,75 @@
 
             <!-- Agent Home Page -->
             <div v-else>
-            <div class="row">
-                <div class="col-md-2">
+                <div class="row">
+                    <hr>
+                        <p> Agent Data Summary </p>
+                    <hr>
+                </div> 
+                <div class="row">
+                    <div class="col-md-2">
 
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                    <!-- Icon Div-->
-                    <div class="icon-div rounded-circle img-fluid">
-                        <span v-if="agentData.type === 'windows'" title="Windows" class="icon-content">
-                        <i class="bi bi-windows"></i>
-                        </span>
-                        <span v-else-if="agentData.type === 'linux'" title="Linux" class="icon-content">
-                        <i class="fab fa-linux"></i>
-                        </span>
-                        <span v-else-if="agentData.type === 'macos'" title="macOS" class="icon-content">
-                        <i class="bi bi-apple"></i>
-                        </span>
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                        <!-- Icon Div-->
+                        <div class="icon-div rounded-circle img-fluid">
+                            <span v-if="agentData.type === 'windows'" title="Windows" class="icon-content">
+                            <i class="bi bi-windows"></i>
+                            </span>
+                            <span v-else-if="agentData.type === 'linux'" title="Linux" class="icon-content">
+                            <i class="fab fa-linux"></i>
+                            </span>
+                            <span v-else-if="agentData.type === 'macos'" title="macOS" class="icon-content">
+                            <i class="bi bi-apple"></i>
+                            </span>
+                        </div>
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text" title="Created By"><i class="bi bi-person-badge"></i></span>
+                            <input type="text" class="form-control" placeholder="Created By"  :value="agentData.created_by.name + ' ' + agentData.created_by.lastname " disabled/>
+                            <router-link class="navbar-brand" :to="'/users/'+agentData.created_by.id">
+                            <span class="input-group-text"><i class="bi bi-arrow-right-circle"></i></span>
+                            </router-link>
+                        </div>
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text" title="Created Time"><i class="bi bi-calendar-week"></i></span>
+                            <input type="text" class="form-control" placeholder="Created" :value="agentData.created" disabled/>
+                        </div>
+                        <div class="mb-3 input-group">
+                            <span class="input-group-text" title="Token"><i class="bi bi-lock"></i></span>
+                            <input 
+                            :type="showToken ? 'text' : 'password'"
+                            class="form-control" 
+                            placeholder="Token" 
+                            :value="agentData.token" 
+                            disabled/>
+                            <button type="button" class="btn btn-outline-secondary" @click="toggleTokenVisibility">
+                            <i :class="['bi', showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
+                            </button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text" title="Created By"><i class="bi bi-person-badge"></i></span>
-                        <input type="text" class="form-control" placeholder="Created By"  :value="agentData.created_by.name + ' ' + agentData.created_by.lastname " disabled/>
-                        <router-link class="navbar-brand" :to="'/users/'+agentData.created_by.id">
-                        <span class="input-group-text"><i class="bi bi-arrow-right-circle"></i></span>
-                        </router-link>
-                    </div>
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text" title="Created Time"><i class="bi bi-calendar-week"></i></span>
-                        <input type="text" class="form-control" placeholder="Created" :value="agentData.created" disabled/>
-                    </div>
-                    <div class="mb-3 input-group">
-                        <span class="input-group-text" title="Token"><i class="bi bi-lock"></i></span>
-                        <input 
-                        :type="showToken ? 'text' : 'password'"
-                        class="form-control" 
-                        placeholder="Token" 
-                        :value="agentData.token" 
-                        disabled/>
-                        <button type="button" class="btn btn-outline-secondary" @click="toggleTokenVisibility">
-                        <i :class="['bi', showToken ? 'bi-eye-slash' : 'bi-eye']"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
 
-                </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="accordion" id="accordionCharts">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="true" aria-controls="collapseCharts">
-                                    <i class="bi bi-hdd-stack"></i> Charts
-                                </button>
-                                </h2>
-                                <div id="collapseCharts" class="accordion-collapse collapse show" data-bs-parent="#accordionCharts">
-                                    <div class="accordion-body row">
-                                        <LatestCpuUsageChart></LatestCpuUsageChart>
-                                        <LatestMemoryUsageChart></LatestMemoryUsageChart>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="accordion" id="accordionCharts">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="true" aria-controls="collapseCharts">
+                                        <i class="bi bi-hdd-stack"></i> Charts
+                                    </button>
+                                    </h2>
+                                    <div id="collapseCharts" class="accordion-collapse collapse show" data-bs-parent="#accordionCharts">
+                                        <div class="accordion-body row">
+                                            <LatestCpuUsageChart></LatestCpuUsageChart>
+                                            <LatestMemoryUsageChart></LatestMemoryUsageChart>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
     </div>
         </div>
