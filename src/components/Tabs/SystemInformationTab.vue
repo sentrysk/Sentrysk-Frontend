@@ -63,6 +63,14 @@
                                 </div>
                             </div>
                             <!-- End OS Section -->
+                            <!-- Domain Section -->
+                            <div v-if="systemInfo.domain" class="col-md-4">
+                                <div class="header-info-box">
+                                    Hostname: {{ systemInfo.domain.dns_hostname }}<br>
+                                    Domain: {{ systemInfo.domain.domain }}<br>
+                                </div>
+                            </div>
+                            <!-- End Domain Section -->
                         </div>
                         
                     <hr>
