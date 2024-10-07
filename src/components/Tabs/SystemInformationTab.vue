@@ -53,7 +53,18 @@
             <div v-else>
                 <div class="row">
                     <hr>
-                        <p> Agent Data Summary </p>
+                        <div class="row">
+                            <!-- OS Section -->
+                            <div v-if="systemInfo.os" class="col-md-4">
+                                <div class="header-info-box">
+                                    OS: {{ systemInfo.os.system }}<br>
+                                    Ver: {{ systemInfo.os.version }}<br>
+                                    Rel: {{ systemInfo.os.release }}<br>
+                                </div>
+                            </div>
+                            <!-- End OS Section -->
+                        </div>
+                        
                     <hr>
                 </div> 
                 <div class="row">
@@ -431,5 +442,13 @@
 .icon-content{
   color: white;
   font-size: 6rem;
+}
+.header-info-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 8rem;
 }
 </style>
