@@ -68,6 +68,7 @@
                                 <div class="header-info-box">
                                     Hostname: {{ systemInfo.domain.dns_hostname }}<br>
                                     Domain: {{ systemInfo.domain.domain }}<br>
+                                    <br>
                                 </div>
                             </div>
                             <!-- End Domain Section -->
@@ -75,6 +76,8 @@
                             <div v-if="systemInfo.memory" class="col-md-4">
                                 <div class="header-info-box">
                                     Memory: {{ systemInfo.memory.total_memory }}<br>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                             <!-- End Memory Section -->
