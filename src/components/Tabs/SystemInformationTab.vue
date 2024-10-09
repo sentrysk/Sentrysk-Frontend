@@ -74,7 +74,7 @@
                             <!-- Memory Section -->
                             <div v-if="systemInfo.memory" class="col-md-4">
                                 <div class="header-info-box">
-                                    Memory: {{ systemInfo.total_memory }}<br>
+                                    Memory: {{ systemInfo.memory.total_memory }}<br>
                                 </div>
                             </div>
                             <!-- End Memory Section -->
