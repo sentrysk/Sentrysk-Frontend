@@ -55,11 +55,11 @@
                     <hr>
                         <div class="row">
                             <!-- OS Section -->
-                            <div v-if="systemInfo.os" class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="header-info-box">
-                                    OS: {{ systemInfo.os.system }}<br>
-                                    Ver: {{ systemInfo.os.version }}<br>
-                                    Rel: {{ systemInfo.os.release }}<br>
+                                    OS: <strong v-if="systemInfo.os">{{ systemInfo.os.system }}</strong><br>
+                                    Ver: <strong v-if="systemInfo.os">{{ systemInfo.os.version }}</strong><br>
+                                    Rel: <strong v-if="systemInfo.os">{{ systemInfo.os.release }}</strong><br>
                                 </div>
                             </div>
                             <!-- End OS Section -->
