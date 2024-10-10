@@ -73,10 +73,10 @@
                             </div>
                             <!-- End Domain Section -->
                             <!-- Memory Section -->
-                            <div v-if="systemInfo.memory" class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="header-info-box">
-                                    Memory: {{ systemInfo.memory.total_memory }}<br>
                                     <br>
+                                    Memory: <strong v-if="systemInfo.memory">{{ systemInfo.memory.total_memory }}</strong><br>
                                     <br>
                                 </div>
                             </div>
