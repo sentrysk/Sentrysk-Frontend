@@ -64,10 +64,10 @@
                             </div>
                             <!-- End OS Section -->
                             <!-- Domain Section -->
-                            <div v-if="systemInfo.domain" class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="header-info-box">
-                                    Hostname: <strong v-if="systemInfo.domain.dns_hostname">{{ systemInfo.domain.dns_hostname }}</strong><br>
-                                    Domain: <strong v-if="systemInfo.domain.domain">{{ systemInfo.domain.domain }}</strong><br>
+                                    Hostname: <strong v-if="systemInfo.domain">{{ systemInfo.domain.dns_hostname }}</strong><br>
+                                    Domain: <strong v-if="systemInfo.domain">{{ systemInfo.domain.domain }}</strong><br>
                                     <br>
                                 </div>
                             </div>
