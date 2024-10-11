@@ -57,9 +57,9 @@
                             <!-- OS Section -->
                             <div class="col-md-3">
                                 <div class="header-info-box">
-                                    OS: <strong v-if="systemInfo.os">{{ systemInfo.os.system }}</strong><br>
-                                    Ver: <strong v-if="systemInfo.os">{{ systemInfo.os.version }}</strong><br>
-                                    Rel: <strong v-if="systemInfo.os">{{ systemInfo.os.release }}</strong><br>
+                                    <div v-if="systemInfo.os" v-for="(item, index) in systemInfo.os" :key="index">
+                                        {{ index }}:<b>{{ item }}</b><br>
+                                    </div>
                                 </div>
                             </div>
                             <!-- End OS Section -->
@@ -75,7 +75,6 @@
                             <!-- Memory Section -->
                             <div class="col-md-3">
                                 <div class="header-info-box">
-                                    <br>
                                     Memory: <strong v-if="systemInfo.memory">{{ systemInfo.memory.total_memory }}</strong><br>
                                     <br>
                                 </div>
