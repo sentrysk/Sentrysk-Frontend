@@ -55,7 +55,7 @@
                     <hr>
                         <div class="row">
                             <!-- OS Section -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="header-info-box">
                                     OS: <strong v-if="systemInfo.os">{{ systemInfo.os.system }}</strong><br>
                                     Ver: <strong v-if="systemInfo.os">{{ systemInfo.os.version }}</strong><br>
@@ -64,7 +64,7 @@
                             </div>
                             <!-- End OS Section -->
                             <!-- Domain Section -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="header-info-box">
                                     Hostname: <strong v-if="systemInfo.domain">{{ systemInfo.domain.dns_hostname }}</strong><br>
                                     Domain: <strong v-if="systemInfo.domain">{{ systemInfo.domain.domain }}</strong><br>
@@ -73,7 +73,7 @@
                             </div>
                             <!-- End Domain Section -->
                             <!-- Memory Section -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="header-info-box">
                                     <br>
                                     Memory: <strong v-if="systemInfo.memory">{{ systemInfo.memory.total_memory }}</strong><br>
@@ -81,8 +81,16 @@
                                 </div>
                             </div>
                             <!-- End Memory Section -->
+                            <!-- Agent Details Section -->
+                            <div class="col-md-3">
+                                <div class="header-info-box">
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                            <!-- End Agent Details Section -->
                         </div>
-                        
                     <hr>
                 </div> 
                 <div class="row">
