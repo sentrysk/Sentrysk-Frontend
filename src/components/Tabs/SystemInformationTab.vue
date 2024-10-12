@@ -69,6 +69,7 @@
                                     Hostname: <strong v-if="systemInfo.domain">{{ systemInfo.domain.dns_hostname }}</strong><br>
                                     Domain: <strong v-if="systemInfo.domain">{{ systemInfo.domain.domain }}</strong><br>
                                     <br>
+                                    <br>
                                 </div>
                             </div>
                             <!-- End Domain Section -->
@@ -77,15 +78,25 @@
                                 <div class="header-info-box">
                                     Memory: <strong v-if="systemInfo.memory">{{ systemInfo.memory.total_memory }}</strong><br>
                                     <br>
+                                    <br>
                                 </div>
                             </div>
                             <!-- End Memory Section -->
                             <!-- Agent Details Section -->
                             <div class="col-md-3">
                                 <div class="header-info-box">
-                                    <br>
-                                    <br>
-                                    <br>
+                                    Agent Type: <b><span v-if="agentData.type === 'windows'" title="Windows">
+                                            <i class="bi bi-windows"></i>
+                                        </span>
+                                        <span v-else-if="agentData.type === 'linux'" title="Linux">
+                                            <i class="fab fa-linux"></i>
+                                        </span>
+                                        <span v-else-if="agentData.type === 'macos'" title="macOS">
+                                            <i class="bi bi-apple"></i>
+                                        </span>
+                                        </b><br>
+                                    Created By: <b><router-link class="navbar-brand" :to="'/users/'+agentData.created_by.id">{{ agentData.created_by.name + ' ' + agentData.created_by.lastname  }}</router-link></b><br>
+                                    Created At: <b>{{ agentData.created }}</b><br>
                                 </div>
                             </div>
                             <!-- End Agent Details Section -->
