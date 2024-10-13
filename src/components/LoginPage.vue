@@ -51,6 +51,7 @@
       return {
         email: "",
         password: "",
+        showPassword: false,
       };
     },
     methods: {
@@ -100,6 +101,9 @@
             text: "Login failed. Please check your credentials.",
           });
         }
+      },
+      togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
       },
     },
   };
