@@ -26,6 +26,26 @@
     </div>
 
     <div class="tab-content" id="sysServicesTabContent">
+      <div v-if="loading">
+          <div class="loading-content">
+              <i class="fas fa-spinner fa-spin fa-3x"></i>
+              <h2>Loading...</h2>
+          </div>
+      </div>
+
+      <div v-else-if="error">
+          <div class="error-content">
+              <i class="fas fa-exclamation-triangle fa-3x"></i>
+              <h2>Error loading data.</h2>
+          </div>
+      </div>
+
+      <div v-else-if="!hasData">
+          <NothingToShowComponent />
+      </div>
+
+      <!-- If Has Servives Data -->
+      <div v-else>
         <!-- Services Section -->
         <div class="tab-pane fade show active" id="systemServices" role="tabpanel" aria-labelledby="systemServices">
             <table class="table table-striped table-bordered table-sm table-hover table-responsive"  id="systemServicesTable">
@@ -101,30 +121,42 @@
               </tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
     import $ from "jquery";
+    import NothingToShowComponent from "@/components/NothingToShowComponent.vue";
     import { formatToLocalTime,calculateDatetimeDifference } from '@/utils/timeUtils';
     import { getServices, getServicesChangeLog } from '@/utils/requestUtils';
     import moment from 'moment';
 
     export default {
       name: 'SystemServicesTab',
+      components: {
+        NothingToShowComponenet,
+      },
       data() {
         return {
-          systemServices: {},
+          systemServices: null,
           systemServicesCount: 0,
-          changeLogData: [],
+          changeLogData: null,
           changeLogCount: 0,
           localUpdateTime: "",
           timeDiff: "",
+          loading: true,
+          error: false,
         };
       },
       mounted() {
         this.fillServices();
+      },
+      computed: {
+        hasData() {
+          return this.systemServices && Object.keys(this.systemServices).length > 0;
+        }
       },
       methods: {
         async fillServices() {
@@ -334,7 +366,12 @@
             });
 
           } catch (error) {
+            // Print error to console
             console.error(error);
+            // Set error property true
+            this.error = true;
+          } finally {
+            this.loading = false;
           }
         },
       },
